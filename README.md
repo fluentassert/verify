@@ -31,7 +31,9 @@ func TestFoo(t *testing.T) {
 
 1. I always had trouble what parameter should go first and which once second. Having a Fluent API would make it obvious and easier to use ([more](https://dave.cheney.net/2019/09/24/be-wary-of-functions-which-take-several-parameters-of-the-same-type)). It also reduces the possibility to make a bug in the library. E.g. in [testify](https://github.com/stretchr/testify) the function [Contains](https://pkg.go.dev/github.com/stretchr/testify@v1.7.0/assert#Contains) has different order of arguments than [other functions](https://pkg.go.dev/github.com/stretchr/testify@v1.7.0/assert#Equal).
 
-2. Customization via `Should` method. Example:
+2. Encourages to add an additional [assertion message](http://xunitpatterns.com/Assertion%20Message.html) as suggested in [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments#useful-test-failures).
+
+3. Customization via `Should` method. Example:
 
     ```go
     func TestError(t *testing.T) {
@@ -51,7 +53,7 @@ func TestFoo(t *testing.T) {
     }
     ```
 
-3. Customization via type embedding. Example:
+4. Customization via type embedding. Example:
 
     ```go
     func Foo() (string, error) {

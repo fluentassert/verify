@@ -1,4 +1,4 @@
-module github.com/pellared/fluentcmp/build
+module github.com/pellared/fluentassert/tools
 
 go 1.16
 

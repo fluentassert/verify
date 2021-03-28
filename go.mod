@@ -1,3 +1,3 @@
-module github.com/pellared/fluentcmp
+module github.com/pellared/fluentassert
 
 go 1.10

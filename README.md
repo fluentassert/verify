@@ -1,6 +1,6 @@
 # FluentAssert
 
-> Fluent API for assertions.
+> Extensible fluent API for assertions.
 
 [![GitHub Release](https://img.shields.io/github/v/release/pellared/fluentassert)](https://github.com/pellared/fluentassert/releases)
 [![Go Reference](https://pkg.go.dev/badge/github.com/pellared/fluentassert.svg)](https://pkg.go.dev/github.com/pellared/fluentassert)
@@ -33,7 +33,7 @@ func TestFoo(t *testing.T) {
 
 2. Encourages to add an additional [assertion message](http://xunitpatterns.com/Assertion%20Message.html) as suggested in [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments#useful-test-failures).
 
-3. Customization via `Should` method. Example:
+3. Extensibility via `Should` method. Example:
 
     ```go
     func TestError(t *testing.T) {
@@ -53,7 +53,7 @@ func TestFoo(t *testing.T) {
     }
     ```
 
-4. Customization via type embedding. Example:
+4. Extensibility via type embedding. Example:
 
     ```go
     func Foo() (string, error) {

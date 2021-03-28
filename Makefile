@@ -12,7 +12,7 @@ install: ## go install tools
 .PHONY: build
 build: ## go build
 	$(call print-target)
-	go build -o /dev/null ./...
+	go build ./...
 
 .PHONY: fmt
 fmt: ## go fmt

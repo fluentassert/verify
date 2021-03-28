@@ -30,7 +30,64 @@ func TestFoo(t *testing.T) {
 ## Why
 
 1. I always had trouble what parameter should go first and which once second. Having a Fluent API would make it obvious and easier to use ([more](https://dave.cheney.net/2019/09/24/be-wary-of-functions-which-take-several-parameters-of-the-same-type)). It also reduces the possibility to make a bug in the library. E.g. in [testify](https://github.com/stretchr/testify) the function [Contains](https://pkg.go.dev/github.com/stretchr/testify@v1.7.0/assert#Contains) has different order of arguments than [other functions](https://pkg.go.dev/github.com/stretchr/testify@v1.7.0/assert#Equal).
-2. Customizable via `Should` method.
+
+2. Customization via `Should` method. Example:
+
+    ```go
+    func TestError(t *testing.T) {
+        got := errors.New("some error")
+
+        f.Assert(t, got).Should(BeError(), "should return an error")
+    }
+
+    // BeError checks if got is an error.
+    func BeError() func(got interface{}) string {
+        return func(got interface{}) string {
+            if _, ok := got.(error); ok {
+                return ""
+            }
+            return fmt.Sprintf("got: %+v\nshould be an error", got)
+        }
+    }
+    ```
+
+3. Customization via type embedding. Example:
+
+    ```go
+    func Foo() (string, error) {
+        return "", errors.New("not implemented")
+    }
+
+    func Test(t *testing.T) {
+        got, err := Foo()
+
+        Assert(t, got).Eq("", "should return nothing")
+        Assert(t, err).Err("", "should return an error")
+    }
+
+    type Assertion struct {
+        f.Assertion
+    }
+
+    func Assert(t testing.TB, got interface{}) Assertion {
+        return Assertion{f.Assert(t, got)}
+    }
+
+    // Err checks if got is equal to want.
+    func (a Assertion) Err(msg string, args ...interface{}) bool {
+        a.T.Helper()
+        return a.Should(isError(), msg, args...)
+    }
+
+    func isError() func(got interface{}) string {
+        return func(got interface{}) string {
+            if _, ok := got.(error); ok {
+                return ""
+            }
+            return fmt.Sprintf("got: %+v\nshould be an error", got)
+        }
+    }
+    ```
 
 ## Contributing
 

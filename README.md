@@ -42,7 +42,6 @@ func TestFoo(t *testing.T) {
         f.Assert(t, got).Should(BeError(), "should return an error")
     }
 
-    // BeError checks if got is an error.
     func BeError() func(got interface{}) string {
         return func(got interface{}) string {
             if _, ok := got.(error); ok {
@@ -75,7 +74,6 @@ func TestFoo(t *testing.T) {
         return Assertion{f.Assert(t, got)}
     }
 
-    // Err checks if got is equal to want.
     func (a Assertion) Err(msg string, args ...interface{}) bool {
         a.T.Helper()
         return a.Should(isError(), msg, args...)

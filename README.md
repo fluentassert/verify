@@ -22,7 +22,7 @@
 func TestFoo(t *testing.T) {
 	got, err := Foo()
 
-	f.Require(t, err).Eq(nil, "should return any error") // works like t.Fatalf, stops execution if fails
+	f.Require(t, err).Nil("should return any error") // works like t.Fatalf, stops execution if fails
 	f.Assert(t, got).Eq("bar", "should return proper value") // works like t.Errorf, continues execution if fails
 }
 ```

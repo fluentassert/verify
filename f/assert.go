@@ -40,3 +40,15 @@ func (a Assertion) Eq(want interface{}, msg string, args ...interface{}) bool {
 	a.T.Helper()
 	return a.Should(pred.Eq(want), msg, args...)
 }
+
+// Nil checks if got is nil.
+func (a Assertion) Nil(msg string, args ...interface{}) bool {
+	a.T.Helper()
+	return a.Should(pred.Eq(nil), msg, args...)
+}
+
+// Err checks if got is an error.
+func (a Assertion) Err(msg string, args ...interface{}) bool {
+	a.T.Helper()
+	return a.Should(pred.Err, msg, args...)
+}

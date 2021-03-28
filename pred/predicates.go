@@ -15,3 +15,11 @@ func Eq(want interface{}) func(got interface{}) string {
 		return fmt.Sprintf("got: %+v\nwant: %+v", got, want)
 	}
 }
+
+// Err checks if got is an error.
+func Err(got interface{}) string {
+	if _, ok := got.(error); ok {
+		return ""
+	}
+	return fmt.Sprintf("got: %+v\nwant an error", got)
+}

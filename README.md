@@ -25,6 +25,18 @@ func TestFoo(t *testing.T) {
 	f.Require(t, err).Nil("should be no error") // works like t.Fatalf, stops execution if fails
 	f.Assert(t, got).Eq("bar", "should return proper value") // works like t.Errorf, continues execution if fails
 }
+
+func Foo() (string, error) {
+	return "", errors.New("not implemented")
+}
+```
+
+```sh
+$ go test
+--- FAIL: TestFoo (0.00s)
+    assert_test.go:13: should be no error
+        got: not implemented
+        want: <nil>
 ```
 
 ## Why

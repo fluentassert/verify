@@ -63,7 +63,7 @@ func TestFoo(t *testing.T) {
         got, err := Foo()
 
         Assert(t, got).Eq("", "should return nothing")
-        Assert(t, err).Err("", "should return an error")
+        Assert(t, err).IsError("", "should return an error")
     }
 
     type Assertion struct {
@@ -74,12 +74,12 @@ func TestFoo(t *testing.T) {
         return Assertion{f.Assert(t, got)}
     }
 
-    func (a Assertion) Err(msg string, args ...interface{}) bool {
+    func (a Assertion) IsError(msg string, args ...interface{}) bool {
         a.T.Helper()
-        return a.Should(isError(), msg, args...)
+        return a.Should(beError(), msg, args...)
     }
 
-    func isError() func(got interface{}) string {
+    func beError() func(got interface{}) string {
         return func(got interface{}) string {
             if _, ok := got.(error); ok {
                 return ""

@@ -2,9 +2,9 @@
 package f
 
 import (
-	"fmt"
-	"reflect"
 	"testing"
+
+	"github.com/pellared/fluentassert/pred"
 )
 
 // Assertion wraps a value to assert.
@@ -35,17 +35,8 @@ func (a Assertion) Should(predicate func(got interface{}) string, msg string, ar
 	return false
 }
 
-// Eq checks if the value is equal to want value.
+// Eq checks if got is equal to want.
 func (a Assertion) Eq(want interface{}, msg string, args ...interface{}) bool {
 	a.T.Helper()
-	return a.Should(eq(want), msg, args...)
-}
-
-func eq(want interface{}) func(got interface{}) string {
-	return func(got interface{}) string {
-		if reflect.DeepEqual(got, want) {
-			return ""
-		}
-		return fmt.Sprintf("got: %+v\nwant: %+v", got, want)
-	}
+	return a.Should(pred.Eq(want), msg, args...)
 }

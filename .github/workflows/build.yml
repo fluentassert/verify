@@ -5,48 +5,36 @@ on:
     branches: 
       - main
   pull_request:
-    branches:
-      - '*'
+  workflow_dispatch:
 
 jobs:
   ci-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - uses: actions/setup-go@v2
         with:
           go-version: 1.16
-
-      - id: go-cache-paths
-        name: Get Go Cache paths
-        run: |
-          echo "::set-output name=go-build::$(go env GOCACHE)"
-          echo "::set-output name=go-mod::$(go env GOMODCACHE)"
-
-      - name: Go Build Cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.go-cache-paths.outputs.go-build }}
-          key: ${{ runner.os }}-go-build-${{ hashFiles('**/go.sum') }}
-
-      - name: Go Mod Cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.go-cache-paths.outputs.go-mod }}
-          key: ${{ runner.os }}-go-mod-${{ hashFiles('**/go.sum') }}
-
-      - name: Build
-        run: make
-
+      - run: make
       - name: Upload coverage
         uses: actions/upload-artifact@v2
         with:
           name: coverage
           path: coverage.*
-
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           file: ./coverage.out
-          flags: ${{ runner.os }}
+
+  compatibility:
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: ['1.11', '1.12', '1.13', '1.14', '1.15', '1.16']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+      - run: go test -race ./...

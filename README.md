@@ -6,17 +6,27 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/pellared/fluentassert.svg)](https://pkg.go.dev/github.com/pellared/fluentassert)
 [![go.mod](https://img.shields.io/github/go-mod/go-version/pellared/fluentassert)](go.mod)
 [![LICENSE](https://img.shields.io/github/license/pellared/fluentassert)](LICENSE)
+
 [![Build Status](https://img.shields.io/github/workflow/status/pellared/fluentassert/build)](https://github.com/pellared/fluentassert/actions?query=workflow%3Abuild+branch%3Amain)
 [![Go Report Card](https://goreportcard.com/badge/github.com/pellared/fluentassert)](https://goreportcard.com/report/github.com/pellared/fluentassert)
 [![Codecov](https://codecov.io/gh/pellared/fluentassert/branch/main/graph/badge.svg)](https://codecov.io/gh/pellared/fluentassert)
 
 :construction: This library is currently in **experimental phase**.
 
+## Motivation
+
+I always had trouble what parameter should go first and which once second.
+Having a Fluent API makes it more obvious and easier to use
+([more](https://dave.cheney.net/2019/09/24/be-wary-of-functions-which-take-several-parameters-of-the-same-type)).
+
+**FluentAssert** encourages to add an additional
+[assertion message](http://xunitpatterns.com/Assertion%20Message.html)
+as suggested in
+[Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments#useful-test-failures).
+
 `Star` this repository if you find it valuable and worth maintaining.
 
-`Watch` this repository to get notified about new releases, issues, etc.
-
-## Example
+## Quick start
 
 ```go
 func TestFoo(t *testing.T) {
@@ -39,72 +49,69 @@ $ go test
         want: <nil>
 ```
 
-## Why
+## Extensibility
 
-1. I always had trouble what parameter should go first and which once second. Having a Fluent API would make it obvious and easier to use ([more](https://dave.cheney.net/2019/09/24/be-wary-of-functions-which-take-several-parameters-of-the-same-type)). It also reduces the possibility to make a bug in the library. E.g. in [testify](https://github.com/stretchr/testify) the function [Contains](https://pkg.go.dev/github.com/stretchr/testify@v1.7.0/assert#Contains) has different order of arguments than [other functions](https://pkg.go.dev/github.com/stretchr/testify@v1.7.0/assert#Equal).
+### Using `Should` method
 
-2. Encourages to add an additional [assertion message](http://xunitpatterns.com/Assertion%20Message.html) as suggested in [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments#useful-test-failures).
+```go
+func Test(t *testing.T) {
+	got := errors.New("some error")
 
-3. Extensibility via `Should` method. Example:
+	f.Assert(t, got).Should(BeError(), "should return an error")
+}
 
-    ```go
-    func TestError(t *testing.T) {
-        got := errors.New("some error")
+func BeError() func(got interface{}) string {
+	return func(got interface{}) string {
+		if _, ok := got.(error); ok {
+			return ""
+		}
+		return fmt.Sprintf("got: %+v\nshould be an error", got)
+	}
+}
+```
 
-        f.Assert(t, got).Should(BeError(), "should return an error")
-    }
+### Using type embedding
 
-    func BeError() func(got interface{}) string {
-        return func(got interface{}) string {
-            if _, ok := got.(error); ok {
-                return ""
-            }
-            return fmt.Sprintf("got: %+v\nshould be an error", got)
-        }
-    }
-    ```
+```go
+func Test(t *testing.T) {
+	got := errors.New("some error")
 
-4. Extensibility via type embedding. Example:
+	Assert(t, got).Eq("", "should return nothing")
+	Assert(t, err).IsError("", "should return an error")
+}
 
-    ```go
-    func Foo() (string, error) {
-        return "", errors.New("not implemented")
-    }
+type Assertion struct {
+	f.Assertion
+}
 
-    func Test(t *testing.T) {
-        got, err := Foo()
+func Assert(t testing.TB, got interface{}) Assertion {
+	return Assertion{f.Assert(t, got)}
+}
 
-        Assert(t, got).Eq("", "should return nothing")
-        Assert(t, err).IsError("", "should return an error")
-    }
+func Require(t testing.TB, got interface{}) Assertion {
+	return Assertion{f.Require(t, got)}
+}
 
-    type Assertion struct {
-        f.Assertion
-    }
+func (a Assertion) IsError(msg string, args ...interface{}) bool {
+	a.T.Helper()
+	return a.Should(beError(), msg, args...)
+}
 
-    func Assert(t testing.TB, got interface{}) Assertion {
-        return Assertion{f.Assert(t, got)}
-    }
-
-    func (a Assertion) IsError(msg string, args ...interface{}) bool {
-        a.T.Helper()
-        return a.Should(beError(), msg, args...)
-    }
-
-    func beError() func(got interface{}) string {
-        return func(got interface{}) string {
-            if _, ok := got.(error); ok {
-                return ""
-            }
-            return fmt.Sprintf("got: %+v\nshould be an error", got)
-        }
-    }
-    ```
+func beError() func(got interface{}) string {
+	return func(got interface{}) string {
+		if _, ok := got.(error); ok {
+			return ""
+		}
+		return fmt.Sprintf("got: %+v\nshould be an error", got)
+	}
+}
+```
 
 ## Contributing
 
 I am open to any feedback and contribution.
 
-Use [Discussions](https://github.com/pellared/fluentassert/discussions) or write to me: *Robert Pajak* @ [Gophers Slack](https://invite.slack.golangbridge.org/).
+Use [Discussions](https://github.com/pellared/fluentassert/discussions)
+or write to me: *Robert Pajak* @ [Gophers Slack](https://invite.slack.golangbridge.org/).
 
 You can also create an issue or a pull request.

@@ -2,33 +2,25 @@
 
 .PHONY: all
 all: ## build pipeline
-all: install build fmt lint test
-
-.PHONY: install
-install: ## go install tools
-	$(call print-target)
-	cd tools && go install $(shell cd tools && go list -f '{{ join .Imports " " }}' -tags=tools)
-
-.PHONY: build
-build: ## go build
-	$(call print-target)
-	go build ./...
-
-.PHONY: fmt
-fmt: ## go fmt
-	$(call print-target)
-	go fmt ./...
-
-.PHONY: lint
-lint: ## golangci-lint
-	$(call print-target)
-	golangci-lint run
+all: test lint misspell
 
 .PHONY: test
 test: ## go test with race detector and code covarage
 	$(call print-target)
 	go test -race -covermode=atomic -coverprofile=coverage.out ./...
 	go tool cover -html=coverage.out -o coverage.html
+
+.PHONY: lint
+lint: ## golangci-lint
+	$(call print-target)
+	cd tools && go install github.com/golangci/golangci-lint/cmd/golangci-lint
+	golangci-lint run
+
+.PHONY: misspell
+misspell: ## misspell
+	$(call print-target)
+	cd tools && go install github.com/client9/misspell/cmd/misspell
+	misspell -error -locale US *.md
 
 .PHONY: help
 help:

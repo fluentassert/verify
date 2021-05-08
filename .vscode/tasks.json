@@ -6,7 +6,7 @@
         {
             "label": "dev",
             "type": "shell",
-            "command": "make",
+            "command": "./goyek.sh",
             "problemMatcher": [
                 "$go"
             ],

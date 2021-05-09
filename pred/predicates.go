@@ -23,3 +23,33 @@ func Err(got interface{}) string {
 	}
 	return fmt.Sprintf("got: %+v\nwant an error", got)
 }
+
+// Panic checks if got is a function that panics when executed.
+func Panic(got interface{}) (msg string) {
+	fn, ok := got.(func())
+	if !ok {
+		return "got: should be a func()"
+	}
+	defer func() {
+		if r := recover(); r == nil {
+			msg = "got: returned\nwant a panic"
+		}
+	}()
+	fn()
+	return
+}
+
+// NoPanic checks if got is a function that returns when executed.
+func NoPanic(got interface{}) (msg string) {
+	fn, ok := got.(func())
+	if !ok {
+		return "got: should be a func()"
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			msg = "got: panicked\nwant to return"
+		}
+	}()
+	fn()
+	return
+}

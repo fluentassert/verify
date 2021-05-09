@@ -8,7 +8,32 @@ import (
 )
 
 func TestAssertEq(t *testing.T) {
-	f.Assert(t, 1).Eq(1, "should work with int")
+	testCases := []struct {
+		desc string
+		x    interface{}
+		y    interface{}
+	}{
+		{
+			desc: "int",
+			x:    1,
+			y:    1,
+		},
+		{
+			desc: "map",
+			x:    map[string]int{"a": 1, "b": 2},
+			y:    map[string]int{"b": 2, "a": 1},
+		},
+		{
+			desc: "error",
+			x:    errors.New("abc"),
+			y:    errors.New("abc"),
+		},
+	}
+	for _, tc := range testCases {
+		t.Run(tc.desc, func(t *testing.T) {
+			f.Assert(t, tc.x).Eq(tc.y, tc.desc)
+		})
+	}
 }
 
 func TestRequireEq(t *testing.T) {
@@ -23,4 +48,14 @@ func TestAssertNil(t *testing.T) {
 func TestAssertErr(t *testing.T) {
 	got := errors.New("critical")
 	f.Assert(t, got).Err("should be an error")
+}
+
+func TestAssertPanic(t *testing.T) {
+	act := func() { panic("boom!") }
+	f.Assert(t, act).Panic("should panic")
+}
+
+func TestAssertNoPanic(t *testing.T) {
+	act := func() {}
+	f.Assert(t, act).NoPanic("should return normally")
 }

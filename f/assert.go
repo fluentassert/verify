@@ -52,3 +52,15 @@ func (a Assertion) Err(msg string, args ...interface{}) bool {
 	a.T.Helper()
 	return a.Should(pred.Err, msg, args...)
 }
+
+// Panic checks if got is a function that panics when executed.
+func (a Assertion) Panic(msg string, args ...interface{}) bool {
+	a.T.Helper()
+	return a.Should(pred.Panic, msg, args...)
+}
+
+// NoPanic checks if got is a function that returns when executed.
+func (a Assertion) NoPanic(msg string, args ...interface{}) bool {
+	a.T.Helper()
+	return a.Should(pred.NoPanic, msg, args...)
+}

@@ -1,9 +1,6 @@
 package main
 
 import (
-	"log"
-	"os"
-
 	"github.com/goyek/goyek"
 	"github.com/mattn/go-shellwords"
 )
@@ -11,14 +8,11 @@ import (
 const buildDir = "build"
 
 func main() {
-	if err := os.Chdir(".."); err != nil {
-		log.Fatalln(err)
-	}
 	flow().Main()
 }
 
-func flow() *goyek.Taskflow {
-	flow := &goyek.Taskflow{}
+func flow() *goyek.Flow {
+	flow := &goyek.Flow{}
 
 	test := flow.Register(taskTest())
 	lint := flow.Register(taskLint())
@@ -35,7 +29,7 @@ func taskTest() goyek.Task {
 	return goyek.Task{
 		Name:  "test",
 		Usage: "go test with code covarage",
-		Command: func(tf *goyek.TF) {
+		Action: func(tf *goyek.TF) {
 			Exec(tf, "", "go test -covermode=atomic -coverprofile=coverage.out ./...")
 		},
 	}
@@ -45,7 +39,7 @@ func taskLint() goyek.Task {
 	return goyek.Task{
 		Name:  "lint",
 		Usage: "golangci-lint",
-		Command: func(tf *goyek.TF) {
+		Action: func(tf *goyek.TF) {
 			Exec(tf, buildDir, "go install github.com/golangci/golangci-lint/cmd/golangci-lint")
 			Exec(tf, "", "golangci-lint run")
 		},
@@ -56,7 +50,7 @@ func taskMisspell() goyek.Task {
 	return goyek.Task{
 		Name:  "misspell",
 		Usage: "misspell",
-		Command: func(tf *goyek.TF) {
+		Action: func(tf *goyek.TF) {
 			Exec(tf, buildDir, "go install github.com/client9/misspell/cmd/misspell")
 			Exec(tf, "", "misspell -error -locale=US *.md")
 		},

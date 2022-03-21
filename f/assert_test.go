@@ -41,8 +41,17 @@ func TestRequireEq(t *testing.T) {
 	f.Require(t, got).Eq([]int{1, 2}, "should work with slices")
 }
 
+func TestAssertGt(t *testing.T) {
+	f.OrderedAssert(t, 3).Gt(1, "should be greater than 1")
+}
+
+func TestRequireGt(t *testing.T) {
+	f.OrderedRequire(t, 3.1).Gt(3, "should be greater than 1")
+}
+
 func TestAssertNil(t *testing.T) {
-	f.Assert(t, nil).Nil("should be nil")
+	var b []byte
+	f.Assert(t, b).Eq(nil, "should be nil")
 }
 
 func TestAssertErr(t *testing.T) {

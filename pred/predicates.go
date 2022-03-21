@@ -4,11 +4,13 @@ package pred
 import (
 	"fmt"
 	"reflect"
+
+	"golang.org/x/exp/constraints"
 )
 
 // Eq checks if got is equal to want.
-func Eq(want interface{}) func(got interface{}) string {
-	return func(got interface{}) string {
+func Eq[T any](want T) func(got T) string {
+	return func(got T) string {
 		if reflect.DeepEqual(got, want) {
 			return ""
 		}
@@ -16,17 +18,29 @@ func Eq(want interface{}) func(got interface{}) string {
 	}
 }
 
+// Gt checks if got is equal to want.
+func Gt[T constraints.Ordered](want T) func(got T) string {
+	return func(got T) string {
+		if got > want {
+			return ""
+		}
+		return fmt.Sprintf("got: %+v\nwant greater than: %+v", got, want)
+	}
+}
+
 // Err checks if got is an error.
-func Err(got interface{}) string {
-	if _, ok := got.(error); ok {
+func Err[T any](got T) string {
+	var v interface{} = got
+	if _, ok := v.(error); ok {
 		return ""
 	}
 	return fmt.Sprintf("got: %+v\nwant an error", got)
 }
 
 // Panic checks if got is a function that panics when executed.
-func Panic(got interface{}) (msg string) {
-	fn, ok := got.(func())
+func Panic[T any](got T) (msg string) {
+	var v interface{} = got
+	fn, ok := v.(func())
 	if !ok {
 		return "got: should be a func()"
 	}
@@ -40,8 +54,9 @@ func Panic(got interface{}) (msg string) {
 }
 
 // NoPanic checks if got is a function that returns when executed.
-func NoPanic(got interface{}) (msg string) {
-	fn, ok := got.(func())
+func NoPanic[T any](got T) (msg string) {
+	var v interface{} = got
+	fn, ok := v.(func())
 	if !ok {
 		return "got: should be a func()"
 	}

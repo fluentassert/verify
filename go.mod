@@ -1,3 +1,5 @@
 module github.com/pellared/fluentassert
 
-go 1.11
+go 1.18
+
+require golang.org/x/exp v0.0.0-20220318154914-8dddf5d87bd8

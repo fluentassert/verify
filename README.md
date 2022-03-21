@@ -32,22 +32,23 @@ The API takes advantage of generics to make the API more type-safe.
 ```go
 func TestFoo(t *testing.T) {
 	got, err := Foo()
-
 	f.ErrorRequire(t, err).Nil("should be no error") // works like t.Fatalf, stops execution if fails
-	f.OrderedAssert(t, got).Gt(1, "should return proper value") // works like t.Errorf, continues execution if fails
+	
+	f.Assert(t, got).Eq(1.23, "should return proper value") // works like t.Errorf, continues execution if fails
+	f.OrderedAssert(t, got).Gt(1, "should be greater than 1") // this will fail error
 }
 
 func Foo() (float64, error) {
-	return 1.23, errors.New("not implemented")
+	return 1.23, nil
 }
 ```
 
 ```sh
 $ go test
 --- FAIL: TestFoo (0.00s)
-    assert_test.go:13: should be no error
-        got: not implemented
-        want: <nil>
+    assert_test.go:14: should be greater than 1
+        got: 1.23
+        want greater than: 2
 ```
 
 ## Extensibility

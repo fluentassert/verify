@@ -35,7 +35,7 @@ func TestFoo(t *testing.T) {
 	f.ErrorRequire(t, err).Nil("should be no error") // works like t.Fatalf, stops execution if fails
 	
 	f.Assert(t, got).Eq(1.23, "should return proper value") // works like t.Errorf, continues execution if fails
-	f.OrderedAssert(t, got).Gt(1, "should be greater than 1") // this will fail error
+	f.OrderedAssert(t, got).Gt(1, "should be greater than 1") // this will fail
 }
 
 func Foo() (float64, error) {

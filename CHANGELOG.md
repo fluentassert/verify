@@ -17,6 +17,7 @@ Redesign of the API by using generics.
 
 ### Changed
 
+- Require Go 1.18.
 - Existing parameters are `any` instead of `interface{}`.
 
 ### Fixed

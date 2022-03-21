@@ -31,12 +31,12 @@ as suggested in
 func TestFoo(t *testing.T) {
 	got, err := Foo()
 
-	f.Require(t, err).Nil("should be no error") // works like t.Fatalf, stops execution if fails
-	f.Assert(t, got).Eq("bar", "should return proper value") // works like t.Errorf, continues execution if fails
+	f.Require(t, err).Eq(nil, "should be no error") // works like t.Fatalf, stops execution if fails
+	f.OrderedAssert(t, got).Gt(1, "should return proper value") // works like t.Errorf, continues execution if fails
 }
 
-func Foo() (string, error) {
-	return "", errors.New("not implemented")
+func Foo() (float64, error) {
+	return 1.23, errors.New("not implemented")
 }
 ```
 

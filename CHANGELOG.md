@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/pellared/fluentassert/compare/v0.1.0...HEAD)
 
+Redesign of the API by using generics.
+
+### Added
+
+- Add `f.OrderedAssert` and `f.OrderedRequire` which
+  operates on `constraints.Ordered` instead of `any`.
+- Add `Gt` ordered assertion that checks if `got` is greater than `want`.
+
+### Changed
+
+- Existing parameters are `any` instead of `interface{}`.
+
+### Fixed
+
+- Fix error reporting line (usage of `t.Helper()`).
+
 ## [0.1.0](https://github.com/pellared/fluentassert/releases/tag/v0.1.0) - 2021-05-11
 
 First release after the experiential phase.

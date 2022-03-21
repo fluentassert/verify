@@ -29,12 +29,19 @@ func Gt[T constraints.Ordered](want T) func(got T) string {
 }
 
 // Err checks if got is an error.
-func Err[T any](got T) string {
-	var v interface{} = got
-	if _, ok := v.(error); ok {
+func Err(got error) string {
+	if got != nil {
 		return ""
 	}
 	return fmt.Sprintf("got: %+v\nwant an error", got)
+}
+
+// NoErr checks if got is nil.
+func NoErr(got error) string {
+	if got == nil {
+		return ""
+	}
+	return fmt.Sprintf("got: %+v\nwant: <nil>", got)
 }
 
 // Panic checks if got is a function that panics when executed.

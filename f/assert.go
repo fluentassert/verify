@@ -18,6 +18,11 @@ type OrderedAssertion[T constraints.Ordered] struct {
 	Assertion[T]
 }
 
+// ErrorAssertion wraps an error value to assert.
+type ErrorAssertion[T error] struct {
+	Assertion[T]
+}
+
 // Errorer reports error.
 type Errorer interface {
 	Errorf(format string, args ...interface{})
@@ -35,9 +40,9 @@ func Assert[T any](t Errorer, got T) Assertion[T] {
 	return Assertion[T]{t.Helper, t.Errorf, got}
 }
 
-// OrderedRequire prepares an assertion which will t.Fatalf if the predicate does not match.
-func OrderedRequire[T constraints.Ordered](t Fataler, got T) OrderedAssertion[T] {
-	return OrderedAssertion[T]{Assertion: Assertion[T]{t.Helper, t.Fatalf, got}}
+// Require prepares an assertion which will t.Fatalf if the predicate does not match.
+func Require[T any](t Fataler, got T) Assertion[T] {
+	return Assertion[T]{t.Helper, t.Fatalf, got}
 }
 
 // OrderedAssert prepares an assertion which will t.Errorf if the predicate does not match.
@@ -45,9 +50,19 @@ func OrderedAssert[T constraints.Ordered](t Errorer, got T) OrderedAssertion[T] 
 	return OrderedAssertion[T]{Assertion: Assertion[T]{t.Helper, t.Errorf, got}}
 }
 
-// Require prepares an assertion which will t.Fatalf if the predicate does not match.
-func Require[T any](t Fataler, got T) Assertion[T] {
-	return Assertion[T]{t.Helper, t.Fatalf, got}
+// OrderedRequire prepares an assertion which will t.Fatalf if the predicate does not match.
+func OrderedRequire[T constraints.Ordered](t Fataler, got T) OrderedAssertion[T] {
+	return OrderedAssertion[T]{Assertion: Assertion[T]{t.Helper, t.Fatalf, got}}
+}
+
+// ErrorAssert prepares an assertion which will t.Errorf if the predicate does not match.
+func ErrorAssert[T error](t Errorer, got T) ErrorAssertion[T] {
+	return ErrorAssertion[T]{Assertion: Assertion[T]{t.Helper, t.Errorf, got}}
+}
+
+// ErrorRequire prepares an assertion which will t.Fatalf if the predicate does not match.
+func ErrorRequire[T error](t Fataler, got T) ErrorAssertion[T] {
+	return ErrorAssertion[T]{Assertion: Assertion[T]{t.Helper, t.Fatalf, got}}
 }
 
 // Should checks the given predicate.
@@ -73,10 +88,16 @@ func (a OrderedAssertion[T]) Gt(want T, msg string, args ...interface{}) bool {
 	return a.Should(pred.Gt(want), msg, args...)
 }
 
-// Err checks if got is an error.
-func (a Assertion[T]) Err(msg string, args ...interface{}) bool {
+// Returned checks if got is an non-nil error.
+func (a ErrorAssertion[T]) Returned(msg string, args ...interface{}) bool {
 	a.helper()
-	return a.Should(pred.Err[T], msg, args...)
+	return a.Should(func(got T) string { return pred.Err(got) }, msg, args...)
+}
+
+// Nil checks if got is a nil error.
+func (a ErrorAssertion[T]) Nil(msg string, args ...interface{}) bool {
+	a.helper()
+	return a.Should(func(got T) string { return pred.NoErr(got) }, msg, args...)
 }
 
 // Panic checks if got is a function that panics when executed.

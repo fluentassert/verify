@@ -56,7 +56,12 @@ func TestAssertNil(t *testing.T) {
 
 func TestAssertErr(t *testing.T) {
 	got := errors.New("critical")
-	f.Assert(t, got).Err("should be an error")
+	f.ErrorAssert(t, got).Returned("should be an error")
+}
+
+func TestRequireNoErr(t *testing.T) {
+	var got error
+	f.ErrorRequire(t, got).Nil("should be no error")
 }
 
 func TestAssertPanic(t *testing.T) {

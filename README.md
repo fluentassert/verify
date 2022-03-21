@@ -31,7 +31,7 @@ as suggested in
 func TestFoo(t *testing.T) {
 	got, err := Foo()
 
-	f.Require(t, err).Eq(nil, "should be no error") // works like t.Fatalf, stops execution if fails
+	f.ErrorRequire(t, err).Nil("should be no error") // works like t.Fatalf, stops execution if fails
 	f.OrderedAssert(t, got).Gt(1, "should return proper value") // works like t.Errorf, continues execution if fails
 }
 

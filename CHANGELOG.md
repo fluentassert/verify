@@ -11,18 +11,26 @@ Redesign of the API by using generics.
 
 ### Added
 
+- Add `f.ErrorAssert` and `f.ErrorRequire` which
+  operates on `error` instead of `any`.  
 - Add `f.OrderedAssert` and `f.OrderedRequire` which
   operates on `constraints.Ordered` instead of `any`.
+- Add `Returned` error assertion that checks if `got` is non-nil.
 - Add `Gt` ordered assertion that checks if `got` is greater than `want`.
 
 ### Changed
 
 - Require Go 1.18.
 - Existing parameters are `any` instead of `interface{}`.
+- `Nil` assertion can be used only with `f.ErrorAssert`.
 
 ### Fixed
 
 - Fix error reporting line (usage of `t.Helper()`).
+
+### Removed
+
+- `Err` assertion.
 
 ## [0.1.0](https://github.com/pellared/fluentassert/releases/tag/v0.1.0) - 2021-05-11
 

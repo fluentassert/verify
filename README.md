@@ -23,6 +23,8 @@ Having a Fluent API makes it more obvious and easier to use
 as suggested in
 [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments#useful-test-failures).
 
+The API takes advantage of generics to make the API more type-safe.
+
 `Star` this repository if you find it valuable and worth maintaining.
 
 ## Quick start

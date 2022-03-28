@@ -20,48 +20,36 @@ linters:
   enable:
     - deadcode
     - errcheck
-    - gosimple
+    # - gosimple
     - govet
     - ineffassign
-    - staticcheck
-    - structcheck
+    # - staticcheck
+    # - structcheck
     - typecheck
-    - unused
+    # - unused
     - varcheck
-    - bodyclose
     - depguard
-    - dogsled
     - dupl
     - exportloopref
     - funlen
-    - gochecknoglobals
-    - gochecknoinits
+    - gci
     - gocognit
     - goconst
     - gocritic
     - gocyclo
     - godot
-    - gofmt
     - gofumpt
-    - goimports
-    - golint
+    - revive
     - gomnd
     - goprintffuncname
     - gosec
-    - lll
-    - misspell
-    - nakedret
-    - noctx
+    - ifshort
     - nolintlint
-    - rowserrcheck
-    - sqlclosecheck
-    - stylecheck
+    # - stylecheck
+    - thelper
     - unconvert
-    - unparam
+    # - unparam
     - whitespace
-    - errorlint
-    - tparallel
-    - wrapcheck
 
 issues:
   # enable issues excluded by default 

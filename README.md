@@ -23,6 +23,8 @@ Having a Fluent API makes it more obvious and easier to use
 as suggested in
 [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments#useful-test-failures).
 
+The API takes advantage of generics to make the API more type-safe.
+
 `Star` this repository if you find it valuable and worth maintaining.
 
 ## Quick start
@@ -30,22 +32,23 @@ as suggested in
 ```go
 func TestFoo(t *testing.T) {
 	got, err := Foo()
-
-	f.Require(t, err).Nil("should be no error") // works like t.Fatalf, stops execution if fails
-	f.Assert(t, got).Eq("bar", "should return proper value") // works like t.Errorf, continues execution if fails
+	f.ErrorRequire(t, err).Nil("should be no error") // works like t.Fatalf, stops execution if fails
+	
+	f.Assert(t, got).Eq(1.23, "should return proper value") // works like t.Errorf, continues execution if fails
+	f.OrderedAssert(t, got).Gt(1, "should be greater than 1") // this will fail
 }
 
-func Foo() (string, error) {
-	return "", errors.New("not implemented")
+func Foo() (float64, error) {
+	return 1.23, nil
 }
 ```
 
 ```sh
 $ go test
 --- FAIL: TestFoo (0.00s)
-    assert_test.go:13: should be no error
-        got: not implemented
-        want: <nil>
+    assert_test.go:14: should be greater than 1
+        got: 1.23
+        want greater than: 2
 ```
 
 ## Extensibility

@@ -2,7 +2,7 @@ package f
 
 import "github.com/google/go-cmp/cmp"
 
-// FluentObj encapsulates assertions for any objet.
+// FluentObj encapsulates assertions for any object.
 type FluentObj[T any] struct {
 	Got T
 }

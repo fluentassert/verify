@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
 
 	"github.com/goyek/goyek"
 	"github.com/mattn/go-shellwords"
@@ -19,10 +20,10 @@ func flow() *goyek.Flow {
 
 	test := flow.Register(taskTest())
 	lint := flow.Register(taskLint())
-	markdownlint := flow.Register(taskMarkdownLint())
 	misspell := flow.Register(taskMisspell())
+	markdownlint := flow.Register(taskMarkdownLint())
 	all := flow.Register(taskAll(goyek.Deps{
-		test, lint, markdownlint, misspell,
+		test, lint, misspell, markdownlint,
 	}))
 
 	flow.DefaultTask = all
@@ -50,11 +51,26 @@ func taskLint() goyek.Task {
 	}
 }
 
+func taskMisspell() goyek.Task {
+	return goyek.Task{
+		Name:  "misspell",
+		Usage: "misspell",
+		Action: func(tf *goyek.TF) {
+			Exec(tf, buildDir, "go install github.com/client9/misspell/cmd/misspell")
+			Exec(tf, "", "misspell -error -locale=US *.md")
+		},
+	}
+}
+
 func taskMarkdownLint() goyek.Task {
 	return goyek.Task{
 		Name:  "markdownlint",
-		Usage: "markdownlint-cli (requires docker)",
+		Usage: "markdownlint-cli (uses docker)",
 		Action: func(tf *goyek.TF) {
+			if _, err := exec.LookPath("docker"); err != nil {
+				tf.Skip(err)
+			}
+
 			curDir, err := os.Getwd()
 			if err != nil {
 				tf.Fatal(err)
@@ -64,17 +80,6 @@ func taskMarkdownLint() goyek.Task {
 			Exec(tf, "", buildCmd)
 			runCmd := fmt.Sprintf("docker run --rm -v %s:/workdir %s *.md", curDir, dockerTag)
 			Exec(tf, "", runCmd)
-		},
-	}
-}
-
-func taskMisspell() goyek.Task {
-	return goyek.Task{
-		Name:  "misspell",
-		Usage: "misspell",
-		Action: func(tf *goyek.TF) {
-			Exec(tf, buildDir, "go install github.com/client9/misspell/cmd/misspell")
-			Exec(tf, "", "misspell -error -locale=US *.md")
 		},
 	}
 }

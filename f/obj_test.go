@@ -53,6 +53,24 @@ func TestObj(t *testing.T) {
 		})
 	})
 
+	t.Run("Zero", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			got := A{}
+			msg := f.Obj(got).Zero()
+			assertPassed(t, msg)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			got := A{Str: "wrong"}
+			msg := f.Obj(got).Zero()
+			assertFailed(t, msg, "not a zero value (-want +got):\n")
+		})
+		t.Run("nil", func(t *testing.T) {
+			var got *A
+			msg := f.Obj(got).Zero()
+			assertPassed(t, msg)
+		})
+	})
+
 	t.Run("Check", func(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
 			fn := func(x A) string {

@@ -1,9 +1,4 @@
 {
-    // gopls with gofumpt and import ordering
-    "go.useLanguageServer": true,
-    "gopls": {
-        "gofumpt": true,
-    },
     "[go]": {
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
@@ -16,10 +11,12 @@
             "source.organizeImports": true,
         },
     },
-
-    // golangci-lint  
+    "gopls": {
+        "formatting.local": "github.com/pellared/fluentassert",
+        "formatting.gofumpt": true,
+    },
     "go.lintTool": "golangci-lint",
     "go.lintFlags": [
         "--fast"
-    ]
+    ],
 }

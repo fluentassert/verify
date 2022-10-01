@@ -1,8 +1,8 @@
 linters-settings:
+  gocyclo:
+    min-complexity: 15
   goimports:
     local-prefixes: github.com/pellared/fluentassert
-  golint:
-    min-confidence: 0
   govet:
     check-shadowing: true
   misspell:
@@ -12,43 +12,38 @@ linters-settings:
     allow-unused: false # report any unused nolint directives
     require-explanation: true # require an explanation for nolint directives
     require-specific: false # don't require nolint directives to be specific about which linter is being skipped
+  revive:
+    confidence: 0
 
 linters:
   # please, do not use `enable-all`: it's deprecated and will be removed soon.
   # inverted configuration with `enable-all` and `disable` is not scalable during updates of golangci-lint
   disable-all: true
   enable:
-    - deadcode
+    - dogsled
     - errcheck
-    # - gosimple
-    - govet
-    - ineffassign
-    # - staticcheck
-    # - structcheck
-    - typecheck
-    # - unused
-    - varcheck
-    - depguard
-    - dupl
     - exportloopref
-    - funlen
-    - gci
-    - gocognit
-    - goconst
+    - gochecknoinits
     - gocritic
+    - goconst
     - gocyclo
-    - godot
     - gofumpt
+    - goimports
     - revive
     - gomnd
     - goprintffuncname
     - gosec
-    - ifshort
+    - gosimple
+    - govet
+    - ineffassign
+    - misspell
     - nolintlint
-    # - stylecheck
-    - thelper
+    - staticcheck
+    - stylecheck
+    - typecheck
     - unconvert
-    # - unparam
+    - unparam
+    - unused
     - whitespace
 
 issues:

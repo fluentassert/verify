@@ -26,6 +26,11 @@ func TestObj(t *testing.T) {
 			msg := f.Obj(got).DeepEq(want)
 			assertFailed(t, msg, "mismatch (-want +got):\n")
 		})
+		t.Run("nil", func(t *testing.T) {
+			var got *A
+			msg := f.Obj(got).DeepEq(nil)
+			assertPassed(t, msg)
+		})
 	})
 
 	t.Run("Should", func(t *testing.T) {

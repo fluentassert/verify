@@ -47,7 +47,7 @@ The next release is supposed to provide assertions for
 
 ### Removed
 
-- All functions and types (API rewrite).
+- Remove all previous functions and types (API rewrite).
 
 ## [0.1.0](https://github.com/pellared/fluentassert/releases/tag/v0.1.0) - 2021-05-11
 

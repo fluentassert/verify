@@ -60,3 +60,13 @@ func (x FluentObj[T]) Zero() FailureMessage {
 	}
 	return FailureMessage("not a zero value (-want +got):\n" + diff)
 }
+
+// NonZero tests if the object is a non-zero value.
+func (x FluentObj[T]) NonZero() FailureMessage {
+	var want T
+	ok := cmp.Equal(want, x.Got)
+	if !ok {
+		return ""
+	}
+	return FailureMessage("a zero value")
+}

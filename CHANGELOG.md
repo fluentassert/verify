@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `LesserOrEqual(than T)`
   - `GreaterOrEqual(than T)`
   - `Greater(than T)`
+- Add `String[T ~string](got T)` function which provides following assertion
+  in addition to `Ordered(got T)`:
+  - `Contains(substr string)`
+  - `NotContains(substr string)`
 
 ## [0.2.0](https://github.com/pellared/fluentassert/releases/tag/v0.2.0) - 2022-10-01
 

@@ -17,4 +17,18 @@ func Example() {
 	want := A{Str: "string", Bool: true, Slice: []int{1, 2, 3}}
 	got := A{Str: "wrong", Bool: true, Slice: []int{1, 3}}
 	f.Obj(got).DeepEqual(want).Assert(t)
+
+	/* The test fails with following output:
+	   mismatch (-want +got):
+	     f_test.A{
+	   -   Str:  "string",
+	   +   Str:  "wrong",
+	       Bool: true,
+	       Slice: []int{
+	           1,
+	   -       2,
+	           3,
+	       },
+	     }
+	*/
 }

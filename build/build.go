@@ -1,3 +1,4 @@
+// Build is the build pipeline for this repository.
 package main
 
 import (
@@ -35,6 +36,7 @@ func taskTest() goyek.Task {
 		Name:  "test",
 		Usage: "go test with code covarage",
 		Action: func(tf *goyek.TF) {
+			Exec(tf, buildDir, "go test")
 			Exec(tf, "", "go test -covermode=atomic -coverprofile=coverage.out ./...")
 		},
 	}
@@ -46,6 +48,7 @@ func taskLint() goyek.Task {
 		Usage: "golangci-lint",
 		Action: func(tf *goyek.TF) {
 			Exec(tf, buildDir, "go install github.com/golangci/golangci-lint/cmd/golangci-lint")
+			Exec(tf, buildDir, "golangci-lint run")
 			Exec(tf, "", "golangci-lint run")
 		},
 	}

@@ -33,7 +33,7 @@ func TestObj(t *testing.T) {
 		})
 	})
 
-	t.Run("NotDeepEq", func(t *testing.T) {
+	t.Run("NotDeepEqual", func(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
 			want := A{Str: "string", Bool: true, Slice: []int{1, 2, 3}}
 			got := A{Str: "wrong", Bool: true, Slice: []int{1, 3}}

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/pellared/fluentassert/compare/v0.2.0...HEAD)
 
+### Added
+
+- Add `Eventually` and `EventuallyContext` asynchronous assertion functions.
+
 ## [0.2.0](https://github.com/pellared/fluentassert/releases/tag/v0.2.0) - 2022-10-01
 
 This release is a complete rewrite.

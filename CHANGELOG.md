@@ -5,32 +5,49 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/pellared/fluentassert/compare/v0.1.0...HEAD)
+## [Unreleased](https://github.com/pellared/fluentassert/compare/v0.2.0...HEAD)
 
-Redesign of the API by using generics.
+## [0.2.0](https://github.com/pellared/fluentassert/releases/tag/v0.2.0) - 2022-10-01
+
+This release is a complete rewrite.
+It is not compatible with the previous release.
+
+The new API is type-safe and easier to extend.
+
+It is highly probable that future releases will have no (or minimal)
+breaking changes.
+
+The next release is supposed to provide assertions for
+`constraints.Ordered`, `string`, `error`, `[]T`, `map[K]V`, `func()`.
 
 ### Added
 
-- Add `f.ErrorAssert` and `f.ErrorRequire` which
-  operates on `error` instead of `any`.  
-- Add `f.OrderedAssert` and `f.OrderedRequire` which
-  operates on `constraints.Ordered` instead of `any`.
-- Add `Returned` error assertion that checks if `got` is non-nil.
-- Add `Gt` ordered assertion that checks if `got` is greater than `want`.
+- Add `FailureMessage` which encapsulates the failure message
+  and methods for error reporting.
+- Add `Obj[T any](got T)` function which provides following assertions:
+  - `Check(fn func(got T) string)`
+  - `Should(pred func(got T) bool)`
+  - `ShouldNot(pred func(got T) bool)`
+  - `DeepEqual(want T, opts ...cmp.Option)`
+  - `NotDeepEqual(want T, opts ...cmp.Option)`
+  - `Zero()`
+  - `NonZero()`
+- Add `Comparable[T comparable](got T)` function which provides following assertions
+  in addition to `Obj(got T)`:
+  - `Equal(want T)`
+  - `NotEqual(want T)`
 
 ### Changed
 
 - Require Go 1.18.
-- Existing parameters are `any` instead of `interface{}`.
-- `Nil` assertion can be used only with `f.ErrorAssert`.
 
 ### Fixed
 
-- Fix error reporting line (usage of `t.Helper()`).
+- Fix error reporting line (use `t.Helper()` when available).
 
 ### Removed
 
-- `Err` assertion.
+- All functions and types (API rewrite).
 
 ## [0.1.0](https://github.com/pellared/fluentassert/releases/tag/v0.1.0) - 2021-05-11
 

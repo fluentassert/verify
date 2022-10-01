@@ -71,6 +71,42 @@ $ go test
           }
 ```
 
+## Asynchronous assertions
+
+```go
+package test
+
+import (
+	"net/http"
+	"testing"
+	"time"
+
+	"github.com/pellared/fluentassert/f"
+)
+
+func TestAsync(t *testing.T) {
+	f.Eventually(10*time.Second, time.Second, func() f.FailureMessage {
+		client := http.Client{Timeout: time.Second}
+		resp, err := client.Get("http://not-existing:1234")
+		if err != nil {
+			return f.FailureMessage(err.Error())
+		}
+		if msg := f.Obj(resp.StatusCode).DeepEqual(http.StatusOK); msg != "" {
+			return msg
+		}
+		return ""
+	}).Assert(t)
+}
+```
+
+```sh
+$ go test
+--- FAIL: TestAsync (10.02s)
+    async_test.go:22: 
+        function always failed, last failure message:
+        Get "http://not-existing:1234": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+```
+
 ## Custom assertions
 
 You can take advantage of the `f.FailureMessage` and `f.Fluent*` types

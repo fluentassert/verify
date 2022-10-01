@@ -43,8 +43,8 @@ func (x FluentObj[T]) DeepEqual(want T, opts ...cmp.Option) FailureMessage {
 }
 
 // NotDeepEqual tests if the objects are not deep equal using github.com/google/go-cmp/cmp.
-func (x FluentObj[T]) NotDeepEqual(want T, opts ...cmp.Option) FailureMessage {
-	ok := cmp.Equal(want, x.Got, opts...)
+func (x FluentObj[T]) NotDeepEqual(obj T, opts ...cmp.Option) FailureMessage {
+	ok := cmp.Equal(obj, x.Got, opts...)
 	if !ok {
 		return ""
 	}

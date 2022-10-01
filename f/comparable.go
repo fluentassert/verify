@@ -10,7 +10,7 @@ func Comparable[T comparable](got T) FluentComparable[T] {
 	return FluentComparable[T]{FluentObj[T]{got}}
 }
 
-// Equal tests if the objects are equal using == operator.
+// Equal tests the objects using == operator.
 func (x FluentComparable[T]) Equal(want T) FailureMessage {
 	if x.Got == want {
 		return ""
@@ -18,9 +18,9 @@ func (x FluentComparable[T]) Equal(want T) FailureMessage {
 	return "the objects are not equal"
 }
 
-// NotEqual tests if the objects are equal using == operator.
-func (x FluentComparable[T]) NotEqual(want T) FailureMessage {
-	if x.Got != want {
+// NotEqual tests the objects using != operator.
+func (x FluentComparable[T]) NotEqual(obj T) FailureMessage {
+	if x.Got != obj {
 		return ""
 	}
 	return "the objects are equal"

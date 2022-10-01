@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `Eventually` and `EventuallyContext` asynchronous assertions.
 - Add `Panics` and `NotPanics` function assertions.
+- Add `Ordered[T constraints.Ordered](got T)` function which provides following assertion
+  in addition to `Comparable(got T)`:
+  - `Lesser(than T)`
+  - `LesserOrEqual(than T)`
+  - `GreaterOrEqual(than T)`
+  - `Greater(than T)`
 
 ## [0.2.0](https://github.com/pellared/fluentassert/releases/tag/v0.2.0) - 2022-10-01
 
@@ -34,13 +40,13 @@ The next release is supposed to provide assertions for
   - `Should(pred func(got T) bool)`
   - `ShouldNot(pred func(got T) bool)`
   - `DeepEqual(want T, opts ...cmp.Option)`
-  - `NotDeepEqual(want T, opts ...cmp.Option)`
+  - `NotDeepEqual(obj T, opts ...cmp.Option)`
   - `Zero()`
   - `NonZero()`
 - Add `Comparable[T comparable](got T)` function which provides following assertions
   in addition to `Obj(got T)`:
   - `Equal(want T)`
-  - `NotEqual(want T)`
+  - `NotEqual(obj T)`
 
 ### Changed
 

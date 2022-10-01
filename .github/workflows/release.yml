@@ -8,11 +8,8 @@ jobs:
   godoc:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-go@v3.3.0
-        with:
-          go-version: '1.19'
       - name: Wait 1 minute
         # make sure that new the tag is available for pkg.go.dev
         run: sleep 60
       - name: Update pkg.go.dev
-        run: go get -u github.com/${{ github.repository }}@${{ github.ref_name }}
+        run: curl https://proxy.golang.org/github.com/${{ github.repository }}/@v/${{ github.ref_name }}.info

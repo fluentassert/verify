@@ -80,6 +80,10 @@ For reference, take a look at the implementation
 of existing fluent assertions in this repository
 (for example [comparable.go](f/comparable.go)).
 
+### Supported Go versions
+
+Minimal supported Go version is 1.18.
+
 ## Contributing
 
 Feel free to create an issue or propose a pull request.
@@ -91,3 +95,11 @@ to execute the build pipeline.
 
 The repository contains confiugration for
 [Visual Studio Code](https://code.visualstudio.com/).
+
+## License
+
+**fluentassert** is licensed under the terms of [the MIT license](LICENSE).
+
+[`github.com/google/go-cmp`](https://github.com/google/go-cmp)
+(license: [BSD-3-Clause](https://pkg.go.dev/github.com/google/go-cmp/cmp?tab=licenses))
+is the only [third-party dependency](go.mod).

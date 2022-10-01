@@ -1,4 +1,4 @@
-// Package f contains the most useful fluent assertion functions.
+// Package f contains the most useful type-safe fluent assertion functions.
 //
 // It also provides the FailureMessage type which you can use
 // for creating your own fluent assertions.

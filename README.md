@@ -1,6 +1,6 @@
 # FluentAssert
 
-> Extensible fluent API for assertions.
+> Extensible, type-safe, fluent assertion Go library.
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/pellared/fluentassert.svg)](https://pkg.go.dev/github.com/pellared/fluentassert)
 [![Keep a Changelog](https://img.shields.io/badge/changelog-Keep%20a%20Changelog-%23E05735)](CHANGELOG.md)
@@ -12,108 +12,82 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/pellared/fluentassert)](https://goreportcard.com/report/github.com/pellared/fluentassert)
 [![Codecov](https://codecov.io/gh/pellared/fluentassert/branch/main/graph/badge.svg)](https://codecov.io/gh/pellared/fluentassert)
 
-## Motivation
+Please ⭐ `Star` this repository if you find it valuable and worth maintaining.
 
-I always had trouble what parameter should go first and which once second.
-Having a Fluent API makes it more obvious and easier to use
-([more](https://dave.cheney.net/2019/09/24/be-wary-of-functions-which-take-several-parameters-of-the-same-type)).
+## Description
 
-**FluentAssert** encourages to add an additional
-[assertion message](http://xunitpatterns.com/Assertion%20Message.html)
-as suggested in
-[Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments#useful-test-failures).
+The fluent API makes the assertion code easier
+to read and write ([more](https://dave.cheney.net/2019/09/24/be-wary-of-functions-which-take-several-parameters-of-the-same-type)).
 
-The API takes advantage of generics to make the API more type-safe.
+The generics (type parameters) make the usage type-safe.
 
-`Star` this repository if you find it valuable and worth maintaining.
+The library is [extensible](#custom-assertions).
 
 ## Quick start
 
 ```go
-func TestFoo(t *testing.T) {
-	got, err := Foo()
-	f.ErrorRequire(t, err).Nil("should be no error") // works like t.Fatalf, stops execution if fails
-	
-	f.Assert(t, got).Eq(1.23, "should return proper value") // works like t.Errorf, continues execution if fails
-	f.OrderedAssert(t, got).Gt(1, "should be greater than 1") // this will fail
+package test
+
+import (
+	"testing"
+
+	"github.com/pellared/fluentassert/f"
+)
+
+type A struct {
+	Str   string
+	Bool  bool
+	Slice []int
 }
 
-func Foo() (float64, error) {
-	return 1.23, nil
+func Foo() (A, error) {
+	return A{Str: "wrong", Slice: []int{1, 4}}, nil
+}
+
+func TestFoo(t *testing.T) {
+	got, err := Foo()
+	f.Obj(err).Zero().Require(t, "should be no error") // uses t.Fatal, stops execution if fails
+	f.Obj(got).DeepEqual(
+		A{Str: "string", Bool: true, Slice: []int{1, 2}},
+	).Assert(t) // uses t.Error, continues execution if fails
 }
 ```
 
 ```sh
 $ go test
 --- FAIL: TestFoo (0.00s)
-    assert_test.go:14: should be greater than 1
-        got: 1.23
-        want greater than: 2
+    foo_test.go:24:
+        mismatch (-want +got):
+          test.A{
+        -       Str:  "string",
+        +       Str:  "wrong",
+        -       Bool: true,
+        +       Bool: false,
+                Slice: []int{
+                        1,
+        -               2,
+        +               4,
+                },
+          }
 ```
 
-## Extensibility
+## Custom assertions
 
-### Using `Should` method
+You can take advantage of the `f.FailureMessage` and `f.Fluent*` types
+to create your own fluent assertions.
 
-```go
-func Test(t *testing.T) {
-	got := errors.New("some error")
-
-	f.Assert(t, got).Should(BeError(), "should return an error")
-}
-
-func BeError() func(got interface{}) string {
-	return func(got interface{}) string {
-		if _, ok := got.(error); ok {
-			return ""
-		}
-		return fmt.Sprintf("got: %+v\nshould be an error", got)
-	}
-}
-```
-
-### Using type embedding
-
-```go
-func Test(t *testing.T) {
-	got := errors.New("some error")
-
-	Assert(t, got).Eq("", "should return nothing")
-	Assert(t, err).IsError("", "should return an error")
-}
-
-type Assertion struct {
-	f.Assertion
-}
-
-func Assert(t testing.TB, got interface{}) Assertion {
-	return Assertion{f.Assert(t, got)}
-}
-
-func Require(t testing.TB, got interface{}) Assertion {
-	return Assertion{f.Require(t, got)}
-}
-
-func (a Assertion) IsError(msg string, args ...interface{}) bool {
-	a.T.Helper()
-	return a.Should(beError(), msg, args...)
-}
-
-func beError() func(got interface{}) string {
-	return func(got interface{}) string {
-		if _, ok := got.(error); ok {
-			return ""
-		}
-		return fmt.Sprintf("got: %+v\nshould be an error", got)
-	}
-}
-```
+For reference, take a look at the implementation
+of existing fluent assertions in this repository
+(for example [comparable.go](f/comparable.go)).
 
 ## Contributing
 
-I am open to any feedback and contribution.
+Feel free to create an issue or propose a pull request.
 
-Use [Discussions](https://github.com/pellared/fluentassert/discussions)
-or write to me: *Robert Pajak* @ [Gophers Slack](https://invite.slack.golangbridge.org/).
+### Developing
 
-You can also create an issue or a pull request.
+Run `./goyek.sh` (Bash) or `.\goyek.ps1` (PowerShell)
+to execute the build pipeline.
+
+The repository contains confiugration for
+[Visual Studio Code](https://code.visualstudio.com/).

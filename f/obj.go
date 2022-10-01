@@ -18,8 +18,8 @@ func (x FluentObj[T]) Should(fn func(got T) string) FailureMessage {
 }
 
 // DeepEq uses github.com/google/go-cmp/cmp for comparing objects.
-func (x FluentObj[T]) DeepEq(want T) FailureMessage {
-	diff := cmp.Diff(want, x.Got)
+func (x FluentObj[T]) DeepEq(want T, opts ...cmp.Option) FailureMessage {
+	diff := cmp.Diff(want, x.Got, opts...)
 	if diff == "" {
 		return ""
 	}

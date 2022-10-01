@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/goyek/goyek"
 	"github.com/mattn/go-shellwords"
 )
@@ -16,9 +19,10 @@ func flow() *goyek.Flow {
 
 	test := flow.Register(taskTest())
 	lint := flow.Register(taskLint())
+	markdownlint := flow.Register(taskMarkdownLint())
 	misspell := flow.Register(taskMisspell())
 	all := flow.Register(taskAll(goyek.Deps{
-		test, lint, misspell,
+		test, lint, markdownlint, misspell,
 	}))
 
 	flow.DefaultTask = all
@@ -42,6 +46,24 @@ func taskLint() goyek.Task {
 		Action: func(tf *goyek.TF) {
 			Exec(tf, buildDir, "go install github.com/golangci/golangci-lint/cmd/golangci-lint")
 			Exec(tf, "", "golangci-lint run")
+		},
+	}
+}
+
+func taskMarkdownLint() goyek.Task {
+	return goyek.Task{
+		Name:  "markdownlint",
+		Usage: "markdownlint-cli (requires docker)",
+		Action: func(tf *goyek.TF) {
+			curDir, err := os.Getwd()
+			if err != nil {
+				tf.Fatal(err)
+			}
+			dockerTag := "markdownlint-cli"
+			buildCmd := fmt.Sprintf("docker build -t %s -f build/markdownlint-cli.dockerfile .", dockerTag)
+			Exec(tf, "", buildCmd)
+			runCmd := fmt.Sprintf("docker run --rm -v %s:/workdir %s *.md", curDir, dockerTag)
+			Exec(tf, "", runCmd)
 		},
 	}
 }

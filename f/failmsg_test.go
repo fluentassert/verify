@@ -6,7 +6,6 @@ import (
 	"github.com/pellared/fluentassert/f"
 )
 
-//nolint:dupl // to have readable test code
 func TestFailureMessage(t *testing.T) {
 	t.Run("Assert", func(t *testing.T) {
 		t.Run("Empty", func(t *testing.T) {

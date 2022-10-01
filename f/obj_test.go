@@ -13,22 +13,22 @@ func TestObj(t *testing.T) {
 		Slice []int
 	}
 
-	t.Run("DeepEq", func(t *testing.T) {
+	t.Run("DeepEqual", func(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
 			want := A{Str: "string", Bool: true, Slice: []int{1, 2, 3}}
 			got := A{Str: "string", Bool: true, Slice: []int{1, 2, 3}}
-			msg := f.Obj(got).DeepEq(want)
+			msg := f.Obj(got).DeepEqual(want)
 			assertPassed(t, msg)
 		})
 		t.Run("Failed", func(t *testing.T) {
 			want := A{Str: "string", Bool: true, Slice: []int{1, 2, 3}}
 			got := A{Str: "wrong", Bool: true, Slice: []int{1, 3}}
-			msg := f.Obj(got).DeepEq(want)
+			msg := f.Obj(got).DeepEqual(want)
 			assertFailed(t, msg, "mismatch (-want +got):\n")
 		})
 		t.Run("nil", func(t *testing.T) {
 			var got *A
-			msg := f.Obj(got).DeepEq(nil)
+			msg := f.Obj(got).DeepEqual(nil)
 			assertPassed(t, msg)
 		})
 	})
@@ -37,18 +37,18 @@ func TestObj(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
 			want := A{Str: "string", Bool: true, Slice: []int{1, 2, 3}}
 			got := A{Str: "wrong", Bool: true, Slice: []int{1, 3}}
-			msg := f.Obj(got).NotDeepEq(want)
+			msg := f.Obj(got).NotDeepEqual(want)
 			assertPassed(t, msg)
 		})
 		t.Run("Failed", func(t *testing.T) {
 			want := A{Str: "string", Bool: true, Slice: []int{1, 2, 3}}
 			got := A{Str: "string", Bool: true, Slice: []int{1, 2, 3}}
-			msg := f.Obj(got).NotDeepEq(want)
+			msg := f.Obj(got).NotDeepEqual(want)
 			assertFailed(t, msg, "the objects are equal")
 		})
 		t.Run("nil", func(t *testing.T) {
 			var got *A
-			msg := f.Obj(got).NotDeepEq(nil)
+			msg := f.Obj(got).NotDeepEqual(nil)
 			assertFailed(t, msg, "the objects are equal")
 		})
 	})

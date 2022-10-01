@@ -33,8 +33,8 @@ func (x FluentObj[T]) ShouldNot(fn func(got T) bool) FailureMessage {
 	return "object meets the predicate criteria"
 }
 
-// DeepEq tests of the objects are deep equal using github.com/google/go-cmp/cmp.
-func (x FluentObj[T]) DeepEq(want T, opts ...cmp.Option) FailureMessage {
+// DeepEqual tests of the objects are deep equal using github.com/google/go-cmp/cmp.
+func (x FluentObj[T]) DeepEqual(want T, opts ...cmp.Option) FailureMessage {
 	diff := cmp.Diff(want, x.Got, opts...)
 	if diff == "" {
 		return ""
@@ -42,8 +42,8 @@ func (x FluentObj[T]) DeepEq(want T, opts ...cmp.Option) FailureMessage {
 	return FailureMessage("mismatch (-want +got):\n" + diff)
 }
 
-// NotDeepEq tests of the objects are not deep equal using github.com/google/go-cmp/cmp.
-func (x FluentObj[T]) NotDeepEq(want T, opts ...cmp.Option) FailureMessage {
+// NotDeepEqual tests of the objects are not deep equal using github.com/google/go-cmp/cmp.
+func (x FluentObj[T]) NotDeepEqual(want T, opts ...cmp.Option) FailureMessage {
 	ok := cmp.Equal(want, x.Got, opts...)
 	if !ok {
 		return ""

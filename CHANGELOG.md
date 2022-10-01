@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add `Eventually` and `EventuallyContext` asynchronous assertion functions.
+- Add `Eventually` and `EventuallyContext` asynchronous assertions.
+- Add `Panics` and `NotPanics` function assertions.
 
 ## [0.2.0](https://github.com/pellared/fluentassert/releases/tag/v0.2.0) - 2022-10-01
 

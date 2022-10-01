@@ -1,4 +1,4 @@
-# FluentAssert
+# fluentassert
 
 > Extensible, type-safe, fluent assertion Go library.
 

@@ -201,7 +201,7 @@ type A struct {
 	Ok  bool
 }
 
-func TestSlice(t *testing.T) {
+func TestCustom(t *testing.T) {
 	got := A{Str: "something was wrong"}
 
 	verifyA(got).Assert(t)
@@ -221,7 +221,7 @@ func verifyA(got A) verify.FailureMessage {
 
 ```sh
 $ go test
---- FAIL: TestSlice (0.00s)
+--- FAIL: TestCustom (0.00s)
     custom_test.go:17:
         got.String assertion:
         the value does not contain the substring

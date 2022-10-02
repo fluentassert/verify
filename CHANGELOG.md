@@ -15,17 +15,19 @@ There is a minor breaking change in the `Check` method signature.
 ### Added
 
 - Add `Eventually` and `EventuallyContext` asynchronous assertions.
-- Add `Panics` and `NotPanics` function assertions.
 - Add `Ordered[T constraints.Ordered](got T)` function which provides following assertion
   in addition to `Comparable(got T)`:
   - `Lesser(than T)`
   - `LesserOrEqual(than T)`
   - `GreaterOrEqual(than T)`
   - `Greater(than T)`
-- Add `String[T ~string](got T)` function which provides following assertion
+- Add `String[T ~string](got T)` function which provides following assertions
   in addition to `Ordered(got T)`:
   - `Contains(substr string)`
   - `NotContains(substr string)`
+- Add `Func[T ~func()](got T)` function which provides following assertions:
+  - `Panics()`
+  - `NotPanic()`
 
 ### Changed
 

@@ -14,20 +14,24 @@ There is a minor breaking change in the `Check` method signature.
 
 ### Added
 
-- Add `Eventually` and `EventuallyContext` asynchronous assertions.
-- Add `Ordered[T constraints.Ordered](got T)` function which provides following assertion
-  in addition to `Comparable(got T)`:
-  - `Lesser(than T)`
-  - `LesserOrEqual(than T)`
-  - `GreaterOrEqual(than T)`
-  - `Greater(than T)`
-- Add `String[T ~string](got T)` function which provides following assertions
-  in addition to `Ordered(got T)`:
-  - `Contains(substr string)`
-  - `NotContains(substr string)`
-- Add `Func[T ~func()](got T)` function which provides following assertions:
-  - `Panics()`
-  - `NotPanic()`
+- Add `Ordered` function which provides following assertions,
+  in addition to `Comparable`, via `FluentOrdered` type:
+  - `Lesser`
+  - `LesserOrEqual`
+  - `GreaterOrEqual`
+  - `Greater`
+- Add `String` function which provides following assertions,
+  in addition to `Ordered`, via `FluentString` type:
+  - `Contain`
+  - `NotContain`
+- Add `Func` function which provides following assertions
+  via `FluentFunc` type:
+  - `Panics`
+  - `NotPanic`
+- Add `Async` and `Periodic` functions which provides following assertions
+  via `FluentAsync` and `FluentPeriodic` types:
+  - `Eventually`
+  - `EventuallyContext`
 
 ### Changed
 
@@ -45,6 +49,8 @@ The new API is type-safe and easier to extend.
 It is highly probable that future releases will have no (or minimal)
 breaking changes.
 
+The release provides assertions for `any`, `comparable`.
+
 The next release is supposed to provide assertions for
 `constraints.Ordered`, `string`, `error`, `[]T`, `map[K]V`, `func()`.
 
@@ -52,18 +58,19 @@ The next release is supposed to provide assertions for
 
 - Add `FailureMessage` which encapsulates the failure message
   and methods for error reporting.
-- Add `Obj[T any](got T)` function which provides following assertions:
-  - `Check(fn func(got T) string)`
-  - `Should(pred func(got T) bool)`
-  - `ShouldNot(pred func(got T) bool)`
-  - `DeepEqual(want T, opts ...cmp.Option)`
-  - `NotDeepEqual(obj T, opts ...cmp.Option)`
-  - `Zero()`
-  - `NonZero()`
-- Add `Comparable[T comparable](got T)` function which provides following assertions
-  in addition to `Obj(got T)`:
-  - `Equal(want T)`
-  - `NotEqual(obj T)`
+- Add `Obj` function which provides following assertions
+  via `FluentObject` type:
+  - `Check`
+  - `Should`
+  - `ShouldNot`
+  - `DeepEqual`
+  - `NotDeepEqual`
+  - `Zero`
+  - `NonZero`
+- Add `Comparable` function which provides following assertions,
+  in addition to `Obj`, via `FluentComparable` type:
+  - `Equal`
+  - `NotEqual`
 
 ### Changed
 

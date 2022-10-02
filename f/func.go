@@ -2,12 +2,12 @@ package f
 
 // FluentFunc encapsulates assertions for func().
 type FluentFunc[T ~func()] struct {
-	Got T
+	Fn T
 }
 
 // Func is used for testing func().
-func Func[T ~func()](got T) FluentFunc[T] {
-	return FluentFunc[T]{got}
+func Func[T ~func()](fn T) FluentFunc[T] {
+	return FluentFunc[T]{fn}
 }
 
 // Panics tests if the function panics when executed.
@@ -17,7 +17,7 @@ func (x FluentFunc[T]) Panics() (msg FailureMessage) {
 			msg = "the function returned instead of panicking"
 		}
 	}()
-	x.Got()
+	x.Fn()
 	return
 }
 
@@ -28,6 +28,6 @@ func (x FluentFunc[T]) NotPanics() (msg FailureMessage) {
 			msg = "the function panicked"
 		}
 	}()
-	x.Got()
+	x.Fn()
 	return
 }

@@ -9,22 +9,22 @@ import (
 func TestString(t *testing.T) {
 	t.Run("Contains", func(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
-			msg := f.String("text").Contains("ex")
+			msg := f.String("text").Contain("ex")
 			assertPassed(t, msg)
 		})
 		t.Run("Failed", func(t *testing.T) {
-			msg := f.String("text").Contains("asd")
+			msg := f.String("text").Contain("asd")
 			assertFailed(t, msg, "the object does not contain the substring")
 		})
 	})
 
 	t.Run("NotContains", func(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
-			msg := f.String("text").NotContains("asd")
+			msg := f.String("text").NotContain("asd")
 			assertPassed(t, msg)
 		})
 		t.Run("Failed", func(t *testing.T) {
-			msg := f.String("text").NotContains("ex")
+			msg := f.String("text").NotContain("ex")
 			assertFailed(t, msg, "the object contains the substring")
 		})
 	})

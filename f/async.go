@@ -105,3 +105,7 @@ func eventually[TTimerPayload, TTickPayload any](ctx context.Context, timeout <-
 		}
 	}
 }
+
+// TODO: Add Always and AlwaysContext
+
+// TODO: Add Never and NeverContext

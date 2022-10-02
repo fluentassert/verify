@@ -52,7 +52,7 @@ $ go test
 --- FAIL: TestFoo (0.00s)
     basic_test.go:16:
         the object does not contain the substring
-        object: "wrong"
+        got: "wrong"
         substr: "ok"
 ```
 

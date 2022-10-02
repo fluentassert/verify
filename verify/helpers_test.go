@@ -9,9 +9,9 @@ import (
 	"github.com/pellared/fluentassert/verify"
 )
 
-func assertEqual[T any](t *testing.T, got, want T) {
+func assertEqual[T any](t *testing.T, got, want T, opts ...cmp.Option) {
 	t.Helper()
-	if diff := cmp.Diff(want, got); diff != "" {
+	if diff := cmp.Diff(want, got, opts...); diff != "" {
 		t.Errorf("mismatch (-want +got):\n%s", diff)
 	}
 }

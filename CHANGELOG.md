@@ -26,6 +26,15 @@ The release provides assertions for
   in addition to `Ordered`, via `FluentString` type:
   - `Contain`
   - `NotContain`
+- Add `Error` function which provides following assertions,
+  in addition to `Any` and `String` (for error message),
+  via `FluentObj` and `FluentString` types:
+  - `Is`
+  - `IsNot`
+  - `As`
+  - `NotAs`
+  - `WithWrapped`
+  - `NoWrapped`
 - Add `Func` function which provides following assertions
   via `FluentFunc` type:
   - `Panics`

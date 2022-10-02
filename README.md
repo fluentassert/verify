@@ -42,8 +42,8 @@ func Foo() (string, error) {
 
 func TestFoo(t *testing.T) {
 	got, err := Foo()
-	f.Obj(err).Zero().Require(t, "should be no error") // Require(f) uses t.Fatal(f), stops execution if fails
-	f.String(got).Contains("ok").Assert(t)             // Assert(f) uses t.Error(f), continues execution if fails
+	f.Error(err).Nil().Require(t) 		   // Require(f) uses t.Fatal(f), stops execution if fails
+	f.String(got).Contains("ok").Assert(t) // Assert(f) uses t.Error(f), continues execution if fails
 }
 ```
 
@@ -100,6 +100,46 @@ $ go test
           }
 ```
 
+### Complex collection assertion
+
+```go
+package test
+
+import (
+	"testing"
+
+	"github.com/pellared/fluentassert/f"
+)
+
+type A struct {
+	Str string
+	Num int
+}
+
+func TestSlice(t *testing.T) {
+	got := []A {
+		{Str: "ok - went great", Num: 2},
+		{Str: "something was wrong", Num: -3},
+	}
+
+	f.Slice(got).All(func(elem A) f.FailureMessage {
+		var msg f.FailureMessage
+		msg.Merge("string should inidcate OK",
+			f.String(elem.Str).Prefix("ok")
+		)
+		msg.Merge("number should be positive",
+			f.Number(elem.Num).Greater(0)
+		)
+		return msg
+	}).Assert(t)
+}
+```
+
+```sh
+$ go test
+TODO
+```
+
 ### Asynchronous assertion
 
 ```go
@@ -120,7 +160,7 @@ func TestAsync(t *testing.T) {
 		if err != nil {
 			return f.FailureMessage(err.Error())
 		}
-		return f.Obj(resp.StatusCode).DeepEqual(http.StatusOK)
+		return f.Number(resp.StatusCode).Lesser(300)
 	}).Eventually().Assert(t)
 }
 ```

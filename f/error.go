@@ -2,6 +2,10 @@ package f
 
 // TODO: type embed comparable (err) and string (err.String())
 
+// TODO: NotNil
+
+// TODO: Nil
+
 // TODO: Is
 
 // TODO: IsNot

@@ -58,3 +58,14 @@ func (msg FailureMessage) Requiref(t interface {
 	t.Fatalf(format+"%s", append(args, "\n"+string(msg))...)
 	return false
 }
+
+// Merge accumalates a non-empty failure message.
+func (msg FailureMessage) Merge(header string, failureMessage FailureMessage) FailureMessage {
+	if failureMessage == "" {
+		return msg
+	}
+	if msg == "" {
+		return FailureMessage(header) + "\n" + failureMessage
+	}
+	return msg + "\n\n" + FailureMessage(header) + "\n" + failureMessage
+}

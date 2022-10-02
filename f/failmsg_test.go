@@ -126,6 +126,25 @@ func TestFailureMessage(t *testing.T) {
 			})
 		})
 	})
+
+	t.Run("Merge", func(t *testing.T) {
+		t.Run("BothEmpty", func(t *testing.T) {
+			var first, second f.FailureMessage
+			got := first.Merge("assertion", second)
+			assertPassed(t, got)
+		})
+		t.Run("ArgIsNotEmpty", func(t *testing.T) {
+			var msg f.FailureMessage
+			got := msg.Merge("assertion", f.FailureMessage("failure"))
+			assertFailed(t, got, "assertion\nfailure")
+		})
+		t.Run("NoneIsEmpty", func(t *testing.T) {
+			var msg f.FailureMessage
+			msg = msg.Merge("first", f.FailureMessage("error"))
+			got := msg.Merge("second", f.FailureMessage("failure"))
+			assertFailed(t, got, "first\nerror\n\nsecond\nfailure")
+		})
+	})
 }
 
 type errorMock struct {

@@ -32,6 +32,7 @@ There is a minor breaking change in the `Check` method signature.
   via `FluentAsync` and `FluentPeriodic` types:
   - `Eventually`
   - `EventuallyContext`
+- Add `FailureMessage.Merge` method to to facilitate accumulating failure messages.
 
 ### Changed
 

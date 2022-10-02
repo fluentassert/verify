@@ -60,12 +60,13 @@ func (msg FailureMessage) Requiref(t interface {
 }
 
 // Merge accumalates a non-empty failure message.
-func (msg FailureMessage) Merge(header string, failureMessage FailureMessage) FailureMessage {
+func (msg *FailureMessage) Merge(header string, failureMessage FailureMessage) {
 	if failureMessage == "" {
-		return msg
+		return
 	}
-	if msg == "" {
-		return FailureMessage(header) + "\n" + failureMessage
+	if *msg == "" {
+		*msg = FailureMessage(header) + "\n" + failureMessage
+		return
 	}
-	return msg + "\n\n" + FailureMessage(header) + "\n" + failureMessage
+	*msg = *msg + "\n\n" + FailureMessage(header) + "\n" + failureMessage
 }

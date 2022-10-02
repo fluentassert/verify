@@ -125,10 +125,10 @@ func TestSlice(t *testing.T) {
 	verify.Slice(got).All(func(elem A) verify.FailureMessage {
 		var msg verify.FailureMessage
 		msg.Merge("string should inidcate OK",
-			verify.String(elem.Str).Prefix("ok")
+			verify.String(elem.Str).Prefix("ok"),
 		)
 		msg.Merge("number should be positive",
-			verify.Number(elem.Num).Greater(0)
+			verify.Number(elem.Num).Greater(0),
 		)
 		return msg
 	}).Assert(t)
@@ -176,7 +176,7 @@ $ go test
         got: "Get \"http://not-existing:1234\": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
 ```
 
-## Custom assertions
+### Custom assertions
 
 You can take advantage of the `verify.FailureMessage` and `verify.Fluent*` types
 to create your own fluent assertions.
@@ -185,7 +185,54 @@ For reference, take a look at the implementation
 of existing fluent assertions in this repository
 (for example [comparable.go](f/comparable.go)).
 
-### Supported Go versions
+For simple cases, you can simply prepare a function that returns `FailureMessage`:
+
+```go
+package test
+
+import (
+	"testing"
+
+	"github.com/pellared/fluentassert/verify"
+)
+
+type A struct {
+	Str string
+	Ok  bool
+}
+
+func TestSlice(t *testing.T) {
+	got := A{Str: "something was wrong"}
+
+	verifyA(got).Assert(t)
+}
+
+func verifyA(got A) verify.FailureMessage {
+	var msg verify.FailureMessage
+	msg.Merge("got.String assertion:",
+		verify.String(got.Str).Contain("ok"),
+	)
+	msg.Merge("got.Ok assertion:",
+		verify.True(got.Ok),
+	)
+	return msg
+}
+```
+
+```sh
+$ go test
+--- FAIL: TestSlice (0.00s)
+    custom_test.go:17:
+        got.String assertion:
+        the value does not contain the substring
+        got: "something was wrong"
+        substr: "ok"
+
+        got.Ok assertion:
+        the value is false
+```
+
+## Supported Go versions
 
 Minimal supported Go version is 1.18.
 

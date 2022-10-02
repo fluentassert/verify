@@ -130,19 +130,19 @@ func TestFailureMessage(t *testing.T) {
 	t.Run("Merge", func(t *testing.T) {
 		t.Run("BothEmpty", func(t *testing.T) {
 			var first, second verify.FailureMessage
-			got := first.Merge("assertion", second)
-			assertPassed(t, got)
+			first.Merge("assertion", second)
+			assertPassed(t, first)
 		})
 		t.Run("ArgIsNotEmpty", func(t *testing.T) {
 			var msg verify.FailureMessage
-			got := msg.Merge("assertion", verify.FailureMessage("failure"))
-			assertFailed(t, got, "assertion\nfailure")
+			msg.Merge("assertion", verify.FailureMessage("failure"))
+			assertFailed(t, msg, "assertion\nfailure")
 		})
 		t.Run("NoneIsEmpty", func(t *testing.T) {
 			var msg verify.FailureMessage
-			msg = msg.Merge("first", verify.FailureMessage("error"))
-			got := msg.Merge("second", verify.FailureMessage("failure"))
-			assertFailed(t, got, "first\nerror\n\nsecond\nfailure")
+			msg.Merge("first", verify.FailureMessage("error"))
+			msg.Merge("second", verify.FailureMessage("failure"))
+			assertFailed(t, msg, "first\nerror\n\nsecond\nfailure")
 		})
 	})
 }

@@ -12,9 +12,9 @@ func Obj[T any](got T) FluentObj[T] {
 	return FluentObj[T]{got}
 }
 
-// Check tests the object using the provided function
-func (x FluentObj[T]) Check(fn func(got T) string) FailureMessage {
-	return FailureMessage(fn(x.Got))
+// Check tests the object using the provided function.
+func (x FluentObj[T]) Check(fn func(got T) FailureMessage) FailureMessage {
+	return fn(x.Got)
 }
 
 // Should tests if the object meets the predicate criteria.

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/pellared/fluentassert/compare/v0.2.0...HEAD)
 
+The release provides assertions for
+`constraints.Ordered`, `string`, `error`, `[]T`, `map[K]V`, `func()`.
+
+There is a minor breaking change in the `Check` method signature.
+
 ### Added
 
 - Add `Eventually` and `EventuallyContext` asynchronous assertions.
@@ -21,6 +26,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   in addition to `Ordered(got T)`:
   - `Contains(substr string)`
   - `NotContains(substr string)`
+
+### Changed
+
+- Change the `Check` assertion for `any` object so that the
+  provided function has to return `FailureMessage`
+  instead of a `string`.
 
 ## [0.2.0](https://github.com/pellared/fluentassert/releases/tag/v0.2.0) - 2022-10-01
 

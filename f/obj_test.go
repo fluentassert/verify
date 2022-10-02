@@ -91,14 +91,14 @@ func TestObj(t *testing.T) {
 
 	t.Run("Check", func(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
-			fn := func(x A) string {
+			fn := func(x A) f.FailureMessage {
 				return ""
 			}
 			msg := f.Obj(A{}).Check(fn)
 			assertPassed(t, msg)
 		})
 		t.Run("Failed", func(t *testing.T) {
-			fn := func(x A) string {
+			fn := func(x A) f.FailureMessage {
 				return "failure"
 			}
 			msg := f.Obj(A{}).Check(fn)

@@ -33,13 +33,13 @@ func assertFalse(t *testing.T, got bool) {
 func assertPassed(t *testing.T, got verify.FailureMessage) {
 	t.Helper()
 	if got != "" {
-		t.Errorf("should pass; got = %s", string(got))
+		t.Errorf("\nSHOULD PASS; GOT:\n%s", string(got))
 	}
 }
 
 func assertFailed(t *testing.T, got verify.FailureMessage, substr string) {
 	t.Helper()
 	if !strings.Contains(string(got), substr) {
-		t.Errorf("should cointain = %s; got = %s", substr, string(got))
+		t.Errorf("\nSHOULD FAIL AND CONTAIN:\n%sGOT:\n%s", substr, string(got))
 	}
 }

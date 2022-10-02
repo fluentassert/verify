@@ -41,6 +41,8 @@ The release provides assertions for
 - Change the `Check` assertion for `any` object so that the
   provided function has to return `FailureMessage`
   instead of a `string`.
+- `Zero` and `NonZero` methods are moved to `FluentComparable`.
+- Better failure messages.
 
 ## [0.2.0](https://github.com/pellared/fluentassert/releases/tag/v0.2.0) - 2022-10-01
 

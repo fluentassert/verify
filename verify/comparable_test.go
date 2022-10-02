@@ -52,6 +52,42 @@ func TestComparable(t *testing.T) {
 		})
 	})
 
+	t.Run("Zero", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			got := A{}
+			msg := verify.Comparable(got).Zero()
+			assertPassed(t, msg)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			got := A{Str: "wrong"}
+			msg := verify.Comparable(got).Zero()
+			assertFailed(t, msg, "not a zero value\n")
+		})
+		t.Run("nil", func(t *testing.T) {
+			var got *A
+			msg := verify.Comparable(got).Zero()
+			assertPassed(t, msg)
+		})
+	})
+
+	t.Run("NonZero", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			got := A{Str: "string"}
+			msg := verify.Comparable(got).NonZero()
+			assertPassed(t, msg)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			got := A{}
+			msg := verify.Comparable(got).NonZero()
+			assertFailed(t, msg, "a zero value")
+		})
+		t.Run("nil", func(t *testing.T) {
+			var got *A
+			msg := verify.Comparable(got).NonZero()
+			assertFailed(t, msg, "a zero value")
+		})
+	})
+
 	t.Run("has assertions from Obj", func(t *testing.T) {
 		want := A{}
 		got := verify.Comparable(want).FluentObj.Got // type embedding done properly

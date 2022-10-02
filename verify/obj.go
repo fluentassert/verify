@@ -1,6 +1,8 @@
 package verify
 
-import "github.com/google/go-cmp/cmp"
+import (
+	"github.com/google/go-cmp/cmp"
+)
 
 // FluentObj encapsulates assertions for any object.
 type FluentObj[T any] struct {
@@ -49,24 +51,4 @@ func (x FluentObj[T]) NotDeepEqual(obj T, opts ...cmp.Option) FailureMessage {
 		return ""
 	}
 	return FailureMessage("the objects are equal")
-}
-
-// Zero tests if the object is a zero value.
-func (x FluentObj[T]) Zero() FailureMessage {
-	var want T
-	diff := cmp.Diff(want, x.Got)
-	if diff == "" {
-		return ""
-	}
-	return FailureMessage("not a zero value (-want +got):\n" + diff)
-}
-
-// NonZero tests if the object is a non-zero value.
-func (x FluentObj[T]) NonZero() FailureMessage {
-	var want T
-	ok := cmp.Equal(want, x.Got)
-	if !ok {
-		return ""
-	}
-	return FailureMessage("a zero value")
 }

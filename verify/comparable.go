@@ -27,3 +27,21 @@ func (x FluentComparable[T]) NotEqual(obj T) FailureMessage {
 	}
 	return "the objects are equal"
 }
+
+// Zero tests if the object is a zero value.
+func (x FluentComparable[T]) Zero() FailureMessage {
+	var want T
+	if want == x.Got {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("not a zero value\ngot: %#v", x.Got))
+}
+
+// NonZero tests if the object is a non-zero value.
+func (x FluentComparable[T]) NonZero() FailureMessage {
+	var want T
+	if want != x.Got {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("not a zero value\ngot: %#v", x.Got))
+}

@@ -1,4 +1,4 @@
-package f
+package verify
 
 import "github.com/google/go-cmp/cmp"
 

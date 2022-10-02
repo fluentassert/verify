@@ -1,4 +1,4 @@
-package f
+package verify
 
 // FluentFunc encapsulates assertions for func().
 type FluentFunc[T ~func()] struct {

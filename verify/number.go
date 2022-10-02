@@ -1,4 +1,4 @@
-package f
+package verify
 
 // TODO: type embed ordered
 

@@ -1,4 +1,4 @@
-package f
+package verify
 
 // FluentComparable encapsulates assertions for comparable object.
 type FluentComparable[T comparable] struct {

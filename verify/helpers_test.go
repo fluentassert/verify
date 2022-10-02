@@ -1,4 +1,4 @@
-package f_test
+package verify_test
 
 import (
 	"strings"
@@ -6,7 +6,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 
-	"github.com/pellared/fluentassert/f"
+	"github.com/pellared/fluentassert/verify"
 )
 
 func assertEqual[T any](t *testing.T, got, want T) {
@@ -30,14 +30,14 @@ func assertFalse(t *testing.T, got bool) {
 	}
 }
 
-func assertPassed(t *testing.T, got f.FailureMessage) {
+func assertPassed(t *testing.T, got verify.FailureMessage) {
 	t.Helper()
 	if got != "" {
 		t.Errorf("should pass; got = %s", string(got))
 	}
 }
 
-func assertFailed(t *testing.T, got f.FailureMessage, substr string) {
+func assertFailed(t *testing.T, got verify.FailureMessage, substr string) {
 	t.Helper()
 	if !strings.Contains(string(got), substr) {
 		t.Errorf("should cointain = %s; got = %s", substr, string(got))

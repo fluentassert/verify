@@ -7,10 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/pellared/fluentassert/compare/v0.2.0...HEAD)
 
+This release contains breaking changes.
+The `f` package has been renamed to `verify`.
+
 The release provides assertions for
 `constraints.Ordered`, `string`, `error`, `[]T`, `map[K]V`, `func()`.
-
-There is a minor breaking change in the `Check` method signature.
 
 ### Added
 
@@ -36,6 +37,7 @@ There is a minor breaking change in the `Check` method signature.
 
 ### Changed
 
+- The `f` package is renamed to `verify`.
 - Change the `Check` assertion for `any` object so that the
   provided function has to return `FailureMessage`
   instead of a `string`.

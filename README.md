@@ -33,7 +33,7 @@ package test
 import (
 	"testing"
 
-	"github.com/pellared/fluentassert/f"
+	"github.com/pellared/fluentassert/verify"
 )
 
 func Foo() (string, error) {
@@ -42,8 +42,8 @@ func Foo() (string, error) {
 
 func TestFoo(t *testing.T) {
 	got, err := Foo()
-	f.Error(err).Nil().Require(t) 		   // Require(f) uses t.Fatal(f), stops execution if fails
-	f.String(got).Contains("ok").Assert(t) // Assert(f) uses t.Error(f), continues execution if fails
+	verify.Error(err).Nil().Require(t) 		   // Require(f) uses t.Fatal(f), stops execution if fails
+	verify.String(got).Contains("ok").Assert(t) // Assert(f) uses t.Error(f), continues execution if fails
 }
 ```
 
@@ -64,7 +64,7 @@ package test
 import (
 	"testing"
 
-	"github.com/pellared/fluentassert/f"
+	"github.com/pellared/fluentassert/verify"
 )
 
 type A struct {
@@ -76,7 +76,7 @@ type A struct {
 func TestDeepEqual(t *testing.T) {
 	got := A{Str: "wrong", Slice: []int{1, 4}}
 
-	f.Obj(got).DeepEqual(
+	verify.Obj(got).DeepEqual(
 		A{Str: "string", Bool: true, Slice: []int{1, 2}},
 	).Assert(t)
 }
@@ -108,7 +108,7 @@ package test
 import (
 	"testing"
 
-	"github.com/pellared/fluentassert/f"
+	"github.com/pellared/fluentassert/verify"
 )
 
 type A struct {
@@ -122,13 +122,13 @@ func TestSlice(t *testing.T) {
 		{Str: "something was wrong", Num: -3},
 	}
 
-	f.Slice(got).All(func(elem A) f.FailureMessage {
-		var msg f.FailureMessage
+	verify.Slice(got).All(func(elem A) verify.FailureMessage {
+		var msg verify.FailureMessage
 		msg.Merge("string should inidcate OK",
-			f.String(elem.Str).Prefix("ok")
+			verify.String(elem.Str).Prefix("ok")
 		)
 		msg.Merge("number should be positive",
-			f.Number(elem.Num).Greater(0)
+			verify.Number(elem.Num).Greater(0)
 		)
 		return msg
 	}).Assert(t)
@@ -150,17 +150,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pellared/fluentassert/f"
+	"github.com/pellared/fluentassert/verify"
 )
 
 func TestAsync(t *testing.T) {
-	f.Periodic(10*time.Second, time.Second, func() f.FailureMessage {
+	verify.Periodic(10*time.Second, time.Second, func() verify.FailureMessage {
 		client := http.Client{Timeout: time.Second}
 		resp, err := client.Get("http://not-existing:1234")
 		if err != nil {
-			return f.FailureMessage(err.Error())
+			return verify.FailureMessage(err.Error())
 		}
-		return f.Number(resp.StatusCode).Lesser(300)
+		return verify.Number(resp.StatusCode).Lesser(300)
 	}).Eventually().Assert(t)
 }
 ```
@@ -177,7 +177,7 @@ $ go test
 
 ## Custom assertions
 
-You can take advantage of the `f.FailureMessage` and `f.Fluent*` types
+You can take advantage of the `verify.FailureMessage` and `verify.Fluent*` types
 to create your own fluent assertions.
 
 For reference, take a look at the implementation

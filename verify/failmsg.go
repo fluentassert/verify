@@ -1,4 +1,4 @@
-package f
+package verify
 
 // FailureMessage encapsulates failure message
 // that can by emitted using objects compatible

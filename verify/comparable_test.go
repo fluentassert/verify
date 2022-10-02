@@ -1,9 +1,9 @@
-package f_test
+package verify_test
 
 import (
 	"testing"
 
-	"github.com/pellared/fluentassert/f"
+	"github.com/pellared/fluentassert/verify"
 )
 
 func TestComparable(t *testing.T) {
@@ -16,18 +16,18 @@ func TestComparable(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
 			want := A{Str: "string", Bool: true}
 			got := A{Str: "string", Bool: true}
-			msg := f.Comparable(got).Equal(want)
+			msg := verify.Comparable(got).Equal(want)
 			assertPassed(t, msg)
 		})
 		t.Run("Failed", func(t *testing.T) {
 			want := A{Str: "string", Bool: true}
 			got := A{Str: "wrong", Bool: true}
-			msg := f.Comparable(got).Equal(want)
+			msg := verify.Comparable(got).Equal(want)
 			assertFailed(t, msg, "the objects are not equal")
 		})
 		t.Run("nil", func(t *testing.T) {
 			var got *A
-			msg := f.Comparable(got).Equal(nil)
+			msg := verify.Comparable(got).Equal(nil)
 			assertPassed(t, msg)
 		})
 	})
@@ -36,25 +36,25 @@ func TestComparable(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
 			want := A{Str: "string", Bool: true}
 			got := A{Str: "wrong", Bool: true}
-			msg := f.Comparable(got).NotEqual(want)
+			msg := verify.Comparable(got).NotEqual(want)
 			assertPassed(t, msg)
 		})
 		t.Run("Failed", func(t *testing.T) {
 			want := A{Str: "string", Bool: true}
 			got := A{Str: "string", Bool: true}
-			msg := f.Comparable(got).NotEqual(want)
+			msg := verify.Comparable(got).NotEqual(want)
 			assertFailed(t, msg, "the objects are equal")
 		})
 		t.Run("nil", func(t *testing.T) {
 			var got *A
-			msg := f.Comparable(got).NotEqual(nil)
+			msg := verify.Comparable(got).NotEqual(nil)
 			assertFailed(t, msg, "the objects are equal")
 		})
 	})
 
 	t.Run("has assertions from Obj", func(t *testing.T) {
 		want := A{}
-		got := f.Comparable(want).FluentObj.Got // type embedding done properly
+		got := verify.Comparable(want).FluentObj.Got // type embedding done properly
 		assertEqual(t, got, want)
 	})
 }

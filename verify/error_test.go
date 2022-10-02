@@ -9,6 +9,17 @@ import (
 	"github.com/pellared/fluentassert/verify"
 )
 
+func TestNoError(t *testing.T) {
+	t.Run("Passed", func(t *testing.T) {
+		got := verify.NoError(nil)
+		assertPassed(t, got)
+	})
+	t.Run("Failed", func(t *testing.T) {
+		got := verify.NoError(errors.New("some error"))
+		assertFailed(t, got, "non-nil error:\nsome error")
+	})
+}
+
 func TestError(t *testing.T) {
 	t.Run("has assertions from Obj", func(t *testing.T) {
 		want := errors.New("an error")

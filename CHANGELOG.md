@@ -15,7 +15,7 @@ The release provides assertions for
 
 ### Added
 
-- Add `True` and `False` assertion functions.
+- Add `True`, `False`, `NoError` assertion functions.
 - Add `Ordered` function which provides following assertions,
   in addition to `Comparable`, via `FluentOrdered` type:
   - `Lesser`

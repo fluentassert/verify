@@ -42,8 +42,8 @@ func Foo() (string, error) {
 
 func TestFoo(t *testing.T) {
 	got, err := Foo()
-	verify.Error(err).Nil().Require(t) 		   // Require(f) uses t.Fatal(f), stops execution if fails
-	verify.String(got).Contains("ok").Assert(t) // Assert(f) uses t.Error(f), continues execution if fails
+	verify.Error(err).Nil().Require(t)       // Require(f) uses t.Fatal(f), stops execution if fails
+	verify.String(got).Equal("ok").Assert(t) // Assert(f) uses t.Error(f), continues execution if fails
 }
 ```
 
@@ -51,9 +51,9 @@ func TestFoo(t *testing.T) {
 $ go test
 --- FAIL: TestFoo (0.00s)
     basic_test.go:16:
-        the object does not contain the substring
+        the objects are not equal
         got: "wrong"
-        substr: "ok"
+        want: "ok"
 ```
 
 ### Deep equality

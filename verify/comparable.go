@@ -1,5 +1,7 @@
 package verify
 
+import "fmt"
+
 // FluentComparable encapsulates assertions for comparable object.
 type FluentComparable[T comparable] struct {
 	FluentObj[T]
@@ -15,7 +17,7 @@ func (x FluentComparable[T]) Equal(want T) FailureMessage {
 	if x.Got == want {
 		return ""
 	}
-	return "the objects are not equal"
+	return FailureMessage(fmt.Sprintf("the objects are not equal\ngot: %#v\nwant: %#v", x.Got, want))
 }
 
 // NotEqual tests the objects using != operator.

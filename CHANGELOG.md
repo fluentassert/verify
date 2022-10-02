@@ -47,9 +47,6 @@ It is not compatible with the previous release.
 
 The new API is type-safe and easier to extend.
 
-It is highly probable that future releases will have no (or minimal)
-breaking changes.
-
 The release provides assertions for `any`, `comparable`.
 
 The next release is supposed to provide assertions for

@@ -14,7 +14,7 @@ func TestString(t *testing.T) {
 		})
 		t.Run("Failed", func(t *testing.T) {
 			msg := verify.String("text").Contain("asd")
-			assertFailed(t, msg, "the object does not contain the substring")
+			assertFailed(t, msg, "the value does not contain the substring")
 		})
 	})
 
@@ -25,7 +25,7 @@ func TestString(t *testing.T) {
 		})
 		t.Run("Failed", func(t *testing.T) {
 			msg := verify.String("text").NotContain("ex")
-			assertFailed(t, msg, "the object contains the substring")
+			assertFailed(t, msg, "the value contains the substring")
 		})
 	})
 

@@ -24,7 +24,7 @@ func (x FluentString[T]) Contain(substr string) FailureMessage {
 	if strings.Contains(string(x.Got), substr) {
 		return ""
 	}
-	return FailureMessage(fmt.Sprintf("the object does not contain the substring\ngot: \"%s\"\nsubstr: \"%s\"", x.Got, substr))
+	return FailureMessage(fmt.Sprintf("the value does not contain the substring\ngot: \"%s\"\nsubstr: \"%s\"", x.Got, substr))
 }
 
 // NotContain tests if the string does not contain the substring.
@@ -33,7 +33,7 @@ func (x FluentString[T]) NotContain(substr string) FailureMessage {
 		return ""
 	}
 
-	return FailureMessage(fmt.Sprintf("the object contains the substring\ngot: \"%s\"\nsubstr: \"%s\"", x.Got, substr))
+	return FailureMessage(fmt.Sprintf("the value contains the substring\ngot: \"%s\"\nsubstr: \"%s\"", x.Got, substr))
 }
 
 // TODO: Prefix

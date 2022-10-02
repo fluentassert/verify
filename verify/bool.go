@@ -1,5 +1,17 @@
 package verify
 
-// TODO: Add True
+// True tests if the object is a true value.
+func True[T ~bool](got T) FailureMessage {
+	if got {
+		return ""
+	}
+	return "the value is false"
+}
 
-// TODO: Add False
+// False tests if the object is a false value.
+func False[T ~bool](got T) FailureMessage {
+	if !got {
+		return ""
+	}
+	return "the value is true"
+}

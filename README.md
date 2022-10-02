@@ -181,7 +181,7 @@ to create your own fluent assertions.
 
 For reference, take a look at the implementation
 of existing fluent assertions in this repository
-(for example [comparable.go](f/comparable.go)).
+(for example [comparable.go](verify/comparable.go)).
 
 For simple cases, you can simply prepare a function that returns `FailureMessage`:
 

@@ -23,8 +23,6 @@ The generics (type parameters) make the usage type-safe.
 
 The library is [extensible](#custom-assertions).
 
-## Examples
-
 ### Quick start
 
 ```go

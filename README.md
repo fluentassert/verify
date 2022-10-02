@@ -42,7 +42,7 @@ func Foo() (string, error) {
 
 func TestFoo(t *testing.T) {
 	got, err := Foo()
-	verify.Error(err).Zero().Require(t)       // Require(f) uses t.Fatal(f), stops execution if fails
+	verify.Error(err).Zero().Require(t)      // Require(f) uses t.Fatal(f), stops execution if fails
 	verify.String(got).Equal("ok").Assert(t) // Assert(f) uses t.Error(f), continues execution if fails
 }
 ```

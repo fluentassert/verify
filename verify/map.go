@@ -2,18 +2,24 @@ package verify
 
 // TODO: type embed any
 
+// TODO: Empty() FailureMessage
+
+// TODO: NotEmpty() FailureMessage
+
+// TODO: Len(n int) FailureMessage
+
+// TODO: Equal(elements map[K]V) FailureMessage
+
+// TODO: NotEqual(elements map[K]V) FailureMessage
+
 // TODO: Contain(elements map[K]V) FailureMessage
 
 // TODO: NotContain(elements map[K]V) FailureMessage
 
-// TODO: ContainKeys(keys ...K) FailureMessage
+// TODO: ContainKey(keys ...K) FailureMessage
 
-// TODO: NotContainKeys(keys ...K) FailureMessage
+// TODO: NotContainKey(keys ...K) FailureMessage
 
-// TODO: ContainValues(values ...V) FailureMessage
+// TODO: ContainValue(values ...V) FailureMessage
 
-// TODO: NotContainValues(values ...V) FailureMessage
-
-// TODO: All(fn func(k K, v V) FailureMessage) FailureMessage
-
-// TODO: Any(fn func(k K, v V) FailureMessage) FailureMessage
+// TODO: NotContainValue(values ...V) FailureMessage

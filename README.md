@@ -40,6 +40,7 @@ func Foo() (string, error) {
 
 func TestFoo(t *testing.T) {
 	got, err := Foo()
+
 	verify.NoError(err).Require(t)           // Require(f) uses t.Fatal(f), stops execution if fails
 	verify.String(got).Equal("ok").Assert(t) // Assert(f) uses t.Error(f), continues execution if fails
 }
@@ -48,7 +49,7 @@ func TestFoo(t *testing.T) {
 ```sh
 $ go test
 --- FAIL: TestFoo (0.00s)
-    basic_test.go:16:
+    basic_test.go:17:
         the objects are not equal
         got: "wrong"
         want: "ok"
@@ -98,7 +99,7 @@ $ go test
           }
 ```
 
-### Complex collection assertion
+### Collection unordered equality assertion
 
 ```go
 package test
@@ -109,27 +110,10 @@ import (
 	"github.com/pellared/fluentassert/verify"
 )
 
-type A struct {
-	Str string
-	Num int
-}
-
 func TestSlice(t *testing.T) {
-	got := []A {
-		{Str: "ok - went great", Num: 2},
-		{Str: "something was wrong", Num: -3},
-	}
+	got := []int { 3, 1, 2 }
 
-	verify.Slice(got).All(func(elem A) verify.FailureMessage {
-		var msg verify.FailureMessage
-		msg.Merge("string should inidcate OK",
-			verify.String(elem.Str).Prefix("ok"),
-		)
-		msg.Merge("number should be positive",
-			verify.Number(elem.Num).Greater(0),
-		)
-		return msg
-	}).Assert(t)
+	verify.Slice(got).Equivalent([]int { 2, 3, 4 }).Assert(t)
 }
 ```
 

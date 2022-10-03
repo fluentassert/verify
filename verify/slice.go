@@ -2,10 +2,20 @@ package verify
 
 // TODO: type embed any
 
+// TODO: Empty() FailureMessage
+
+// TODO: NotEmpty() FailureMessage
+
+// TODO: Len(n int) FailureMessage
+
+// TODO: Equal(elements []T) FailureMessage
+
+// TODO: NotEqual(elements []T) FailureMessage
+
+// TODO: Equivalent(elements []T) FailureMessage
+
+// TODO: NotEquivalent(elements []T) FailureMessage
+
 // TODO: Contain(elements ...T) FailureMessage
 
 // TODO: NotContain(elements ...T) FailureMessage
-
-// TODO: All(fn func(elem T) FailureMessage) FailureMessage
-
-// TODO: Any(fn func(elem T) FailureMessage) FailureMessage

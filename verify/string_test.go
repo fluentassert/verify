@@ -1,6 +1,7 @@
 package verify_test
 
 import (
+	"regexp"
 	"testing"
 
 	"github.com/pellared/fluentassert/verify"
@@ -92,6 +93,50 @@ func TestString(t *testing.T) {
 		t.Run("Failed", func(t *testing.T) {
 			msg := verify.String("a[ok]").NoSufix("[ok]")
 			assertFailed(t, msg, "the value has the sufix")
+		})
+	})
+
+	t.Run("EqualFold", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			msg := verify.String("aBc").EqualFold("ABC")
+			assertPassed(t, msg)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			msg := verify.String("aBc").EqualFold("aB")
+			assertFailed(t, msg, "the string values are not equal under Unicode case folding")
+		})
+	})
+
+	t.Run("NotEqualFold", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			msg := verify.String("aBc").NotEqualFold("aB")
+			assertPassed(t, msg)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			msg := verify.String("aBc").NotEqualFold("ABC")
+			assertFailed(t, msg, "the string values are equal under Unicode case folding")
+		})
+	})
+
+	t.Run("MatchRegex", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			msg := verify.String("3aD").MatchRegex(regexp.MustCompile("[0-9][a-z][A-Z]"))
+			assertPassed(t, msg)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			msg := verify.String("123").MatchRegex(regexp.MustCompile("[0-9][a-z][A-Z]"))
+			assertFailed(t, msg, "the string value does not match the regular expression")
+		})
+	})
+
+	t.Run("NotMatchRegex", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			msg := verify.String("123").NotMatchRegex(regexp.MustCompile("[0-9][a-z][A-Z]"))
+			assertPassed(t, msg)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			msg := verify.String("3aD").NotMatchRegex(regexp.MustCompile("[0-9][a-z][A-Z]"))
+			assertFailed(t, msg, "the string value matches the regular expression")
 		})
 	})
 

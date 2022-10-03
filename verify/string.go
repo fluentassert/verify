@@ -2,6 +2,7 @@ package verify
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 )
 
@@ -80,10 +81,38 @@ func (x FluentString[T]) NoSufix(sufix string) FailureMessage {
 	return FailureMessage(fmt.Sprintf("the value has the sufix\ngot: \"%s\"\nsufix: \"%s\"", x.Got, sufix))
 }
 
-// TODO: EqualFold
+// EqualFold tests if the values interpreted as UTF-8 strings,
+// are equal under simple Unicode case-folding,
+// which is a more general form of case-insensitivity.
+func (x FluentString[T]) EqualFold(want string) FailureMessage {
+	if strings.EqualFold(string(x.Got), want) {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("the string values are not equal under Unicode case folding\ngot: \"%s\"\nwant: \"%s\"", x.Got, want))
+}
 
-// TODO: NotEqualFold
+// NotEqualFold tests if the values interpreted as UTF-8 strings,
+// are not equal under simple Unicode case-folding,
+// which is a more general form of case-insensitivity.
+func (x FluentString[T]) NotEqualFold(want string) FailureMessage {
+	if !strings.EqualFold(string(x.Got), want) {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("the string values are equal under Unicode case folding\ngot: \"%s\"\nwant: \"%s\"", x.Got, want))
+}
 
-// TODO: MatchRegex
+// MatchRegex tests if the string matches the regular expression.
+func (x FluentString[T]) MatchRegex(regex *regexp.Regexp) FailureMessage {
+	if regex.MatchString(string(x.Got)) {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("the string value does not match the regular expression\ngot: \"%s\"\nregex: %s", x.Got, regex.String()))
+}
 
-// TODO: NotMatchRegex
+// NotMatchRegex tests if the string does not match the regular expression.
+func (x FluentString[T]) NotMatchRegex(regex *regexp.Regexp) FailureMessage {
+	if !regex.MatchString(string(x.Got)) {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("the string value matches the regular expression\ngot: \"%s\"\nregex: %s", x.Got, regex.String()))
+}

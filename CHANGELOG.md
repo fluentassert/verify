@@ -32,6 +32,10 @@ The release provides assertions for
   - `NoPrefix`
   - `Sufix`
   - `NoSufix`
+  - `EqualFold`
+  - `NotEqualFold`
+  - `MatchRegex`
+  - `NotMatchRegex`
 - Add `Number` function which provides following assertions,
   in addition to `Ordered`, via `FluentNumber` type:
   - `InDelta`

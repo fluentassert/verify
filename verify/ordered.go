@@ -1,6 +1,10 @@
 package verify
 
-import "github.com/pellared/fluentassert/constraints"
+import (
+	"fmt"
+
+	"github.com/pellared/fluentassert/constraints"
+)
 
 // FluentOrdered encapsulates assertions for ordered object
 // // that supports the operators < <= >= >.
@@ -19,7 +23,7 @@ func (x FluentOrdered[T]) Lesser(than T) FailureMessage {
 	if x.Got < than {
 		return ""
 	}
-	return "the object is not lesser"
+	return FailureMessage(fmt.Sprintf("the object is not lesser\ngot: %v\nthan: %v", x.Got, than))
 }
 
 // LesserOrEqual tests the objects using <= operator.
@@ -27,7 +31,7 @@ func (x FluentOrdered[T]) LesserOrEqual(than T) FailureMessage {
 	if x.Got <= than {
 		return ""
 	}
-	return "the object is not lesser or equal"
+	return FailureMessage(fmt.Sprintf("the object is not lesser or equal\ngot: %v\nthan: %v", x.Got, than))
 }
 
 // GreaterOrEqual tests the objects using >= operator.
@@ -35,7 +39,7 @@ func (x FluentOrdered[T]) GreaterOrEqual(than T) FailureMessage {
 	if x.Got >= than {
 		return ""
 	}
-	return "the object is not greater or equal"
+	return FailureMessage(fmt.Sprintf("the object is not greater or equal\ngot: %v\nthan: %v", x.Got, than))
 }
 
 // Greater tests the objects using > operator.
@@ -43,5 +47,5 @@ func (x FluentOrdered[T]) Greater(than T) FailureMessage {
 	if x.Got > than {
 		return ""
 	}
-	return "the object is not greater"
+	return FailureMessage(fmt.Sprintf("the object is not greater\ngot: %v\nthan: %v", x.Got, than))
 }

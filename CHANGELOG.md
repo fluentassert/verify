@@ -28,6 +28,10 @@ The release provides assertions for
   - `NotEmpty`
   - `Contain`
   - `NotContain`
+  - `Prefix`
+  - `NoPrefix`
+  - `Sufix`
+  - `NoSufix`
 - Add `Number` function which provides following assertions,
   in addition to `Ordered`, via `FluentNumber` type:
   - `InDelta`

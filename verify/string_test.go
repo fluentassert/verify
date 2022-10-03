@@ -51,6 +51,50 @@ func TestString(t *testing.T) {
 		})
 	})
 
+	t.Run("Prefix", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			msg := verify.String("[ok]a").Prefix("[ok]")
+			assertPassed(t, msg)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			msg := verify.String("a[ok]").Prefix("[ok]")
+			assertFailed(t, msg, "the value does not have the prefix")
+		})
+	})
+
+	t.Run("NoPrefix", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			msg := verify.String("a[ok]").NoPrefix("[ok]")
+			assertPassed(t, msg)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			msg := verify.String("[ok]a").NoPrefix("[ok]")
+			assertFailed(t, msg, "the value has the prefix")
+		})
+	})
+
+	t.Run("Sufix", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			msg := verify.String("a[ok]").Sufix("[ok]")
+			assertPassed(t, msg)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			msg := verify.String("[ok]a").Sufix("[ok]")
+			assertFailed(t, msg, "the value does not have the sufix")
+		})
+	})
+
+	t.Run("NoSufix", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			msg := verify.String("[ok]a").NoSufix("[ok]")
+			assertPassed(t, msg)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			msg := verify.String("a[ok]").NoSufix("[ok]")
+			assertFailed(t, msg, "the value has the sufix")
+		})
+	})
+
 	t.Run("has assertions from Ordered, Comparable, Obj", func(t *testing.T) {
 		want := "text"
 		got := verify.String(want).FluentOrdered.FluentComparable.FluentObj.Got // type embedding done properly

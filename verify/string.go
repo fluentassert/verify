@@ -48,13 +48,37 @@ func (x FluentString[T]) NotContain(substr string) FailureMessage {
 	return FailureMessage(fmt.Sprintf("the value contains the substring\ngot: \"%s\"\nsubstr: \"%s\"", x.Got, substr))
 }
 
-// TODO: Prefix
+// Prefix tests if the string starts with the prefix.
+func (x FluentString[T]) Prefix(prefix string) FailureMessage {
+	if strings.HasPrefix(string(x.Got), prefix) {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("the value does not have the prefix\ngot: \"%s\"\nprefix: \"%s\"", x.Got, prefix))
+}
 
-// TODO: Add NoPrefix
+// NoPrefix tests if the string does not start with the prefix.
+func (x FluentString[T]) NoPrefix(prefix string) FailureMessage {
+	if !strings.HasPrefix(string(x.Got), prefix) {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("the value has the prefix\ngot: \"%s\"\nprefix: \"%s\"", x.Got, prefix))
+}
 
-// TODO: Sufix
+// Sufix tests if the string ends with the sufix.
+func (x FluentString[T]) Sufix(sufix string) FailureMessage {
+	if strings.HasSuffix(string(x.Got), sufix) {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("the value does not have the sufix\ngot: \"%s\"\nsufix: \"%s\"", x.Got, sufix))
+}
 
-// TODO: Add NoSufix
+// NoSufix tests if the string does not end with the sufix.
+func (x FluentString[T]) NoSufix(sufix string) FailureMessage {
+	if !strings.HasSuffix(string(x.Got), sufix) {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("the value has the sufix\ngot: \"%s\"\nsufix: \"%s\"", x.Got, sufix))
+}
 
 // TODO: EqualFold
 

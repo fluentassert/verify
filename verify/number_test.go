@@ -1,6 +1,7 @@
 package verify_test
 
 import (
+	"math"
 	"testing"
 
 	"github.com/pellared/fluentassert/verify"
@@ -46,8 +47,38 @@ func TestNumber(t *testing.T) {
 			assertFailed(t, msg, "relative error between numbers is lesser or equal than epsilon")
 		})
 		t.Run("Far", func(t *testing.T) {
-			msg := verify.Number(0.0).InEpsilon(-3, 2)
+			msg := verify.Number(100.0).NotInEpsilon(1, 2)
 			assertPassed(t, msg)
 		})
+	})
+
+	t.Run("InvalidInputs", func(t *testing.T) {
+		for _, fn := range []func() verify.FailureMessage{
+			func() verify.FailureMessage {
+				return verify.Number(math.NaN()).InDelta(1, 2)
+			},
+			func() verify.FailureMessage {
+				return verify.Number(1.0).NotInDelta(math.NaN(), 2)
+			},
+			func() verify.FailureMessage {
+				return verify.Number(1.0).InDelta(1, -2)
+			},
+			func() verify.FailureMessage {
+				return verify.Number(math.NaN()).InEpsilon(1, 2)
+			},
+			func() verify.FailureMessage {
+				return verify.Number(1.0).NotInEpsilon(math.NaN(), 2)
+			},
+			func() verify.FailureMessage {
+				return verify.Number(1.0).InEpsilon(1, -2)
+			},
+			func() verify.FailureMessage {
+				return verify.Number(1.0).InEpsilon(0.0, 2)
+			},
+		} {
+			if msg := fn(); msg == "" {
+				t.Error("should fail but passed")
+			}
+		}
 	})
 }

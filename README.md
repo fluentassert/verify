@@ -40,7 +40,7 @@ func Foo() (string, error) {
 
 func TestFoo(t *testing.T) {
 	got, err := Foo()
-	verify.Error(err).Zero().Require(t)      // Require(f) uses t.Fatal(f), stops execution if fails
+	verify.NoError(err).Require(t)           // Require(f) uses t.Fatal(f), stops execution if fails
 	verify.String(got).Equal("ok").Assert(t) // Assert(f) uses t.Error(f), continues execution if fails
 }
 ```
@@ -156,7 +156,7 @@ func TestAsync(t *testing.T) {
 		client := http.Client{Timeout: time.Second}
 		resp, err := client.Get("http://not-existing:1234")
 		if err != nil {
-			return verify.Error(err).Zero()
+			return verify.NoError(err)
 		}
 		return verify.Number(resp.StatusCode).Lesser(300)
 	}).Eventually().Assert(t)
@@ -170,8 +170,8 @@ $ go test
         timeout
         function always failed
         last failure message:
-        not a zero value
-        got: "Get \"http://not-existing:1234\": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+        non-nil error:
+        Get "http://not-existing:1234": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
 ```
 
 ### Custom assertions

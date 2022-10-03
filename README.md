@@ -21,7 +21,7 @@ to read and write ([more](https://dave.cheney.net/2019/09/24/be-wary-of-function
 
 The generics (type parameters) make the usage type-safe.
 
-The library is [extensible](#custom-assertions).
+The library is [extensible](#extensibility).
 
 ### Quick start
 
@@ -158,7 +158,9 @@ $ go test
         Get "http://not-existing:1234": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
 ```
 
-### Custom assertions
+## Extensibility
+
+### Custom fluent assertions
 
 You can take advantage of the `verify.FailureMessage` and `verify.Fluent*` types
 to create your own fluent assertions.
@@ -166,6 +168,8 @@ to create your own fluent assertions.
 For reference, take a look at the implementation
 of existing fluent assertions in this repository
 (for example [comparable.go](verify/comparable.go)).
+
+### Custom assertion function
 
 For simple cases, you can simply prepare a function that returns `FailureMessage`:
 
@@ -212,6 +216,39 @@ $ go test
 
         got.Ok assertion:
         the value is false
+```
+
+### Custom predicates
+
+For the most basic scenarios, you can also use one of the
+`Check`, `Should`, `ShouldNot` assertions.
+
+```go
+package test
+
+import (
+	"strings"
+	"testing"
+
+	"github.com/pellared/fluentassert/verify"
+)
+
+func TestShould(t *testing.T) {
+	got := "wrong"
+
+	chars := "abc"
+	verify.Obj(got).Should(func(got string) bool {
+		return strings.ContainsAny(got, chars)
+	}).Assertf(t, "does not contain any of: %s", chars)
+}
+```
+
+```sh
+$ go test
+--- FAIL: TestShould (0.00s)
+    should_test.go:16: does not contain any of: abc
+        object does not meet the predicate criteria
+        got: "wrong"
 ```
 
 ## Supported Go versions

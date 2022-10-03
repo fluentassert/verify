@@ -1,6 +1,8 @@
 package verify
 
 import (
+	"fmt"
+
 	"github.com/google/go-cmp/cmp"
 )
 
@@ -24,7 +26,7 @@ func (x FluentObj[T]) Should(pred func(got T) bool) FailureMessage {
 	if pred(x.Got) {
 		return ""
 	}
-	return "object does not meet the predicate criteria"
+	return FailureMessage(fmt.Sprintf("object does not meet the predicate criteria\ngot: %#v", x.Got))
 }
 
 // ShouldNot tests if the object does not the predicate criteria.
@@ -32,7 +34,7 @@ func (x FluentObj[T]) ShouldNot(fn func(got T) bool) FailureMessage {
 	if !fn(x.Got) {
 		return ""
 	}
-	return "object meets the predicate criteria"
+	return FailureMessage(fmt.Sprintf("object meets the predicate criteria\ngot: %#v", x.Got))
 }
 
 // DeepEqual tests if the objects are deep equal using github.com/google/go-cmp/cmp.
@@ -50,5 +52,5 @@ func (x FluentObj[T]) NotDeepEqual(obj T, opts ...cmp.Option) FailureMessage {
 	if !ok {
 		return ""
 	}
-	return FailureMessage("the objects are equal")
+	return FailureMessage(fmt.Sprintf("the objects are equal\ngot: %#v", x.Got))
 }

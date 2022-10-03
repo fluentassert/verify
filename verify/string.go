@@ -15,9 +15,21 @@ func String[T ~string](got T) FluentString[T] {
 	return FluentString[T]{FluentOrdered[T]{FluentComparable[T]{FluentObj[T]{got}}}}
 }
 
-// TODO: Add Empty
+// Empty tests if the string is not empty.
+func (x FluentString[T]) Empty() FailureMessage {
+	if x.Got == "" {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("the value was not an empty string\ngot: \"%s\"", x.Got))
+}
 
-// TODO: Add NotEmpty
+// NotEmpty tests if the string is not empty.
+func (x FluentString[T]) NotEmpty() FailureMessage {
+	if x.Got != "" {
+		return ""
+	}
+	return "the value was \"\""
+}
 
 // Contain tests if the string contains the substring.
 func (x FluentString[T]) Contain(substr string) FailureMessage {

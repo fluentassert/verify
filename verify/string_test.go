@@ -7,6 +7,28 @@ import (
 )
 
 func TestString(t *testing.T) {
+	t.Run("Empty", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			msg := verify.String("").Empty()
+			assertPassed(t, msg)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			msg := verify.String("val").Empty()
+			assertFailed(t, msg, "the value was not an empty string")
+		})
+	})
+
+	t.Run("NotEmpty", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			msg := verify.String("val").NotEmpty()
+			assertPassed(t, msg)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			msg := verify.String("").NotEmpty()
+			assertFailed(t, msg, "the value was \"\"")
+		})
+	})
+
 	t.Run("Contains", func(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
 			msg := verify.String("text").Contain("ex")

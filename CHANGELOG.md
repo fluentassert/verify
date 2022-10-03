@@ -24,6 +24,8 @@ The release provides assertions for
   - `Greater`
 - Add `String` function which provides following assertions,
   in addition to `Ordered`, via `FluentString` type:
+  - `Empty`
+  - `NotEmpty`
   - `Contain`
   - `NotContain`
 - Add `Number` function which provides following assertions,

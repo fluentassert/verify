@@ -26,6 +26,12 @@ The release provides assertions for
   in addition to `Ordered`, via `FluentString` type:
   - `Contain`
   - `NotContain`
+- Add `Number` function which provides following assertions,
+  in addition to `Ordered`, via `FluentNumber` type:
+  - `InDelta`
+  - `NotInDelta`
+  - `InEpsilon`
+  - `NotInEpsilon`
 - Add `Error` function which provides following assertions,
   in addition to `Any` and `String` (for error message),
   via `FluentObj` and `FluentString` types:

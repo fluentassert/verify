@@ -40,6 +40,6 @@ func assertPassed(t *testing.T, got verify.FailureMessage) {
 func assertFailed(t *testing.T, got verify.FailureMessage, substr string) {
 	t.Helper()
 	if !strings.Contains(string(got), substr) {
-		t.Errorf("\nSHOULD FAIL AND CONTAIN:\n%sGOT:\n%s", substr, string(got))
+		t.Errorf("\nSHOULD FAIL AND CONTAIN:\n%s\nGOT:\n%s", substr, string(got))
 	}
 }

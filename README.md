@@ -99,7 +99,7 @@ $ go test
           }
 ```
 
-### Collection unordered equality assertion
+### Collection unordered equality
 
 ```go
 package test
@@ -122,7 +122,7 @@ $ go test
 TODO
 ```
 
-### Asynchronous assertion
+### Asynchronous (periodic polling)
 
 ```go
 package test
@@ -163,7 +163,7 @@ $ go test
 ### Custom fluent assertions
 
 You can take advantage of the `verify.FailureMessage` and `verify.Fluent*` types
-to create your own fluent assertions.
+to create your own fluent assertions for a given type.
 
 For reference, take a look at the implementation
 of existing fluent assertions in this repository

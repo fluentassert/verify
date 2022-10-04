@@ -6,7 +6,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 
-	"github.com/pellared/fluentassert/verify"
+	"github.com/fluentassert/verify"
 )
 
 func assertEqual[T any](t *testing.T, got, want T, opts ...cmp.Option) {

@@ -3,7 +3,7 @@ package verify
 import (
 	"fmt"
 
-	"github.com/pellared/fluentassert/constraints"
+	"github.com/fluentassert/verify/constraints"
 )
 
 // FluentOrdered encapsulates assertions for ordered object

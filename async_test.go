@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pellared/fluentassert/verify"
+	"github.com/fluentassert/verify"
 )
 
 func TestPeriodic(t *testing.T) {

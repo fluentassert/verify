@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/pellared/fluentassert/verify"
+	"github.com/fluentassert/verify"
 )
 
 func TestNumber(t *testing.T) {

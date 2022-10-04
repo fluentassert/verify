@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/pellared/fluentassert/constraints"
+	"github.com/fluentassert/verify/constraints"
 )
 
 // NumberFloat encapsulates assertions for numbers.

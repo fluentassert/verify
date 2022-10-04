@@ -5,11 +5,12 @@ All notable changes to this library are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this library adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/pellared/fluentassert/compare/v0.2.0...HEAD)
+## [Unreleased](https://github.com/fluentassert/verify/compare/v0.2.0...HEAD)
 
 This release contains breaking changes.
 
-The official name is changed to **fluentassert/verify**
+The official name is changed to **fluentassert/verify**,
+the repository is moved to `github.com/fluentassert/verify`
 and the `f` package is renamed to `verify`.
 
 The main additions are the new assertions for
@@ -73,7 +74,7 @@ The main additions are the new assertions for
 - `Zero` and `NonZero` methods are moved to `FluentComparable`.
 - Better failure messages.
 
-## [0.2.0](https://github.com/pellared/fluentassert/releases/tag/v0.2.0) - 2022-10-01
+## [0.2.0](https://github.com/fluentassert/verify/releases/tag/v0.2.0) - 2022-10-01
 
 This release is a complete rewrite.
 It is not compatible with the previous release.
@@ -115,7 +116,7 @@ The next release is supposed to provide assertions for
 
 - Remove all previous functions and types (API rewrite).
 
-## [0.1.0](https://github.com/pellared/fluentassert/releases/tag/v0.1.0) - 2021-05-11
+## [0.1.0](https://github.com/fluentassert/verify/releases/tag/v0.1.0) - 2021-05-11
 
 First release after the experiential phase.
 

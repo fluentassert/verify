@@ -2,15 +2,15 @@
 
 > Extensible, type-safe, fluent assertion Go library.
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/pellared/fluentassert.svg)](https://pkg.go.dev/github.com/pellared/fluentassert)
+[![Go Reference](https://pkg.go.dev/badge/github.com/fluentassert/verify.svg)](https://pkg.go.dev/github.com/fluentassert/verify)
 [![Keep a Changelog](https://img.shields.io/badge/changelog-Keep%20a%20Changelog-%23E05735)](CHANGELOG.md)
-[![GitHub Release](https://img.shields.io/github/v/release/pellared/fluentassert)](https://github.com/pellared/fluentassert/releases)
-[![go.mod](https://img.shields.io/github/go-mod/go-version/pellared/fluentassert)](go.mod)
-[![LICENSE](https://img.shields.io/github/license/pellared/fluentassert)](LICENSE)
+[![GitHub Release](https://img.shields.io/github/v/release/fluentassert/verify)](https://github.com/fluentassert/verify/releases)
+[![go.mod](https://img.shields.io/github/go-mod/go-version/fluentassert/verify)](go.mod)
+[![LICENSE](https://img.shields.io/github/license/fluentassert/verify)](LICENSE)
 
-[![Build Status](https://img.shields.io/github/workflow/status/pellared/fluentassert/build)](https://github.com/pellared/fluentassert/actions?query=workflow%3Abuild+branch%3Amain)
-[![Go Report Card](https://goreportcard.com/badge/github.com/pellared/fluentassert)](https://goreportcard.com/report/github.com/pellared/fluentassert)
-[![Codecov](https://codecov.io/gh/pellared/fluentassert/branch/main/graph/badge.svg)](https://codecov.io/gh/pellared/fluentassert)
+[![Build Status](https://img.shields.io/github/workflow/status/fluentassert/verify/build)](https://github.com/fluentassert/verify/actions?query=workflow%3Abuild+branch%3Amain)
+[![Go Report Card](https://goreportcard.com/badge/github.com/fluentassert/verify)](https://goreportcard.com/report/github.com/fluentassert/verify)
+[![Codecov](https://codecov.io/gh/fluentassert/verify/branch/main/graph/badge.svg)](https://codecov.io/gh/fluentassert/verify)
 
 Please ⭐ `Star` this repository if you find it valuable and worth maintaining.
 
@@ -31,7 +31,7 @@ package test
 import (
 	"testing"
 
-	"github.com/pellared/fluentassert/verify"
+	"github.com/fluentassert/verify"
 )
 
 func Foo() (string, error) {
@@ -63,7 +63,7 @@ package test
 import (
 	"testing"
 
-	"github.com/pellared/fluentassert/verify"
+	"github.com/fluentassert/verify"
 )
 
 type A struct {
@@ -107,7 +107,7 @@ package test
 import (
 	"testing"
 
-	"github.com/pellared/fluentassert/verify"
+	"github.com/fluentassert/verify"
 )
 
 func TestSlice(t *testing.T) {
@@ -132,7 +132,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pellared/fluentassert/verify"
+	"github.com/fluentassert/verify"
 )
 
 func TestAsync(t *testing.T) {
@@ -179,7 +179,7 @@ package test
 import (
 	"testing"
 
-	"github.com/pellared/fluentassert/verify"
+	"github.com/fluentassert/verify"
 )
 
 type A struct {
@@ -230,7 +230,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pellared/fluentassert/verify"
+	"github.com/fluentassert/verify"
 )
 
 func TestShould(t *testing.T) {

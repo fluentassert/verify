@@ -3,7 +3,7 @@ package verify_test
 import (
 	"testing"
 
-	"github.com/pellared/fluentassert/verify"
+	"github.com/fluentassert/verify"
 )
 
 func TestFailureMessage(t *testing.T) {

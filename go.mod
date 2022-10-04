@@ -1,4 +1,4 @@
-module github.com/pellared/fluentassert
+module github.com/fluentassert/verify
 
 go 1.18
 

@@ -6,7 +6,7 @@ import (
 
 	"github.com/google/go-cmp/cmp/cmpopts"
 
-	"github.com/pellared/fluentassert/verify"
+	"github.com/fluentassert/verify"
 )
 
 func TestNoError(t *testing.T) {

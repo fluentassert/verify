@@ -2,7 +2,7 @@ linters-settings:
   gocyclo:
     min-complexity: 15
   goimports:
-    local-prefixes: github.com/pellared/fluentassert
+    local-prefixes: github.com/fluentassert/verify
   govet:
     check-shadowing: true
   misspell:

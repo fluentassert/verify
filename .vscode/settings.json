@@ -12,7 +12,7 @@
         },
     },
     "gopls": {
-        "formatting.local": "github.com/pellared/fluentassert",
+        "formatting.local": "github.com/fluentassert/verify",
         "formatting.gofumpt": true,
     },
     "go.lintTool": "golangci-lint",

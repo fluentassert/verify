@@ -21,7 +21,7 @@ to read and write ([more](https://dave.cheney.net/2019/09/24/be-wary-of-function
 
 The generics (type parameters) make the usage type-safe.
 
-The library is [extensible](#extensibility).
+The library is [extensible](#extensibility) by design.
 
 ### Quick start
 
@@ -257,15 +257,7 @@ Minimal supported Go version is 1.18.
 
 ## Contributing
 
-Feel free to create an issue or propose a pull request.
-
-### Developing
-
-Run `./goyek.sh` (Bash) or `.\goyek.ps1` (PowerShell)
-to execute the build pipeline.
-
-The repository contains confiugration for
-[Visual Studio Code](https://code.visualstudio.com/).
+See [CONTRIBUTING.md](CONTRIBUTING.md) if you want to help.
 
 ## License
 

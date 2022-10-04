@@ -1,15 +1,15 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this library are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+and this library adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased](https://github.com/pellared/fluentassert/compare/v0.2.0...HEAD)
 
 This release contains breaking changes.
 
-The project is renamed to **fluentassert/verify**
+The official name is changed to **fluentassert/verify**
 and the `f` package is renamed to `verify`.
 
 The main additions are the new assertions for

@@ -9,7 +9,10 @@ type FailureMessage string
 // Calling Error on *testing.T marks the the function as having failed
 // and continues its execution.
 // Returns true when the failure message is empty.
-func (msg FailureMessage) Assert(t interface{ Error(args ...any) }, args ...any) bool {
+func (msg FailureMessage) Assert(t interface {
+	Error(args ...any)
+}, args ...any,
+) bool {
 	if msg == "" {
 		return true
 	}
@@ -23,7 +26,10 @@ func (msg FailureMessage) Assert(t interface{ Error(args ...any) }, args ...any)
 // Require calls t.Fatal if the failure message is not empty.
 // Calling Fatal on *testing.T stops the test function execution.
 // Returns true when the failure message is empty.
-func (msg FailureMessage) Require(t interface{ Fatal(args ...any) }, args ...any) bool {
+func (msg FailureMessage) Require(t interface {
+	Fatal(args ...any)
+}, args ...any,
+) bool {
 	if msg == "" {
 		return true
 	}

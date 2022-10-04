@@ -1,11 +1,14 @@
 package verify
 
-// FailureMessage encapsulates failure message
+// FailureMessage encapsulates a failure message
 // that can by emitted using objects compatible
 // with the testing.TB interface.
 type FailureMessage string
 
 // Assert calls t.Error if the failure message is not empty.
+// Calling Error on *testing.T marks the the function as having failed
+// and continues its execution.
+// Returns true when the failure message is empty.
 func (msg FailureMessage) Assert(t interface{ Error(args ...any) }, args ...any) bool {
 	if msg == "" {
 		return true
@@ -18,6 +21,8 @@ func (msg FailureMessage) Assert(t interface{ Error(args ...any) }, args ...any)
 }
 
 // Require calls t.Fatal if the failure message is not empty.
+// Calling Fatal on *testing.T stops the test function execution.
+// Returns true when the failure message is empty.
 func (msg FailureMessage) Require(t interface{ Fatal(args ...any) }, args ...any) bool {
 	if msg == "" {
 		return true
@@ -30,6 +35,9 @@ func (msg FailureMessage) Require(t interface{ Fatal(args ...any) }, args ...any
 }
 
 // Assertf calls t.Errorf if the failure message is not empty.
+// Calling Errorf on *testing.T marks the the function as having failed
+// and continues its execution.
+// Returns true when the failure message is empty
 func (msg FailureMessage) Assertf(t interface {
 	Errorf(format string, args ...any)
 }, format string, args ...any,
@@ -45,6 +53,8 @@ func (msg FailureMessage) Assertf(t interface {
 }
 
 // Requiref calls t.Fatalf if the failure message is not empty.
+// Calling Fatalf on *testing.T stops the test function execution.
+// Returns true when the failure message is empty.
 func (msg FailureMessage) Requiref(t interface {
 	Fatalf(format string, args ...any)
 }, format string, args ...any,
@@ -60,6 +70,8 @@ func (msg FailureMessage) Requiref(t interface {
 }
 
 // Merge accumalates a non-empty failure message.
+//
+// Merge can be used for creating custom assertions.
 func (msg *FailureMessage) Merge(header string, failureMessage FailureMessage) {
 	if failureMessage == "" {
 		return

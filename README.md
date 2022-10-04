@@ -171,7 +171,7 @@ of existing fluent assertions in this repository
 
 ### Custom assertion function
 
-For simple cases, you can simply prepare a function that returns `FailureMessage`:
+For simple cases, you can simply prepare a function that returns `FailureMessage`.
 
 ```go
 package test

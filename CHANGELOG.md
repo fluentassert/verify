@@ -8,10 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased](https://github.com/pellared/fluentassert/compare/v0.2.0...HEAD)
 
 This release contains breaking changes.
-The `f` package has been renamed to `verify`.
 
-The release provides assertions for
-`constraints.Ordered`, `string`, `error`, `[]T`, `map[K]V`, `func()`.
+The project is renamed to **fluentassert/verify**
+and the `f` package is renamed to `verify`.
+
+The main additions are the new assertions for
+`bool`, `constraints.Ordered`, `constraints.Float`, `constraints.Integer`,
+`string`, `error`, `[]T`, `map[K]V`, `func()` types.
 
 ### Added
 

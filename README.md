@@ -1,4 +1,4 @@
-# fluentassert/verify
+# fluentassert
 
 > Extensible, type-safe, fluent assertion Go library.
 
@@ -261,7 +261,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) if you want to help.
 
 ## License
 
-**fluentassert/verify** is licensed under the terms of [the MIT license](LICENSE).
+**fluentassert** is licensed under the terms of [the MIT license](LICENSE).
 
 [`github.com/google/go-cmp`](https://github.com/google/go-cmp)
 (license: [BSD-3-Clause](https://pkg.go.dev/github.com/google/go-cmp/cmp?tab=licenses))

@@ -9,8 +9,7 @@ and this library adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This release contains breaking changes.
 
-The official name is changed to **fluentassert/verify**,
-the repository is moved to `github.com/fluentassert/verify`
+The repository is moved to `github.com/fluentassert/verify`
 and the `f` package is renamed to `verify`.
 
 The main additions are the new assertions for

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 	"strings"
@@ -70,8 +69,8 @@ func configure() {
 						tf.Fatal(err)
 					}
 					dockerTag := "markdownlint-cli"
-					Exec(tf, rootDir, fmt.Sprintf("docker build -t %s -f %s/markdownlint-cli.dockerfile .", toolsDir, dockerTag))
-					Exec(tf, rootDir, fmt.Sprintf("docker run --rm -v '%s:/workdir' %s *.md", curDir, dockerTag))
+					Exec(tf, rootDir, "docker build -t "+dockerTag+" -f "+toolsDir+"/markdownlint-cli.dockerfile .")
+					Exec(tf, rootDir, "docker run --rm -v '"+curDir+":/workdir' "+dockerTag+" *.md")
 				},
 			}),
 			flow.Define(goyek.Task{

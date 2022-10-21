@@ -75,16 +75,10 @@ func (msg FailureMessage) Requiref(t interface {
 	return false
 }
 
-// Merge accumalates a non-empty failure message.
-//
-// Merge can be used for creating custom assertions.
-func (msg *FailureMessage) Merge(header string, failureMessage FailureMessage) {
-	if failureMessage == "" {
-		return
+// Prefix adds prefix if the failure message is not empty.
+func (msg FailureMessage) Prefix(s string) FailureMessage {
+	if msg == "" {
+		return ""
 	}
-	if *msg == "" {
-		*msg = FailureMessage(header) + "\n" + failureMessage
-		return
-	}
-	*msg = *msg + "\n\n" + FailureMessage(header) + "\n" + failureMessage
+	return FailureMessage(s) + msg
 }

@@ -160,67 +160,9 @@ $ go test
 
 ## Extensibility
 
-### Custom fluent assertions
-
-You can take advantage of the `verify.FailureMessage` and `verify.Fluent*` types
-to create your own fluent assertions for a given type.
-
-For reference, take a look at the implementation
-of existing fluent assertions in this repository
-(for example [comparable.go](verify/comparable.go)).
-
-### Custom assertion function
-
-For simple cases, you can simply prepare a function that returns `FailureMessage`.
-
-```go
-package test
-
-import (
-	"testing"
-
-	"github.com/fluentassert/verify"
-)
-
-type A struct {
-	Str string
-	Ok  bool
-}
-
-func TestCustom(t *testing.T) {
-	got := A{Str: "something was wrong"}
-
-	verifyA(got).Assert(t)
-}
-
-func verifyA(got A) verify.FailureMessage {
-	var msg verify.FailureMessage
-	msg.Merge("got.String assertion:",
-		verify.String(got.Str).Contain("ok"),
-	)
-	msg.Merge("got.Ok assertion:",
-		verify.True(got.Ok),
-	)
-	return msg
-}
-```
-
-```sh
-$ go test
---- FAIL: TestCustom (0.00s)
-    custom_test.go:17:
-        got.String assertion:
-        the value does not contain the substring
-        got: "something was wrong"
-        substr: "ok"
-
-        got.Ok assertion:
-        the value is false
-```
-
 ### Custom predicates
 
-For the most basic scenarios, you can also use one of the
+For the most basic scenarios, you can use one of the
 `Check`, `Should`, `ShouldNot` assertions.
 
 ```go
@@ -250,6 +192,60 @@ $ go test
         object does not meet the predicate criteria
         got: "wrong"
 ```
+
+### Custom assertion function
+
+You can create a function that returns `FailureMessage`.
+Use `And` and `Or` functions together with `FailureMessage.Prefix` method
+to create complex assertions.
+
+```go
+package test
+
+import (
+	"testing"
+
+	"github.com/fluentassert/verify"
+)
+
+type A struct {
+	Str string
+	Ok  bool
+}
+
+func TestCustom(t *testing.T) {
+	got := A{Str: "something was wrong"}
+
+	verifyA(got).Assert(t)
+}
+
+func verifyA(got A) verify.FailureMessage {
+	return verify.And(
+		verify.String(got.Str).Contain("ok").Prefix("got.String: "),
+		verify.True(got.Ok).Prefix("got.Ok: "),
+	)
+}
+```
+
+```sh
+$ go test
+--- FAIL: TestCustom (0.00s)
+    custom_test.go:17:
+        got.String: the value does not contain the substring
+        got: "something was wrong"
+        substr: "ok"
+
+        got.Ok: the value is false
+```
+
+### Custom fluent assertions
+
+You can take advantage of the `FailureMessage` and `Fluent*` types
+to create your own fluent assertions for a given type.
+
+For reference, take a look at the implementation
+of existing fluent assertions in this repository
+(for example [comparable.go](comparable.go)).
 
 ## Supported Go versions
 

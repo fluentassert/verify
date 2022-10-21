@@ -62,7 +62,8 @@ The main additions are the new assertions for
   via `FluentAsync` and `FluentPeriodic` types:
   - `Eventually`
   - `EventuallyContext`
-- Add `FailureMessage.Merge` method to to facilitate accumulating failure messages.
+- Add `FailureMessage.Prefix` method together with `And` and `Or` functions
+  to facilitate creating complex assertions.
 
 ### Changed
 

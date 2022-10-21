@@ -75,7 +75,7 @@ type A struct {
 func TestDeepEqual(t *testing.T) {
 	got := A{Str: "wrong", Slice: []int{1, 4}}
 
-	verify.Obj(got).DeepEqual(
+	verify.Any(got).DeepEqual(
 		A{Str: "string", Bool: true, Slice: []int{1, 2}},
 	).Assert(t)
 }
@@ -176,7 +176,7 @@ func TestShould(t *testing.T) {
 	got := "wrong"
 
 	chars := "abc"
-	verify.Obj(got).Should(func(got string) bool {
+	verify.Any(got).Should(func(got string) bool {
 		return strings.ContainsAny(got, chars)
 	}).Assertf(t, "does not contain any of: %s", chars)
 }

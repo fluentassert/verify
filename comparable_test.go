@@ -90,7 +90,7 @@ func TestComparable(t *testing.T) {
 
 	t.Run("has assertions from Obj", func(t *testing.T) {
 		want := A{}
-		got := verify.Comparable(want).FluentObj.Got // type embedding done properly
+		got := verify.Comparable(want).FluentAny.Got // type embedding done properly
 		assertEqual(t, got, want)
 	})
 }

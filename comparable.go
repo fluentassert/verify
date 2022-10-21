@@ -4,12 +4,12 @@ import "fmt"
 
 // FluentComparable encapsulates assertions for comparable object.
 type FluentComparable[T comparable] struct {
-	FluentObj[T]
+	FluentAny[T]
 }
 
 // Comparable is used for testing a comparable object.
 func Comparable[T comparable](got T) FluentComparable[T] {
-	return FluentComparable[T]{FluentObj[T]{got}}
+	return FluentComparable[T]{FluentAny[T]{got}}
 }
 
 // Equal tests the objects using == operator.

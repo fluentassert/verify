@@ -10,13 +10,13 @@ func NoError(err error) FailureMessage {
 
 // FluentError encapsulates assertions for error object.
 type FluentError struct {
-	FluentObj[error]
+	FluentAny[error]
 	FluentString[string]
 }
 
 // Error is used for testing error object.
 func Error(got error) FluentError {
-	res := FluentError{FluentObj: FluentObj[error]{got}}
+	res := FluentError{FluentAny: FluentAny[error]{got}}
 	if got != nil {
 		res.FluentString.Got = got.Error()
 	}

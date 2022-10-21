@@ -142,7 +142,7 @@ func TestString(t *testing.T) {
 
 	t.Run("has assertions from Ordered, Comparable, Obj", func(t *testing.T) {
 		want := "text"
-		got := verify.String(want).FluentOrdered.FluentComparable.FluentObj.Got // type embedding done properly
+		got := verify.String(want).FluentOrdered.FluentComparable.FluentAny.Got // type embedding done properly
 		assertEqual(t, got, want)
 	})
 }

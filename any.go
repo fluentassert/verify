@@ -6,23 +6,23 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
-// FluentObj encapsulates assertions for any object.
-type FluentObj[T any] struct {
+// FluentAny encapsulates assertions for any object.
+type FluentAny[T any] struct {
 	Got T
 }
 
-// Obj is used for testing any object.
-func Obj[T any](got T) FluentObj[T] {
-	return FluentObj[T]{got}
+// Any is used for testing any object.
+func Any[T any](got T) FluentAny[T] {
+	return FluentAny[T]{got}
 }
 
 // Check tests the object using the provided function.
-func (x FluentObj[T]) Check(fn func(got T) FailureMessage) FailureMessage {
+func (x FluentAny[T]) Check(fn func(got T) FailureMessage) FailureMessage {
 	return fn(x.Got)
 }
 
 // Should tests if the object meets the predicate criteria.
-func (x FluentObj[T]) Should(pred func(got T) bool) FailureMessage {
+func (x FluentAny[T]) Should(pred func(got T) bool) FailureMessage {
 	if pred(x.Got) {
 		return ""
 	}
@@ -30,7 +30,7 @@ func (x FluentObj[T]) Should(pred func(got T) bool) FailureMessage {
 }
 
 // ShouldNot tests if the object does not the predicate criteria.
-func (x FluentObj[T]) ShouldNot(fn func(got T) bool) FailureMessage {
+func (x FluentAny[T]) ShouldNot(fn func(got T) bool) FailureMessage {
 	if !fn(x.Got) {
 		return ""
 	}
@@ -38,7 +38,7 @@ func (x FluentObj[T]) ShouldNot(fn func(got T) bool) FailureMessage {
 }
 
 // DeepEqual tests if the objects are deep equal using github.com/google/go-cmp/cmp.
-func (x FluentObj[T]) DeepEqual(want T, opts ...cmp.Option) FailureMessage {
+func (x FluentAny[T]) DeepEqual(want T, opts ...cmp.Option) FailureMessage {
 	diff := cmp.Diff(want, x.Got, opts...)
 	if diff == "" {
 		return ""
@@ -47,7 +47,7 @@ func (x FluentObj[T]) DeepEqual(want T, opts ...cmp.Option) FailureMessage {
 }
 
 // NotDeepEqual tests if the objects are not deep equal using github.com/google/go-cmp/cmp.
-func (x FluentObj[T]) NotDeepEqual(obj T, opts ...cmp.Option) FailureMessage {
+func (x FluentAny[T]) NotDeepEqual(obj T, opts ...cmp.Option) FailureMessage {
 	ok := cmp.Equal(obj, x.Got, opts...)
 	if !ok {
 		return ""

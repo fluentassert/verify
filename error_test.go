@@ -23,7 +23,7 @@ func TestNoError(t *testing.T) {
 func TestError(t *testing.T) {
 	t.Run("has assertions from Obj", func(t *testing.T) {
 		want := errors.New("an error")
-		got := verify.Error(want).FluentObj.Got // type embedding done properly
+		got := verify.Error(want).FluentAny.Got // type embedding done properly
 		assertEqual(t, got, want, cmpopts.EquateErrors())
 	})
 

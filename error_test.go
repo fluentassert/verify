@@ -20,6 +20,18 @@ func TestNoError(t *testing.T) {
 	})
 }
 
+func TestIsError(t *testing.T) {
+	t.Run("Passed", func(t *testing.T) {
+		got := verify.IsError(errors.New(""))
+		assertPassed(t, got)
+	})
+	t.Run("Failed", func(t *testing.T) {
+		var err error
+		got := verify.IsError(err)
+		assertFailed(t, got, "the error is <nil>")
+	})
+}
+
 func TestError(t *testing.T) {
 	t.Run("has assertions from Obj", func(t *testing.T) {
 		want := errors.New("an error")

@@ -18,7 +18,8 @@ The main additions are the new assertions for
 
 ### Added
 
-- Add `True`, `False`, `NoError` assertion functions.
+- Add `True`, `False`, assertion functions.
+- Add `NoError`, `IsError` assertion functions.
 - Add `Panics`, `NoPanic` assertion functions.
 - Add `Eventually`, `EventuallyChan` assertion functions.
 - Add `Ordered` function which provides following assertions,

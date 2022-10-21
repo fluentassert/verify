@@ -20,6 +20,10 @@ package verify
 
 // TODO: NotContainKey(keys ...K) FailureMessage
 
-// TODO: ContainValue(values ...V) FailureMessage
+// TODO: ContainPair(K,V) FailureMessage
 
-// TODO: NotContainValue(values ...V) FailureMessage
+// TODO: NotContainPair(K,V) FailureMessage
+
+// TODO: Any(func(K,V) bool) FailureMessage
+
+// TODO: All(func(K,V) bool) FailureMessage

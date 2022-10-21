@@ -19,3 +19,7 @@ package verify
 // TODO: Contain(elements ...T) FailureMessage
 
 // TODO: NotContain(elements ...T) FailureMessage
+
+// TODO: Any(func(T) bool) FailureMessage
+
+// TODO: All(func(T) bool) FailureMessage

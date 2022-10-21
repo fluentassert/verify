@@ -122,7 +122,7 @@ $ go test
 TODO
 ```
 
-### Asynchronous (periodic polling)
+### Periodic polling
 
 ```go
 package test
@@ -135,26 +135,23 @@ import (
 	"github.com/fluentassert/verify"
 )
 
-func TestAsync(t *testing.T) {
-	verify.Periodic(10*time.Second, time.Second, func() verify.FailureMessage {
+func TestPeriodic(t *testing.T) {
+	verify.Eventually(10*time.Second, time.Second, func() verify.FailureMessage {
 		client := http.Client{Timeout: time.Second}
 		resp, err := client.Get("http://not-existing:1234")
 		if err != nil {
 			return verify.NoError(err)
 		}
 		return verify.Number(resp.StatusCode).Lesser(300)
-	}).Eventually().Assert(t)
+	}).Assert(t)
 }
 ```
 
 ```sh
 $ go test
---- FAIL: TestAsync (10.00s)
+--- FAIL: TestPeriodic (10.00s)
     async_test.go:19:
-        timeout
-        function always failed
-        last failure message:
-        non-nil error:
+        function never passed, last failure message:
         Get "http://not-existing:1234": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
 ```
 

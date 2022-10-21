@@ -1,6 +1,7 @@
 package verify_test
 
 import (
+	"runtime"
 	"strings"
 	"testing"
 
@@ -42,4 +43,13 @@ func assertFailed(t *testing.T, got verify.FailureMessage, substr string) {
 	if !strings.Contains(string(got), substr) {
 		t.Errorf("\nSHOULD FAIL AND CONTAIN:\n%s\nGOT:\n%s", substr, string(got))
 	}
+}
+
+func assertNoLeak(t *testing.T) {
+	t.Helper()
+	goNum := runtime.NumGoroutine()
+	t.Cleanup(func() {
+		t.Helper()
+		assertEqual(t, goNum, runtime.NumGoroutine())
+	})
 }

@@ -8,7 +8,6 @@ import (
 )
 
 func TestEventually(t *testing.T) {
-	assertNoLeak(t)
 	timeout := 100 * time.Millisecond
 	interval := 10 * time.Millisecond
 
@@ -45,7 +44,6 @@ func TestEventually(t *testing.T) {
 }
 
 func TestEventuallyChan(t *testing.T) {
-	assertNoLeak(t)
 	timeout := 100 * time.Millisecond
 	interval := 10 * time.Millisecond
 

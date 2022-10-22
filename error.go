@@ -1,5 +1,10 @@
 package verify
 
+import (
+	"errors"
+	"fmt"
+)
+
 // NoError tests if the error is nil.
 func NoError(err error) FailureMessage {
 	if err == nil {
@@ -31,14 +36,36 @@ func Error(got error) FluentError {
 	return res
 }
 
-// TODO: Is
+// Is tests whether any error in err's chain matches target.
+func (x FluentError) Is(target error) FailureMessage {
+	if errors.Is(x.Got, target) {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("no error in err's chain matches\ngot: %#v\ntarget: %#v", x.Got, target))
+}
 
-// TODO: IsNot
+// IsNot tests whether no error in err's chain matches target.
+func (x FluentError) IsNot(target error) FailureMessage {
+	if !errors.Is(x.Got, target) {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("some error in err's chain matches\ngot: %#v\ntarget: %#v", x.Got, target))
+}
 
-// TODO: As
+// As finds the first error in err's chain that matches target, and if one is found, sets
+// target to that error value. In such case it is a success..
+func (x FluentError) As(target any) FailureMessage {
+	if errors.As(x.Got, target) {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("no error in err's chain matches\ngot: %#v\ntarget: %T", x.Got, target))
+}
 
-// TODO: NotAs
-
-// TODO: WithWrapped
-
-// TODO: NoWrapped
+// AsNot finds the first error in err's chain that matches target, and if one is found, sets
+// target to that error value. In such case it is a failure.
+func (x FluentError) AsNot(target any) FailureMessage {
+	if !errors.As(x.Got, target) {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("some error in err's chain matches\ngot: %#v\ntarget: %T", x.Got, target))
+}

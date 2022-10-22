@@ -55,8 +55,6 @@ The main additions are the new assertions for
   - `IsNot`
   - `As`
   - `NotAs`
-  - `WithWrapped`
-  - `NoWrapped`
 - Add `Func` function which provides following assertions
   via `FluentFunc` type:
   - `Panics`

@@ -32,7 +32,7 @@ func (x FluentSlice[T]) NotEmpty() FailureMessage {
 	return FailureMessage(fmt.Sprintf("an empty slice\ngot: %+v", x.Got))
 }
 
-// Equivalent tests if the slice has the same element as want in any order.
+// Equivalent tests if the slice has the same items as want in any order.
 func (x FluentSlice[T]) Equivalent(want []T, opts ...cmp.Option) FailureMessage {
 	extraGot, extraWant := x.diff(want, opts)
 	if len(extraGot) == 0 && len(extraWant) == 0 {
@@ -41,7 +41,7 @@ func (x FluentSlice[T]) Equivalent(want []T, opts ...cmp.Option) FailureMessage 
 	return FailureMessage(fmt.Sprintf("not equivalent\nextra got: %+v\nextra want: %+v", extraGot, extraWant))
 }
 
-// NotEquivalent tests if the slice does not have the same element as want in any order.
+// NotEquivalent tests if the slice does not have the same items as want in any order.
 func (x FluentSlice[T]) NotEquivalent(want []T, opts ...cmp.Option) FailureMessage {
 	extraGot, extraWant := x.diff(want, opts)
 	if len(extraGot) != 0 || len(extraWant) != 0 {
@@ -83,6 +83,7 @@ func (x FluentSlice[T]) diff(want []T, opts []cmp.Option) (extraGot, extraWant [
 	return
 }
 
+// TODO: Rename to ContainItem and add Contain
 // Contain tests if the slice contains the item.
 func (x FluentSlice[T]) Contain(item T, opts ...cmp.Option) FailureMessage {
 	for _, v := range x.Got {
@@ -93,6 +94,7 @@ func (x FluentSlice[T]) Contain(item T, opts ...cmp.Option) FailureMessage {
 	return FailureMessage(fmt.Sprintf("slice does not contain the item\ngot: %+v\nitem: %+v", x.Got, item))
 }
 
+// TODO: Rename to NotContainItem and add NotContain
 // NotContain tests if the slice does not contain the item.
 func (x FluentSlice[T]) NotContain(item T, opts ...cmp.Option) FailureMessage {
 	for _, v := range x.Got {

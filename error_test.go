@@ -90,7 +90,7 @@ func TestError(t *testing.T) {
 		got := verify.Error(want).FluentAny.Got // type embedding done properly
 		assertEqual(t, got, want, cmpopts.EquateErrors())
 	})
-	t.Run("has assertions from String, Ordered, Comparable for string", func(t *testing.T) {
+	t.Run("has assertions from String, Ordered, Obj for string", func(t *testing.T) {
 		want := "an error"
 		got := verify.Error(errors.New(want)).FluentString.Got // type embedding done properly
 		assertEqual(t, got, want)

@@ -77,6 +77,7 @@ The main additions are the new assertions for
 
 - The `f` package is renamed to `verify`.
 - Rename `Obj` and `FluentObj` to `Any` and `FluentAny`.
+- Rename `Comparable` and `FluentComparable` to `Obj` and `FluentObj`.
 - Change the `Check` assertion for `any` object so that the
   provided function has to return `FailureMessage`
   instead of a `string`.

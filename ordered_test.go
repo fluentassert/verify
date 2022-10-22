@@ -67,9 +67,9 @@ func TestOrdered(t *testing.T) {
 		})
 	})
 
-	t.Run("has assertions from Comparable and Obj", func(t *testing.T) {
+	t.Run("has assertions from Obj and Any", func(t *testing.T) {
 		want := 123
-		got := verify.Ordered(want).FluentComparable.FluentAny.Got // type embedding done properly
+		got := verify.Ordered(want).FluentObj.FluentAny.Got // type embedding done properly
 		assertEqual(t, got, want)
 	})
 }

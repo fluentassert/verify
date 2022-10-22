@@ -2,18 +2,18 @@ package verify
 
 import "fmt"
 
-// FluentComparable encapsulates assertions for comparable object.
-type FluentComparable[T comparable] struct {
+// FluentObj encapsulates assertions for comparable object.
+type FluentObj[T comparable] struct {
 	FluentAny[T]
 }
 
-// Comparable is used for testing a comparable object.
-func Comparable[T comparable](got T) FluentComparable[T] {
-	return FluentComparable[T]{FluentAny[T]{got}}
+// Obj is used for testing a comparable object.
+func Obj[T comparable](got T) FluentObj[T] {
+	return FluentObj[T]{FluentAny[T]{got}}
 }
 
 // Equal tests the objects using == operator.
-func (x FluentComparable[T]) Equal(want T) FailureMessage {
+func (x FluentObj[T]) Equal(want T) FailureMessage {
 	if x.Got == want {
 		return ""
 	}
@@ -21,7 +21,7 @@ func (x FluentComparable[T]) Equal(want T) FailureMessage {
 }
 
 // NotEqual tests the objects using != operator.
-func (x FluentComparable[T]) NotEqual(obj T) FailureMessage {
+func (x FluentObj[T]) NotEqual(obj T) FailureMessage {
 	if x.Got != obj {
 		return ""
 	}
@@ -29,7 +29,7 @@ func (x FluentComparable[T]) NotEqual(obj T) FailureMessage {
 }
 
 // Zero tests if the object is a zero value.
-func (x FluentComparable[T]) Zero() FailureMessage {
+func (x FluentObj[T]) Zero() FailureMessage {
 	var want T
 	if want == x.Got {
 		return ""
@@ -38,7 +38,7 @@ func (x FluentComparable[T]) Zero() FailureMessage {
 }
 
 // NonZero tests if the object is a non-zero value.
-func (x FluentComparable[T]) NonZero() FailureMessage {
+func (x FluentObj[T]) NonZero() FailureMessage {
 	var want T
 	if want != x.Got {
 		return ""

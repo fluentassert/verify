@@ -13,7 +13,7 @@ type FluentString[T ~string] struct {
 
 // String is used for testing a string object.
 func String[T ~string](got T) FluentString[T] {
-	return FluentString[T]{FluentOrdered[T]{FluentComparable[T]{FluentAny[T]{got}}}}
+	return FluentString[T]{FluentOrdered[T]{FluentObj[T]{FluentAny[T]{got}}}}
 }
 
 // Empty tests if the string is not empty.

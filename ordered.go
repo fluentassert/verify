@@ -9,13 +9,13 @@ import (
 // FluentOrdered encapsulates assertions for ordered object
 // // that supports the operators < <= >= >.
 type FluentOrdered[T constraints.Ordered] struct {
-	FluentComparable[T]
+	FluentObj[T]
 }
 
 // Ordered is used for testing a ordered object
 // that supports the operators < <= >= >.
 func Ordered[T constraints.Ordered](got T) FluentOrdered[T] {
-	return FluentOrdered[T]{FluentComparable[T]{FluentAny[T]{got}}}
+	return FluentOrdered[T]{FluentObj[T]{FluentAny[T]{got}}}
 }
 
 // Lesser tests the objects using < operator.

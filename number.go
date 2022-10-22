@@ -14,7 +14,7 @@ type NumberFloat[T constraints.Number] struct {
 
 // Number is used for testing numbers.
 func Number[T constraints.Number](got T) NumberFloat[T] {
-	return NumberFloat[T]{FluentOrdered[T]{FluentComparable[T]{FluentAny[T]{got}}}}
+	return NumberFloat[T]{FluentOrdered[T]{FluentObj[T]{FluentAny[T]{got}}}}
 }
 
 // InDelta tests that the numbers have an absolute error (distance) less or equal than delta.

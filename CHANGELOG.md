@@ -59,10 +59,6 @@ The main additions are the new assertions for
   - `IsNot`
   - `As`
   - `NotAs`
-- Add `Func` function which provides following assertions
-  via `FluentFunc` type:
-  - `Panics`
-  - `NotPanic`
 - Add `Slice` function which provides following assertions,
   in addition to `Any`, via `FluentSlice` type:
   - `Empty`

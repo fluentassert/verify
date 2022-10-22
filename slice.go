@@ -1,5 +1,11 @@
 package verify
 
+import (
+	"fmt"
+
+	"github.com/google/go-cmp/cmp"
+)
+
 // FluentSlice encapsulates assertions for a slice.
 type FluentSlice[T any] struct {
 	FluentAny[[]T]
@@ -10,24 +16,119 @@ func Slice[T any](got []T) FluentSlice[T] {
 	return FluentSlice[T]{FluentAny[[]T]{got}}
 }
 
-// TODO: Empty() FailureMessage
+// Empty banana.
+func (x FluentSlice[T]) Empty() FailureMessage {
+	if len(x.Got) == 0 {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("not an empty slice\ngot: %+v", x.Got))
+}
 
-// TODO: NotEmpty() FailureMessage
+// NotEmpty banana.
+func (x FluentSlice[T]) NotEmpty() FailureMessage {
+	if len(x.Got) > 0 {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("an empty slice\ngot: %+v", x.Got))
+}
 
-// TODO: Len(n int) FailureMessage
+// Equivalent banana.
+func (x FluentSlice[T]) Equivalent(want []T, opts ...cmp.Option) FailureMessage {
+	extraGot, extraWant := x.diff(want, opts)
+	if len(extraGot) == 0 && len(extraWant) == 0 {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("not equivalent\nextra got: %+v\nextra want: %+v", extraGot, extraWant))
+}
 
-// TODO: Equal(elements []T) FailureMessage
+// NotEquivalent banana.
+func (x FluentSlice[T]) NotEquivalent(want []T, opts ...cmp.Option) FailureMessage {
+	extraGot, extraWant := x.diff(want, opts)
+	if len(extraGot) != 0 || len(extraWant) != 0 {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("equivalent\ngot: %+v", extraGot))
+}
 
-// TODO: NotEqual(elements []T) FailureMessage
+func (x FluentSlice[T]) diff(want []T, opts []cmp.Option) (extraGot, extraWant []T) {
+	aLen := len(x.Got)
+	bLen := len(want)
 
-// TODO: Equivalent(elements []T) FailureMessage
+	// Mark indexes in list that we already used
+	visited := make([]bool, bLen)
+	for i := 0; i < aLen; i++ {
+		found := false
+		for j := 0; j < bLen; j++ {
+			if visited[j] {
+				continue
+			}
+			if cmp.Equal(want[j], x.Got[i], opts...) {
+				visited[j] = true
+				found = true
+				break
+			}
+		}
+		if !found {
+			extraGot = append(extraGot, x.Got[i])
+		}
+	}
 
-// TODO: NotEquivalent(elements []T) FailureMessage
+	for j := 0; j < bLen; j++ {
+		if visited[j] {
+			continue
+		}
+		extraWant = append(extraWant, want[j])
+	}
 
-// TODO: Contain(elements ...T) FailureMessage
+	return
+}
 
-// TODO: NotContain(elements ...T) FailureMessage
+// Contain banana.
+func (x FluentSlice[T]) Contain(item T, opts ...cmp.Option) FailureMessage {
+	for _, v := range x.Got {
+		if cmp.Equal(item, v, opts...) {
+			return ""
+		}
+	}
+	return FailureMessage(fmt.Sprintf("slice does not contain the item\ngot: %+v\nitem: %+v", x.Got, item))
+}
 
-// TODO: Any(func(T) bool) FailureMessage
+// NotContain banana.
+func (x FluentSlice[T]) NotContain(item T, opts ...cmp.Option) FailureMessage {
+	for _, v := range x.Got {
+		if cmp.Equal(item, v, opts...) {
+			return FailureMessage(fmt.Sprintf("slice contains the item\ngot: %+v\nitem: %+v", x.Got, item))
+		}
+	}
+	return ""
+}
 
-// TODO: All(func(T) bool) FailureMessage
+// Any banana.
+func (x FluentSlice[T]) Any(predicate func(T) bool) FailureMessage {
+	for _, v := range x.Got {
+		if predicate(v) {
+			return ""
+		}
+	}
+	return FailureMessage(fmt.Sprintf("none item does meet the predicate criteria\ngot: %+v", x.Got))
+}
+
+// All banana.
+func (x FluentSlice[T]) All(predicate func(T) bool) FailureMessage {
+	for _, v := range x.Got {
+		if !predicate(v) {
+			return FailureMessage(fmt.Sprintf("an item does not meet the predicate criteria\ngot: %+v\nitem: %+v", x.Got, v))
+		}
+	}
+	return ""
+}
+
+// None banana.
+func (x FluentSlice[T]) None(predicate func(T) bool) FailureMessage {
+	for _, v := range x.Got {
+		if predicate(v) {
+			return FailureMessage(fmt.Sprintf("an item meets the predicate criteria\ngot: %+v\nitem: %+v", x.Got, v))
+		}
+	}
+	return ""
+}

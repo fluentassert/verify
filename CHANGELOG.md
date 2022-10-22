@@ -59,10 +59,17 @@ The main additions are the new assertions for
   via `FluentFunc` type:
   - `Panics`
   - `NotPanic`
-- Add `Async` and `Periodic` functions which provides following assertions
-  via `FluentAsync` and `FluentPeriodic` types:
-  - `Eventually`
-  - `EventuallyContext`
+- Add `Slice` function which provides following assertions,
+  in addition to `Any`, via `FluentSlice` types:
+  - `Empty`
+  - `NotEmpty`
+  - `Equivalent`
+  - `NotEquivalent`
+  - `Contain`
+  - `NotContain`
+  - `Any`
+  - `All`
+  - `None`
 - Add `FailureMessage.Prefix` method together with `And` and `Or` functions
   to facilitate creating complex assertions.
 

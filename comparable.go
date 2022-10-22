@@ -17,7 +17,7 @@ func (x FluentComparable[T]) Equal(want T) FailureMessage {
 	if x.Got == want {
 		return ""
 	}
-	return FailureMessage(fmt.Sprintf("the objects are not equal\ngot: %#v\nwant: %#v", x.Got, want))
+	return FailureMessage(fmt.Sprintf("the objects are not equal\ngot: %+v\nwant: %+v", x.Got, want))
 }
 
 // NotEqual tests the objects using != operator.
@@ -34,7 +34,7 @@ func (x FluentComparable[T]) Zero() FailureMessage {
 	if want == x.Got {
 		return ""
 	}
-	return FailureMessage(fmt.Sprintf("not a zero value\ngot: %#v", x.Got))
+	return FailureMessage(fmt.Sprintf("not a zero value\ngot: %+v", x.Got))
 }
 
 // NonZero tests if the object is a non-zero value.
@@ -43,5 +43,5 @@ func (x FluentComparable[T]) NonZero() FailureMessage {
 	if want != x.Got {
 		return ""
 	}
-	return FailureMessage(fmt.Sprintf("not a zero value\ngot: %#v", x.Got))
+	return FailureMessage(fmt.Sprintf("not a zero value\ngot: %+v", x.Got))
 }

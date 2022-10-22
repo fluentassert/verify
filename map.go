@@ -1,6 +1,14 @@
 package verify
 
-// TODO: type embed any
+// FluentMap encapsulates assertions for a map.
+type FluentMap[K comparable, V any] struct {
+	FluentAny[map[K]V]
+}
+
+// Map is used for testing a map.
+func Map[K comparable, V any](got map[K]V) FluentMap[K, V] {
+	return FluentMap[K, V]{FluentAny[map[K]V]{got}}
+}
 
 // TODO: Empty() FailureMessage
 

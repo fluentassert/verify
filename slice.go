@@ -1,6 +1,14 @@
 package verify
 
-// TODO: type embed any
+// FluentSlice encapsulates assertions for a slice.
+type FluentSlice[T any] struct {
+	FluentAny[[]T]
+}
+
+// Slice is used for testing a slice.
+func Slice[T any](got []T) FluentSlice[T] {
+	return FluentSlice[T]{FluentAny[[]T]{got}}
+}
 
 // TODO: Empty() FailureMessage
 

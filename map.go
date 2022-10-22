@@ -1,5 +1,7 @@
 package verify
 
+import "fmt"
+
 // FluentMap encapsulates assertions for a map.
 type FluentMap[K comparable, V any] struct {
 	FluentAny[map[K]V]
@@ -10,15 +12,21 @@ func Map[K comparable, V any](got map[K]V) FluentMap[K, V] {
 	return FluentMap[K, V]{FluentAny[map[K]V]{got}}
 }
 
-// TODO: Empty() FailureMessage
+// Empty tests if the slice is empty.
+func (x FluentMap[K, V]) Empty() FailureMessage {
+	if len(x.Got) == 0 {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("not an empty map\ngot: %+v", x.Got))
+}
 
-// TODO: NotEmpty() FailureMessage
-
-// TODO: Len(n int) FailureMessage
-
-// TODO: Equal(elements map[K]V) FailureMessage
-
-// TODO: NotEqual(elements map[K]V) FailureMessage
+// NotEmpty tests if the slice is not empty.
+func (x FluentMap[K, V]) NotEmpty() FailureMessage {
+	if len(x.Got) > 0 {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("an empty map\ngot: %+v", x.Got))
+}
 
 // TODO: Contain(elements map[K]V) FailureMessage
 
@@ -35,3 +43,5 @@ func Map[K comparable, V any](got map[K]V) FluentMap[K, V] {
 // TODO: Any(func(K,V) bool) FailureMessage
 
 // TODO: All(func(K,V) bool) FailureMessage
+
+// TODO: None(func(K,V) bool) FailureMessage

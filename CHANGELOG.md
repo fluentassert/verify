@@ -61,13 +61,26 @@ The main additions are the new assertions for
   - `Panics`
   - `NotPanic`
 - Add `Slice` function which provides following assertions,
-  in addition to `Any`, via `FluentSlice` types:
+  in addition to `Any`, via `FluentSlice` type:
   - `Empty`
   - `NotEmpty`
   - `Equivalent`
   - `NotEquivalent`
   - `Contain`
   - `NotContain`
+  - `Any`
+  - `All`
+  - `None`
+- Add `Map` function which provides following assertions,
+  in addition to `Any`, via `FlientMap` type:
+  - `Empty`
+  - `NotEmpty`
+  - `Contain`
+  - `NotContain`
+  - `ContainKey`
+  - `NotContainKey`
+  - `ContainPair`
+  - `NotContainPair`
   - `Any`
   - `All`
   - `None`

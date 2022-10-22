@@ -16,7 +16,7 @@ func Slice[T any](got []T) FluentSlice[T] {
 	return FluentSlice[T]{FluentAny[[]T]{got}}
 }
 
-// Empty banana.
+// Empty tests if the slice is empty.
 func (x FluentSlice[T]) Empty() FailureMessage {
 	if len(x.Got) == 0 {
 		return ""
@@ -24,7 +24,7 @@ func (x FluentSlice[T]) Empty() FailureMessage {
 	return FailureMessage(fmt.Sprintf("not an empty slice\ngot: %+v", x.Got))
 }
 
-// NotEmpty banana.
+// NotEmpty tests if the slice is not empty.
 func (x FluentSlice[T]) NotEmpty() FailureMessage {
 	if len(x.Got) > 0 {
 		return ""
@@ -32,7 +32,7 @@ func (x FluentSlice[T]) NotEmpty() FailureMessage {
 	return FailureMessage(fmt.Sprintf("an empty slice\ngot: %+v", x.Got))
 }
 
-// Equivalent banana.
+// Equivalent tests if the slice has the same element as want in any order.
 func (x FluentSlice[T]) Equivalent(want []T, opts ...cmp.Option) FailureMessage {
 	extraGot, extraWant := x.diff(want, opts)
 	if len(extraGot) == 0 && len(extraWant) == 0 {
@@ -41,7 +41,7 @@ func (x FluentSlice[T]) Equivalent(want []T, opts ...cmp.Option) FailureMessage 
 	return FailureMessage(fmt.Sprintf("not equivalent\nextra got: %+v\nextra want: %+v", extraGot, extraWant))
 }
 
-// NotEquivalent banana.
+// NotEquivalent tests if the slice does not have the same element as want in any order.
 func (x FluentSlice[T]) NotEquivalent(want []T, opts ...cmp.Option) FailureMessage {
 	extraGot, extraWant := x.diff(want, opts)
 	if len(extraGot) != 0 || len(extraWant) != 0 {
@@ -83,7 +83,7 @@ func (x FluentSlice[T]) diff(want []T, opts []cmp.Option) (extraGot, extraWant [
 	return
 }
 
-// Contain banana.
+// Contain tests if the slice contains the item.
 func (x FluentSlice[T]) Contain(item T, opts ...cmp.Option) FailureMessage {
 	for _, v := range x.Got {
 		if cmp.Equal(item, v, opts...) {
@@ -93,7 +93,7 @@ func (x FluentSlice[T]) Contain(item T, opts ...cmp.Option) FailureMessage {
 	return FailureMessage(fmt.Sprintf("slice does not contain the item\ngot: %+v\nitem: %+v", x.Got, item))
 }
 
-// NotContain banana.
+// NotContain tests if the slice does not contain the item.
 func (x FluentSlice[T]) NotContain(item T, opts ...cmp.Option) FailureMessage {
 	for _, v := range x.Got {
 		if cmp.Equal(item, v, opts...) {
@@ -103,7 +103,7 @@ func (x FluentSlice[T]) NotContain(item T, opts ...cmp.Option) FailureMessage {
 	return ""
 }
 
-// Any banana.
+// Any tests if any of the slice's item meets the predicate criteria.
 func (x FluentSlice[T]) Any(predicate func(T) bool) FailureMessage {
 	for _, v := range x.Got {
 		if predicate(v) {
@@ -113,7 +113,7 @@ func (x FluentSlice[T]) Any(predicate func(T) bool) FailureMessage {
 	return FailureMessage(fmt.Sprintf("none item does meet the predicate criteria\ngot: %+v", x.Got))
 }
 
-// All banana.
+// All tests if all of the slice's items meets the predicate criteria.
 func (x FluentSlice[T]) All(predicate func(T) bool) FailureMessage {
 	for _, v := range x.Got {
 		if !predicate(v) {
@@ -123,7 +123,7 @@ func (x FluentSlice[T]) All(predicate func(T) bool) FailureMessage {
 	return ""
 }
 
-// None banana.
+// None tests if all of the slice's item does not meet the predicate criteria.
 func (x FluentSlice[T]) None(predicate func(T) bool) FailureMessage {
 	for _, v := range x.Got {
 		if predicate(v) {

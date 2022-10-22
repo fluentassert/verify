@@ -29,7 +29,7 @@ func (x FluentAny[T]) Should(pred func(got T) bool) FailureMessage {
 	return FailureMessage(fmt.Sprintf("object does not meet the predicate criteria\ngot: %+v", x.Got))
 }
 
-// ShouldNot tests if the object does not the predicate criteria.
+// ShouldNot tests if the object does not meet the predicate criteria.
 func (x FluentAny[T]) ShouldNot(fn func(got T) bool) FailureMessage {
 	if !fn(x.Got) {
 		return ""

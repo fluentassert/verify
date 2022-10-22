@@ -41,7 +41,7 @@ func (x FluentMap[K, V]) Contain(want map[K]V, opts ...cmp.Option) FailureMessag
 	return FailureMessage(fmt.Sprintf("not contains all pairs\ngot: %+v\nwant: %+v\nmissing: %+v", x.Got, want, missing))
 }
 
-// NotContain tests if the slice does not have the same element as want in any order.
+// NotContain tests if the map does not contains all pairs from want.
 func (x FluentMap[K, V]) NotContain(want map[K]V, opts ...cmp.Option) FailureMessage {
 	missing := x.miss(want, opts)
 	if len(missing) > 0 {
@@ -66,20 +66,56 @@ func (x FluentMap[K, V]) miss(want map[K]V, opts []cmp.Option) map[K]V {
 	return missing
 }
 
-// TODO: Contain(elements map[K]V) FailureMessage
+// ContainPair tests if the map contains the pair.
+func (x FluentMap[K, V]) ContainPair(k K, v V, opts ...cmp.Option) FailureMessage {
+	got, ok := x.Got[k]
+	if !ok {
+		return FailureMessage(fmt.Sprintf("has no value under key\ngot: %+v\nkey: %+v\nvalue: %+v", x.Got, k, v))
+	}
+	if !cmp.Equal(v, got, opts...) {
+		return FailureMessage(fmt.Sprintf("has different value under key\nkey: %+v\ngot: %+v\nwant: %+v", k, got, v))
+	}
+	return ""
+}
 
-// TODO: NotContain(elements map[K]V) FailureMessage
+// NotContainPair tests if the map does not contain the pair.
+func (x FluentMap[K, V]) NotContainPair(k K, v V, opts ...cmp.Option) FailureMessage {
+	got, ok := x.Got[k]
+	if !ok {
+		return ""
+	}
+	if !cmp.Equal(v, got, opts...) {
+		return ""
+	}
+	return FailureMessage(fmt.Sprintf("contains the pair\ngot: %+v\nkey: %+v\nvalue: %+v", x.Got, k, v))
+}
 
-// TODO: ContainKey(keys ...K) FailureMessage
+// Any tests if any of the slice's item meets the predicate criteria.
+func (x FluentMap[K, V]) Any(predicate func(K, V) bool) FailureMessage {
+	for k, v := range x.Got {
+		if predicate(k, v) {
+			return ""
+		}
+	}
+	return FailureMessage(fmt.Sprintf("none pair does meet the predicate criteria\ngot: %+v", x.Got))
+}
 
-// TODO: NotContainKey(keys ...K) FailureMessage
+// All tests if all of the slice's items meets the predicate criteria.
+func (x FluentMap[K, V]) All(predicate func(K, V) bool) FailureMessage {
+	for k, v := range x.Got {
+		if !predicate(k, v) {
+			return FailureMessage(fmt.Sprintf("a pair does not meet the predicate criteria\ngot: %+v\npair: %+v", x.Got, v))
+		}
+	}
+	return ""
+}
 
-// TODO: ContainPair(K,V) FailureMessage
-
-// TODO: NotContainPair(K,V) FailureMessage
-
-// TODO: Any(func(K,V) bool) FailureMessage
-
-// TODO: All(func(K,V) bool) FailureMessage
-
-// TODO: None(func(K,V) bool) FailureMessage
+// None tests if all of the slice's item does not meet the predicate criteria.
+func (x FluentMap[K, V]) None(predicate func(K, V) bool) FailureMessage {
+	for k, v := range x.Got {
+		if predicate(k, v) {
+			return FailureMessage(fmt.Sprintf("a pair meets the predicate criteria\ngot: %+v\npair: %+v", x.Got, v))
+		}
+	}
+	return ""
+}

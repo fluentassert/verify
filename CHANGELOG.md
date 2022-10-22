@@ -77,8 +77,6 @@ The main additions are the new assertions for
   - `NotEmpty`
   - `Contain`
   - `NotContain`
-  - `ContainKey`
-  - `NotContainKey`
   - `ContainPair`
   - `NotContainPair`
   - `Any`

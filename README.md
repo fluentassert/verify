@@ -124,7 +124,13 @@ func TestSlice(t *testing.T) {
 
 ```sh
 $ go test
-TODO
+--- FAIL: TestSlice (0.00s)
+    slice_test.go:12:
+        not equivalent
+        got: [3 1 2]
+        want: [2 3 4]
+        extra got: [1]
+        extra want: [4]
 ```
 
 ### Periodic polling

@@ -74,4 +74,64 @@ func TestMap(t *testing.T) {
 			assertFailed(t, got, "contains all pairs")
 		})
 	})
+
+	t.Run("ContainPair", func(t *testing.T) {
+		t.Run("Has", func(t *testing.T) {
+			got := verify.Map(dict).ContainPair("b", A{Slice: []int{9, 8, 7}})
+			assertPassed(t, got)
+		})
+		t.Run("DiffKey", func(t *testing.T) {
+			got := verify.Map(dict).ContainPair("z", A{Slice: []int{9, 8, 7}})
+			assertFailed(t, got, "has no value under key")
+		})
+		t.Run("DiffValue", func(t *testing.T) {
+			got := verify.Map(dict).ContainPair("b", A{Slice: []int{1, 1, 1}})
+			assertFailed(t, got, "has different value under key")
+		})
+	})
+	t.Run("NotContainPair", func(t *testing.T) {
+		t.Run("Has", func(t *testing.T) {
+			got := verify.Map(dict).NotContainPair("b", A{Slice: []int{9, 8, 7}})
+			assertFailed(t, got, "contains the pair")
+		})
+		t.Run("DiffKey", func(t *testing.T) {
+			got := verify.Map(dict).NotContainPair("z", A{Slice: []int{9, 8, 7}})
+			assertPassed(t, got)
+		})
+		t.Run("DiffValue", func(t *testing.T) {
+			got := verify.Map(dict).NotContainPair("b", A{Slice: []int{1, 1, 1}})
+			assertPassed(t, got)
+		})
+	})
+
+	t.Run("Any", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			got := verify.Map(dict).Any(func(string, A) bool { return true })
+			assertPassed(t, got)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			got := verify.Map(dict).Any(func(string, A) bool { return false })
+			assertFailed(t, got, "none pair does meet the predicate criteria")
+		})
+	})
+	t.Run("All", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			got := verify.Map(dict).All(func(string, A) bool { return true })
+			assertPassed(t, got)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			got := verify.Map(dict).All(func(string, A) bool { return false })
+			assertFailed(t, got, "a pair does not meet the predicate criteria")
+		})
+	})
+	t.Run("None", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			got := verify.Map(dict).None(func(string, A) bool { return false })
+			assertPassed(t, got)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			got := verify.Map(dict).None(func(string, A) bool { return true })
+			assertFailed(t, got, "a pair meets the predicate criteria")
+		})
+	})
 }

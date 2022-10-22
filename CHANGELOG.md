@@ -5,7 +5,10 @@ All notable changes to this library are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this library adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/fluentassert/verify/compare/v0.2.0...HEAD)
+## [Unreleased](https://github.com/fluentassert/verify/compare/v1.0.0-rc.1...HEAD)
+
+<!-- markdownlint-disable-next-line line-length -->
+## [1.0.0-rc.1](https://github.com/fluentassert/verify/releases/tag/v1.0.0-rc.1) - 2022-10-22
 
 This release contains breaking changes.
 

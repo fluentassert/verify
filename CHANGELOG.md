@@ -19,6 +19,7 @@ The main additions are the new assertions for
 ### Added
 
 - Add `True`, `False`, assertion functions.
+- Add `Nil`, `NotNil`, assertion functions.
 - Add `NoError`, `IsError` assertion functions.
 - Add `Panics`, `NoPanic` assertion functions.
 - Add `Eventually`, `EventuallyChan` assertion functions.

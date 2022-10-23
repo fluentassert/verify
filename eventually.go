@@ -17,14 +17,14 @@ func Eventually(timeout, interval time.Duration, fn func() FailureMessage) Failu
 // EventuallyChan executes the test function until it returns an empty FailureMessage or timeout elapses.
 func EventuallyChan[TTimerPayload, TTickPayload any](timeout <-chan (TTimerPayload), ticker <-chan (TTickPayload), fn func() FailureMessage) FailureMessage {
 	var err string
-	failMsg := func(cause string) FailureMessage {
+	fail := func() FailureMessage {
 		return FailureMessage("function never passed, last failure message:\n" + err)
 	}
 
 	for {
 		select {
 		case <-timeout:
-			return failMsg("timeout")
+			return fail()
 		default:
 		}
 
@@ -32,7 +32,7 @@ func EventuallyChan[TTimerPayload, TTickPayload any](timeout <-chan (TTimerPaylo
 
 		select {
 		case <-timeout:
-			return failMsg("timeout")
+			return fail()
 		default:
 		}
 
@@ -42,7 +42,7 @@ func EventuallyChan[TTimerPayload, TTickPayload any](timeout <-chan (TTimerPaylo
 
 		select {
 		case <-timeout:
-			return failMsg("timeout")
+			return fail()
 		case <-ticker:
 		}
 	}

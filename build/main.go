@@ -2,19 +2,20 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/goyek/goyek/v2"
+	"github.com/goyek/goyek/v2/middleware"
 )
 
-var flow = &goyek.Flow{Verbose: true}
+// Directories used in repository.
+const (
+	dirRoot  = "."
+	dirBuild = "build"
+)
 
 func main() {
-	if err := os.Chdir(".."); err != nil {
-		fmt.Println(err)
-		os.Exit(goyek.CodeInvalidArgs)
-	}
-	configure()
-	flow.Main(os.Args[1:])
+	goyek.Use(middleware.ReportStatus)
+	goyek.SetDefault(all)
+	goyek.Main(os.Args[1:])
 }

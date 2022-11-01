@@ -5,21 +5,18 @@ import (
 	"strings"
 
 	"github.com/goyek/goyek/v2"
+	"github.com/goyek/x/cmd"
 )
 
 var _ = goyek.Define(goyek.Task{
 	Name:  "diff",
 	Usage: "git diff",
 	Action: func(tf *goyek.TF) {
-		Exec(tf, dirRoot, "git diff --exit-code")
+		cmd.Exec(tf, "git diff --exit-code")
 
-		tf.Log("Cmd: git status --porcelain")
-		cmd := tf.Cmd("git", "status", "--porcelain")
 		sb := &strings.Builder{}
-		cmd.Stdout = io.MultiWriter(tf.Output(), sb)
-		if err := cmd.Run(); err != nil {
-			tf.Error(err)
-		}
+		out := io.MultiWriter(tf.Output(), sb)
+		cmd.Exec(tf, "git status --porcelain", cmd.Stdout(out))
 		if sb.Len() > 0 {
 			tf.Error("git status --porcelain returned output")
 		}

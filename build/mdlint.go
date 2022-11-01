@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/goyek/goyek/v2"
+	"github.com/goyek/x/cmd"
 )
 
 var mdlint = goyek.Define(goyek.Task{
@@ -24,6 +25,6 @@ var mdlint = goyek.Define(goyek.Task{
 			tf.Skip("no .md files")
 		}
 		dockerImage := "ghcr.io/igorshubovych/markdownlint-cli:v0.32.2"
-		Exec(tf, dirRoot, "docker run --rm -v '"+curDir+":/workdir' "+dockerImage+" "+strings.Join(mdFiles, " "))
+		cmd.Exec(tf, "docker run --rm -v '"+curDir+":/workdir' "+dockerImage+" "+strings.Join(mdFiles, " "))
 	},
 })

@@ -2,10 +2,8 @@
 package main
 
 import (
-	"os"
-
 	"github.com/goyek/goyek/v2"
-	"github.com/goyek/goyek/v2/middleware"
+	"github.com/goyek/x/boot"
 )
 
 // Directories used in repository.
@@ -15,7 +13,6 @@ const (
 )
 
 func main() {
-	goyek.Use(middleware.ReportStatus)
 	goyek.SetDefault(all)
-	goyek.Main(os.Args[1:])
+	boot.Main()
 }

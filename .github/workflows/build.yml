@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-go@v3.3.1
         with:
           go-version: '1.19'
-      - run: ./goyek.sh all diff
+      - run: ./goyek.sh -v all diff
       - name: Upload HTML coverage
         uses: actions/upload-artifact@v3.1.1
         with:

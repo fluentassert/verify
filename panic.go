@@ -1,5 +1,7 @@
 package verify
 
+import "fmt"
+
 // Panics tests if the function panics when executed.
 func Panics(fn func()) (msg FailureMessage) {
 	defer func() {
@@ -15,7 +17,7 @@ func Panics(fn func()) (msg FailureMessage) {
 func NotPanics(fn func()) (msg FailureMessage) {
 	defer func() {
 		if r := recover(); r != nil {
-			msg = "the function panicked"
+			msg = FailureMessage(fmt.Sprintf("the function panicked\ngot: %v", r))
 		}
 	}()
 	fn()

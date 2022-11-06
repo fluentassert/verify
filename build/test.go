@@ -8,10 +8,10 @@ import (
 var test = goyek.Define(goyek.Task{
 	Name:  "test",
 	Usage: "go test",
-	Action: func(tf *goyek.TF) {
-		if !cmd.Exec(tf, "go test -race -covermode=atomic -coverprofile=coverage.out -coverpkg=./... ./...") {
+	Action: func(a *goyek.A) {
+		if !cmd.Exec(a, "go test -race -covermode=atomic -coverprofile=coverage.out -coverpkg=./... ./...") {
 			return
 		}
-		cmd.Exec(tf, "go tool cover -html=coverage.out -o coverage.html")
+		cmd.Exec(a, "go tool cover -html=coverage.out -o coverage.html")
 	},
 })

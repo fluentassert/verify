@@ -8,8 +8,8 @@ import (
 var mod = goyek.Define(goyek.Task{
 	Name:  "mod",
 	Usage: "go mod tidy",
-	Action: func(tf *goyek.TF) {
-		cmd.Exec(tf, "go mod tidy", cmd.Dir(dirRoot))
-		cmd.Exec(tf, "go mod tidy", cmd.Dir(dirBuild))
+	Action: func(a *goyek.A) {
+		cmd.Exec(a, "go mod tidy", cmd.Dir(dirRoot))
+		cmd.Exec(a, "go mod tidy", cmd.Dir(dirBuild))
 	},
 })

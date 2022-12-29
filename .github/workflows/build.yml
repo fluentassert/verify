@@ -11,18 +11,18 @@ jobs:
   ci-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.1.0
-      - uses: actions/setup-go@v3.3.1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
         with:
           go-version: '1.19'
       - run: ./goyek.sh -v all diff
       - name: Upload HTML coverage
-        uses: actions/upload-artifact@v3.1.1
+        uses: actions/upload-artifact@v3
         with:
           name: coverage
           path: coverage.*
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3.1.1
+        uses: codecov/codecov-action@v3
         with:
           file: ./coverage.out
 
@@ -35,8 +35,8 @@ jobs:
           - '1.19'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.1.0
-      - uses: actions/setup-go@v3.3.1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
         with:
           go-version: ${{ matrix.go-version }}
       - run: go test -race ./...

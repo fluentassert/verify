@@ -8,7 +8,7 @@
 [![go.mod](https://img.shields.io/github/go-mod/go-version/fluentassert/verify)](go.mod)
 [![LICENSE](https://img.shields.io/github/license/fluentassert/verify)](LICENSE)
 
-[![Build Status](https://img.shields.io/github/workflow/status/fluentassert/verify/build)](https://github.com/fluentassert/verify/actions?query=workflow%3Abuild+branch%3Amain)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/fluentassert/verify/build.yml?branch=main)](https://github.com/fluentassert/verify/actions?query=workflow%3Abuild+branch%3Amain)
 [![Go Report Card](https://goreportcard.com/badge/github.com/fluentassert/verify)](https://goreportcard.com/report/github.com/fluentassert/verify)
 [![Codecov](https://codecov.io/gh/fluentassert/verify/branch/main/graph/badge.svg)](https://codecov.io/gh/fluentassert/verify)
 

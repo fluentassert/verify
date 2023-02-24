@@ -7,18 +7,18 @@ import (
 	"github.com/fluentassert/verify/constraints"
 )
 
-// NumberFloat encapsulates assertions for numbers.
-type NumberFloat[T constraints.Number] struct {
+// FluentNumber encapsulates assertions for numbers.
+type FluentNumber[T constraints.Number] struct {
 	FluentOrdered[T]
 }
 
 // Number is used for testing numbers.
-func Number[T constraints.Number](got T) NumberFloat[T] {
-	return NumberFloat[T]{FluentOrdered[T]{FluentObj[T]{FluentAny[T]{got}}}}
+func Number[T constraints.Number](got T) FluentNumber[T] {
+	return FluentNumber[T]{FluentOrdered[T]{FluentObj[T]{FluentAny[T]{got}}}}
 }
 
 // InDelta tests that the numbers have an absolute error (distance) less or equal than delta.
-func (x NumberFloat[T]) InDelta(want T, delta float64) FailureMessage {
+func (x FluentNumber[T]) InDelta(want T, delta float64) FailureMessage {
 	distance, msg := x.calcDistance(want, delta)
 	if msg != "" {
 		return msg
@@ -30,7 +30,7 @@ func (x NumberFloat[T]) InDelta(want T, delta float64) FailureMessage {
 }
 
 // NotInDelta tests that the numbers have an absolute error (distance) greater than delta.
-func (x NumberFloat[T]) NotInDelta(want T, delta float64) FailureMessage {
+func (x FluentNumber[T]) NotInDelta(want T, delta float64) FailureMessage {
 	distance, msg := x.calcDistance(want, delta)
 	if msg != "" {
 		return msg
@@ -41,7 +41,7 @@ func (x NumberFloat[T]) NotInDelta(want T, delta float64) FailureMessage {
 	return FailureMessage(fmt.Sprintf("absolute error (distance) between numbers is lesser or equal than delta\nrelative error: %v\ndelta: %g\ngot: %v\nwant: %v", distance, delta, x.Got, want))
 }
 
-func (x NumberFloat[T]) calcDistance(want T, delta float64) (float64, FailureMessage) {
+func (x FluentNumber[T]) calcDistance(want T, delta float64) (float64, FailureMessage) {
 	if math.IsNaN(delta) || delta < 0 {
 		return 0, "delta must be a non-negative number"
 	}
@@ -57,7 +57,7 @@ func (x NumberFloat[T]) calcDistance(want T, delta float64) (float64, FailureMes
 }
 
 // InEpsilon tests that the numbers have a relative error less or equal than epsilon.
-func (x NumberFloat[T]) InEpsilon(want T, epsilon float64) FailureMessage {
+func (x FluentNumber[T]) InEpsilon(want T, epsilon float64) FailureMessage {
 	relativeError, msg := x.calcRelativeError(want, epsilon)
 	if msg != "" {
 		return msg
@@ -69,7 +69,7 @@ func (x NumberFloat[T]) InEpsilon(want T, epsilon float64) FailureMessage {
 }
 
 // NotInEpsilon tests that the numbers have a relative error greater than epsilon.
-func (x NumberFloat[T]) NotInEpsilon(want T, epsilon float64) FailureMessage {
+func (x FluentNumber[T]) NotInEpsilon(want T, epsilon float64) FailureMessage {
 	relativeError, msg := x.calcRelativeError(want, epsilon)
 	if msg != "" {
 		return msg
@@ -80,7 +80,7 @@ func (x NumberFloat[T]) NotInEpsilon(want T, epsilon float64) FailureMessage {
 	return FailureMessage(fmt.Sprintf("relative error between numbers is lesser or equal than epsilon\nrelative error: %g\nepsilon: %g\ngot: %v\nto: %v", relativeError, epsilon, x.Got, want))
 }
 
-func (x NumberFloat[T]) calcRelativeError(want T, epsilon float64) (float64, FailureMessage) {
+func (x FluentNumber[T]) calcRelativeError(want T, epsilon float64) (float64, FailureMessage) {
 	if math.IsNaN(epsilon) || epsilon < 0 {
 		return 0, "epsilon must be a non-negative number"
 	}

@@ -7,6 +7,10 @@ and this library adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/fluentassert/verify/compare/v1.0.0-rc.1...HEAD)
 
+### Changed
+
+- Rename `NumberFloat` and `FluentNumber`.
+
 <!-- markdownlint-disable-next-line line-length -->
 ## [1.0.0-rc.1](https://github.com/fluentassert/verify/releases/tag/v1.0.0-rc.1) - 2022-10-22
 

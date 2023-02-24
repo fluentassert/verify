@@ -60,7 +60,41 @@ $ go test
         want: "ok"
 ```
 
+⚠ Do not forget calling
+[`Assert(t)`](https://pkg.go.dev/github.com/fluentassert/verify#FailureMessage.Assert)
+or [`Require(t)`](https://pkg.go.dev/github.com/fluentassert/verify#FailureMessage.Require)
+which executes the actual assertion.
+
+## Supported types
+
+Out-of-the-box the package provides fluent assertions for the following types.
+The more specific function you use, the more assertions you get.
+
+| Go type | Assertion entry point |
+| - | - |
+| `interface{}` ([`any`](https://pkg.go.dev/builtin#any)) | [`verify.Any()`](https://pkg.go.dev/github.com/fluentassert/verify#Any) |
+| [`comparable`](https://pkg.go.dev/builtin#comparable) | [`verify.Obj()`](https://pkg.go.dev/github.com/fluentassert/verify#Obj) |
+| [`constraints.Ordered`](https://pkg.go.dev/golang.org/x/exp/constraints#Ordered) | [`verify.Ordered()`](https://pkg.go.dev/github.com/fluentassert/verify#Ordered) |
+| [`constraints.Number`](https://pkg.go.dev/golang.org/x/exp/constraints#Number) | [`verify.Number()`](https://pkg.go.dev/github.com/fluentassert/verify#Number) |
+| [`string`](https://pkg.go.dev/builtin#string) | [`verify.String()`](https://pkg.go.dev/github.com/fluentassert/verify#String) |
+| [`error`](https://go.dev/ref/spec#Errors) | [`verify.Error()`](https://pkg.go.dev/github.com/fluentassert/verify#Error) |
+| `[]T` ([slice](https://go.dev/ref/spec#Slice_types)) | [`verify.Slice()`](https://pkg.go.dev/github.com/fluentassert/verify#Slice) |
+| `map[K]V` ([map](https://go.dev/ref/spec#Map_types)) | [`verify.Map()`](https://pkg.go.dev/github.com/fluentassert/verify#Map) |
+
+Below you can find some convenience functions.
+
+- [`verify.NoError()`](https://pkg.go.dev/github.com/fluentassert/verify#NoError)
+- [`verify.IsError()`](https://pkg.go.dev/github.com/fluentassert/verify#IsError)
+- [`verify.Nil()`](https://pkg.go.dev/github.com/fluentassert/verify#Nil)
+- [`verify.NotNil()`](https://pkg.go.dev/github.com/fluentassert/verify#NotNil)
+- [`verify.True()`](https://pkg.go.dev/github.com/fluentassert/verify#True)
+- [`verify.False()`](https://pkg.go.dev/github.com/fluentassert/verify#False)
+
 ### Deep equality
+
+For testing deep equality use
+[`DeepEqual()`](https://pkg.go.dev/github.com/fluentassert/verify#FluentAny.DeepEqual)
+or [`NotDeepEqual()`](https://pkg.go.dev/github.com/fluentassert/verify#FluentAny.NotDeepEqual).
 
 ```go
 package test
@@ -104,7 +138,10 @@ $ go test
           }
 ```
 
-### Collection unordered equality
+### Collection assertions
+
+The library contains many collection assertion.
+Below is an example of checking unordered equality.
 
 ```go
 package test
@@ -134,6 +171,10 @@ $ go test
 ```
 
 ### Periodic polling
+
+For asynchronous testing you can use
+[`verify.Eventually()`](https://pkg.go.dev/github.com/fluentassert/verify#Eventually)
+or [`verify.EventuallyChan()`](https://pkg.go.dev/github.com/fluentassert/verify#EventuallyChan).
 
 ```go
 package test
@@ -166,12 +207,13 @@ $ go test
         Get "http://not-existing:1234": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
 ```
 
-## Extensibility
-
 ### Custom predicates
 
 For the most basic scenarios, you can use one of the
-`Check`, `Should`, `ShouldNot` assertions.
+[`Check()`](https://pkg.go.dev/github.com/fluentassert/verify#FluentAny.Check),
+[`Should()`](https://pkg.go.dev/github.com/fluentassert/verify#FluentAny.Should),
+[`ShouldNot()`](https://pkg.go.dev/github.com/fluentassert/verify#FluentAny.ShouldNot)
+assertions.
 
 ```go
 package test
@@ -201,11 +243,18 @@ $ go test
         got: "wrong"
 ```
 
+### Panics
+
+For testing panics use [`verify.Panics()`](https://pkg.go.dev/github.com/fluentassert/verify#Panics)
+and [`verify.NotPanics()`](https://pkg.go.dev/github.com/fluentassert/verify#NotPanics).
+
 ### Custom assertion function
 
-You can create a function that returns `FailureMessage`.
-Use `And` and `Or` functions together with `FailureMessage.Prefix` method
-to create complex assertions.
+You can create a function that returns [`FailureMessage`](https://pkg.go.dev/github.com/fluentassert/verify#FailureMessage).
+Use [`verify.And()`](https://pkg.go.dev/github.com/fluentassert/verify#And)
+and [`verify.Or()`](https://pkg.go.dev/github.com/fluentassert/verify#Or)
+functions together with [`Prefix()`](https://pkg.go.dev/github.com/fluentassert/verify#FailureMessage.Prefix)
+method to create complex assertions.
 
 ```go
 package test
@@ -246,9 +295,10 @@ $ go test
         got.Ok: the value is false
 ```
 
-### Custom fluent assertions
+## Extensibility
 
-You can take advantage of the `FailureMessage` and `Fluent*` types
+You can take advantage of the [`FailureMessage`](https://pkg.go.dev/github.com/fluentassert/verify#FailureMessage)
+and `Fluent*` types
 to create your own fluent assertions for a given type.
 
 For reference, take a look at the implementation

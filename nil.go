@@ -5,7 +5,7 @@ import "fmt"
 // Nil tests if provided interface value is nil.
 // Use it only for interfaces.
 // For structs and pointers use Obj(got).Zero().
-func Nil(v interface{}) FailureMessage {
+func Nil(v any) FailureMessage {
 	if v == nil {
 		return ""
 	}

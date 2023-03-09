@@ -3,17 +3,17 @@ package verify
 import (
 	"fmt"
 	"math"
-
-	"github.com/fluentassert/verify/constraints"
 )
 
-// FluentNumber encapsulates assertions for numbers.
-type FluentNumber[T constraints.Number] struct {
+// FluentNumber encapsulates assertions for numbers
+// that supports the operators < <= >= > + - * /.
+type FluentNumber[T ~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 | ~float64] struct {
 	FluentOrdered[T]
 }
 
-// Number is used for testing numbers.
-func Number[T constraints.Number](got T) FluentNumber[T] {
+// Number is used for testing numbers
+// that supports the operators < <= >= > + - * /.
+func Number[T ~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 | ~float64](got T) FluentNumber[T] {
 	return FluentNumber[T]{FluentOrdered[T]{FluentObj[T]{FluentAny[T]{got}}}}
 }
 

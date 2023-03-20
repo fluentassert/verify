@@ -12,9 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@v4
         with:
           go-version: '1.20'
+          cache-dependency-path: '**/go.sum'
       - run: ./goyek.sh -v all diff
       - name: Upload HTML coverage
         uses: actions/upload-artifact@v3
@@ -37,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@v4
         with:
           go-version: ${{ matrix.go-version }}
       - run: go test -race ./...

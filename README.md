@@ -11,6 +11,7 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/fluentassert/verify/build.yml?branch=main)](https://github.com/fluentassert/verify/actions?query=workflow%3Abuild+branch%3Amain)
 [![Go Report Card](https://goreportcard.com/badge/github.com/fluentassert/verify)](https://goreportcard.com/report/github.com/fluentassert/verify)
 [![Codecov](https://codecov.io/gh/fluentassert/verify/branch/main/graph/badge.svg)](https://codecov.io/gh/fluentassert/verify)
+[![Mentioned in Awesome Go](https://awesome.re/mentioned-badge.svg)](https://github.com/avelino/awesome-go)
 
 Please ⭐ `Star` this repository if you find it valuable and worth maintaining.
 

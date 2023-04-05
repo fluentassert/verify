@@ -26,6 +26,7 @@ Create a pull request named `Release <version>` that does the following:
 
 1. Update the examples in [README.md](README.md)
    and make sure the documentation is up to date.
+
 2. Update [`CHANGELOG.md`](CHANGELOG.md).
    - Change the `Unreleased` header to represent the new release.
    - Consider adding a description for the new release.
@@ -34,7 +35,16 @@ Create a pull request named `Release <version>` that does the following:
 
 ## Release
 
-Create a GitHib Release named `<version>` with `v<version>` tag.
+1. Add and push a signed tag:
 
-The release description should include all the release notes
-from the [`CHANGELOG.md`](CHANGELOG.md) for this release.
+   ```sh
+   TAG='v<version>'
+   COMMIT='<commit-sha>'
+   git tag -s -m $TAG $TAG $COMMIT
+   git push upstream $TAG
+   ```
+
+2. Create a GitHib Release named `<version>` with `v<version>` tag.
+
+   The release description should include all the release notes
+   from the [`CHANGELOG.md`](CHANGELOG.md) for this release.

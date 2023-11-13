@@ -20,7 +20,7 @@ The repository contains basic confiugration for
 
 This section describes how to prepare and publish a new release.
 
-## Pre-release
+### Pre-release
 
 Create a pull request named `Release <version>` that does the following:
 
@@ -33,7 +33,7 @@ Create a pull request named `Release <version>` that does the following:
      Especially if it adds new features or introduces breaking changes.
    - Add a new `Unreleased` header above the new release, with no details.
 
-## Release
+### Release
 
 1. Add and push a signed tag:
 

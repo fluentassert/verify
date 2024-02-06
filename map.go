@@ -110,7 +110,7 @@ func (x FluentMap[K, V]) All(predicate func(K, V) bool) FailureMessage {
 	return ""
 }
 
-// None tests if all of the map's pairs do not meet the predicate criteria.
+// None tests if none of the map's pairs meets the predicate criteria.
 func (x FluentMap[K, V]) None(predicate func(K, V) bool) FailureMessage {
 	for k, v := range x.Got {
 		if predicate(k, v) {

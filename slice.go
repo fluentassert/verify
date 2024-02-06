@@ -123,7 +123,7 @@ func (x FluentSlice[T]) All(predicate func(T) bool) FailureMessage {
 	return ""
 }
 
-// None tests if all of the slice's items do not meet the predicate criteria.
+// None tests if none of the slice's items meets the predicate criteria.
 func (x FluentSlice[T]) None(predicate func(T) bool) FailureMessage {
 	for _, v := range x.Got {
 		if predicate(v) {

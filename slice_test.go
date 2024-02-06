@@ -126,4 +126,15 @@ func TestSlice(t *testing.T) {
 			assertFailed(t, got, "an item meets the predicate criteria")
 		})
 	})
+
+	t.Run("Len", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			got := verify.Slice(list).Len(len(list))
+			assertPassed(t, got)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			got := verify.Slice(list).Len(10)
+			assertFailed(t, got, "has different length")
+		})
+	})
 }

@@ -103,7 +103,7 @@ func (x FluentSlice[T]) NotContain(item T, opts ...cmp.Option) FailureMessage {
 	return ""
 }
 
-// Any tests if any of the slice's item meets the predicate criteria.
+// Any tests if any of the slice's items meets the predicate criteria.
 func (x FluentSlice[T]) Any(predicate func(T) bool) FailureMessage {
 	for _, v := range x.Got {
 		if predicate(v) {
@@ -113,7 +113,7 @@ func (x FluentSlice[T]) Any(predicate func(T) bool) FailureMessage {
 	return FailureMessage(fmt.Sprintf("none item does meet the predicate criteria\ngot: %+v", x.Got))
 }
 
-// All tests if all of the slice's items meets the predicate criteria.
+// All tests if all of the slice's items meet the predicate criteria.
 func (x FluentSlice[T]) All(predicate func(T) bool) FailureMessage {
 	for _, v := range x.Got {
 		if !predicate(v) {
@@ -123,12 +123,21 @@ func (x FluentSlice[T]) All(predicate func(T) bool) FailureMessage {
 	return ""
 }
 
-// None tests if all of the slice's item does not meet the predicate criteria.
+// None tests if none of the slice's items meets the predicate criteria.
 func (x FluentSlice[T]) None(predicate func(T) bool) FailureMessage {
 	for _, v := range x.Got {
 		if predicate(v) {
 			return FailureMessage(fmt.Sprintf("an item meets the predicate criteria\ngot: %+v\nitem: %+v", x.Got, v))
 		}
+	}
+	return ""
+}
+
+// Len tests the length of the slice.
+func (x FluentSlice[T]) Len(want int) FailureMessage {
+	gotLen := len(x.Got)
+	if gotLen != want {
+		return FailureMessage(fmt.Sprintf("has different length\ngot: %+v\nlen: %v\nwant: %v", x.Got, gotLen, want))
 	}
 	return ""
 }

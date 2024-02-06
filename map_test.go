@@ -134,4 +134,15 @@ func TestMap(t *testing.T) {
 			assertFailed(t, got, "a pair meets the predicate criteria")
 		})
 	})
+
+	t.Run("Len", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			got := verify.Map(dict).Len(len(dict))
+			assertPassed(t, got)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			got := verify.Map(dict).Len(10)
+			assertFailed(t, got, "has different length")
+		})
+	})
 }

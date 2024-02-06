@@ -140,6 +140,17 @@ func TestString(t *testing.T) {
 		})
 	})
 
+	t.Run("Len", func(t *testing.T) {
+		t.Run("Passed", func(t *testing.T) {
+			got := verify.String("abc").Len(3)
+			assertPassed(t, got)
+		})
+		t.Run("Failed", func(t *testing.T) {
+			got := verify.String("abc").Len(10)
+			assertFailed(t, got, "has different length")
+		})
+	})
+
 	t.Run("has assertions from Ordered, Obj, Any", func(t *testing.T) {
 		want := "text"
 		got := verify.String(want).FluentOrdered.FluentObj.FluentAny.Got // type embedding done properly

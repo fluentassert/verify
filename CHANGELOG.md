@@ -7,6 +7,10 @@ and this library adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/fluentassert/verify/compare/v1.0.0...HEAD)
 
+### Added
+
+- Add `Len` assertion for `string`, `[]T`, `map[K]V` types.
+
 ## [1.0.0](https://github.com/fluentassert/verify/releases/tag/v1.0.0) - 2023-04-05
 
 This release contains breaking changes.

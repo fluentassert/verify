@@ -116,3 +116,12 @@ func (x FluentString[T]) NotMatchRegex(regex *regexp.Regexp) FailureMessage {
 	}
 	return FailureMessage(fmt.Sprintf("the string value matches the regular expression\ngot: %q\nregex: %s", x.Got, regex.String()))
 }
+
+// Len tests the length of the string.
+func (x FluentString[T]) Len(want int) FailureMessage {
+	gotLen := len(x.Got)
+	if gotLen != want {
+		return FailureMessage(fmt.Sprintf("has different length\ngot: %+v\nlen: %v\nwant: %v", x.Got, gotLen, want))
+	}
+	return ""
+}

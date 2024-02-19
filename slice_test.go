@@ -98,31 +98,31 @@ func TestSlice(t *testing.T) {
 
 	t.Run("Any", func(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
-			got := verify.Slice(list).Any(func(a A) bool { return true })
+			got := verify.Slice(list).Any(func(A) bool { return true })
 			assertPassed(t, got)
 		})
 		t.Run("Failed", func(t *testing.T) {
-			got := verify.Slice(list).Any(func(a A) bool { return false })
+			got := verify.Slice(list).Any(func(A) bool { return false })
 			assertFailed(t, got, "none item does meet the predicate criteria")
 		})
 	})
 	t.Run("All", func(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
-			got := verify.Slice(list).All(func(a A) bool { return true })
+			got := verify.Slice(list).All(func(A) bool { return true })
 			assertPassed(t, got)
 		})
 		t.Run("Failed", func(t *testing.T) {
-			got := verify.Slice(list).All(func(a A) bool { return false })
+			got := verify.Slice(list).All(func(A) bool { return false })
 			assertFailed(t, got, "an item does not meet the predicate criteria")
 		})
 	})
 	t.Run("None", func(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
-			got := verify.Slice(list).None(func(a A) bool { return false })
+			got := verify.Slice(list).None(func(A) bool { return false })
 			assertPassed(t, got)
 		})
 		t.Run("Failed", func(t *testing.T) {
-			got := verify.Slice(list).None(func(a A) bool { return true })
+			got := verify.Slice(list).None(func(A) bool { return true })
 			assertFailed(t, got, "an item meets the predicate criteria")
 		})
 	})

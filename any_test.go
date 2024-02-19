@@ -55,14 +55,14 @@ func TestAny(t *testing.T) {
 
 	t.Run("Check", func(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
-			fn := func(x A) verify.FailureMessage {
+			fn := func(A) verify.FailureMessage {
 				return ""
 			}
 			msg := verify.Any(A{}).Check(fn)
 			assertPassed(t, msg)
 		})
 		t.Run("Failed", func(t *testing.T) {
-			fn := func(x A) verify.FailureMessage {
+			fn := func(A) verify.FailureMessage {
 				return "failure"
 			}
 			msg := verify.Any(A{}).Check(fn)
@@ -72,14 +72,14 @@ func TestAny(t *testing.T) {
 
 	t.Run("Should", func(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
-			pred := func(x A) bool {
+			pred := func(A) bool {
 				return true
 			}
 			msg := verify.Any(A{}).Should(pred)
 			assertPassed(t, msg)
 		})
 		t.Run("Failed", func(t *testing.T) {
-			pred := func(x A) bool {
+			pred := func(A) bool {
 				return false
 			}
 			msg := verify.Any(A{}).Should(pred)
@@ -89,14 +89,14 @@ func TestAny(t *testing.T) {
 
 	t.Run("ShouldNot", func(t *testing.T) {
 		t.Run("Passed", func(t *testing.T) {
-			pred := func(x A) bool {
+			pred := func(A) bool {
 				return false
 			}
 			msg := verify.Any(A{}).ShouldNot(pred)
 			assertPassed(t, msg)
 		})
 		t.Run("Failed", func(t *testing.T) {
-			pred := func(x A) bool {
+			pred := func(A) bool {
 				return true
 			}
 			msg := verify.Any(A{}).ShouldNot(pred)

@@ -1,7 +1,6 @@
 module github.com/fluentassert/verify/build
 
-go 1.22
-toolchain go1.22.5
+go 1.22.1
 
 require (
 	github.com/client9/misspell v0.3.4

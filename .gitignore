@@ -33,4 +33,3 @@ coverage.html
 # env files that usually contain secrets or local config
 .env
 .envrc
-.vscode/settings.json

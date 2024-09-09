@@ -140,12 +140,12 @@ func TestFailureMessage(t *testing.T) {
 
 	t.Run("AsError", func(t *testing.T) {
 		t.Run("With Message", func(t *testing.T) {
-			got := verify.FailureMessage("failed").AsError()
+			got := verify.FailureMessage("failed").Err()
 			assertEqual(t, got.Error(), "failed")
 		})
 
 		t.Run("Empty", func(t *testing.T) {
-			got := verify.FailureMessage("").AsError()
+			got := verify.FailureMessage("").Err()
 			assertEqual(t, got, nil)
 		})
 	})

@@ -82,3 +82,12 @@ func (msg FailureMessage) Prefix(s string) FailureMessage {
 	}
 	return FailureMessage(s) + msg
 }
+
+// Err returns the failure message as an error type, or nil if the message is empty.
+func (msg FailureMessage) Err() *AssertionError {
+	if msg == "" {
+		return nil
+	}
+
+	return &AssertionError{Message: msg}
+}

@@ -137,6 +137,18 @@ func TestFailureMessage(t *testing.T) {
 			assertEqual(t, got, "[fail] errored")
 		})
 	})
+
+	t.Run("AsError", func(t *testing.T) {
+		t.Run("With Message", func(t *testing.T) {
+			got := verify.FailureMessage("failed").Err()
+			assertEqual(t, got.Error(), "failed")
+		})
+
+		t.Run("Empty", func(t *testing.T) {
+			got := verify.FailureMessage("").Err()
+			assertEqual(t, got, nil)
+		})
+	})
 }
 
 type errorMock struct {

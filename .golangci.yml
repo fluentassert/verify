@@ -4,11 +4,12 @@ linters-settings:
   goimports:
     local-prefixes: github.com/fluentassert/verify
   govet:
-    check-shadowing: true
+    enable-all: true
+    disable:
+    - fieldalignment
+    - nilness
   misspell:
     locale: US
-    ignore-words:
-      - importas
   nolintlint:
     allow-leading-space: false # require machine-readable nolint directives (with no leading space)
     allow-unused: false # report any unused nolint directives
@@ -24,7 +25,6 @@ linters:
   enable:
     - dogsled
     - errcheck
-    - exportloopref
     - gochecknoinits
     - gocritic
     - goconst
@@ -32,13 +32,13 @@ linters:
     - gofumpt
     - goimports
     - revive
-    - gomnd
     - goprintffuncname
     - gosec
     - gosimple
     - govet
     - ineffassign
     - misspell
+    - mnd
     - nolintlint
     - staticcheck
     - stylecheck
@@ -49,5 +49,5 @@ linters:
     - whitespace
 
 issues:
-  # enable issues excluded by default 
-  exclude-use-default: false
+  exclude:
+    - EXC0001

@@ -9,7 +9,7 @@ and this library adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add `FailureMessage.Err` method together with `AssertionError`
+- Add `FailureMessage.Err` method together with `AssertionError` type
   to represent assertion results as `error` type.
 
 ## [1.1.0](https://github.com/fluentassert/verify/releases/tag/v1.1.0) - 2024-02-06

@@ -23,10 +23,10 @@ jobs:
           name: coverage
           path: coverage.*
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true
-          file: ./coverage.out
+          files: ./coverage.out
           token: ${{ secrets.CODECOV_TOKEN }}
 
   compatibility:

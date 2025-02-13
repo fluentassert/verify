@@ -24,10 +24,16 @@ The generics (type parameters) make the usage type-safe.
 
 The library is [extensible](#extensibility) by design.
 
-> In general, [avoid using assertion libraries](https://go.dev/wiki/TestComments#assert-libraries).
-> Use this library if you still have a preference to use one.
-> Consider using [`github.com/google/go-cmp`](https://github.com/google/go-cmp)
-> and writing custom helpers instead.
+> [!CAUTION]
+> [Avoid using assertion libraries](https://go.dev/wiki/TestComments#assert-libraries).
+> Instead, use [`go-cmp`](https://github.com/google/go-cmp)
+> and write custom test helpers.
+> Using the popular [`testify`](https://github.com/stretchr/testify)
+> may be also an acceptable choice,
+> especially together with [`testifylint`](https://github.com/Antonboom/testifylint)
+> to avoid common mistakes.
+> Use this library if you still want to.
+> Consider yourself warned.
 
 ### Quick start
 

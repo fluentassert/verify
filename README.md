@@ -1,5 +1,16 @@
 # fluentassert
 
+> [!CAUTION]
+> [Avoid using assertion libraries](https://go.dev/wiki/TestComments#assert-libraries).
+> Instead, use [`go-cmp`](https://github.com/google/go-cmp)
+> and write custom test helpers.
+> Using the popular [`testify`](https://github.com/stretchr/testify)
+> may be also an acceptable choice,
+> especially together with [`testifylint`](https://github.com/Antonboom/testifylint)
+> to avoid common mistakes.
+> Use this library if you still want to.
+> Consider yourself warned.
+
 > Extensible, type-safe, fluent assertion Go library.
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/fluentassert/verify.svg)](https://pkg.go.dev/github.com/fluentassert/verify)
@@ -21,17 +32,6 @@ to read and write ([more](https://dave.cheney.net/2019/09/24/be-wary-of-function
 The generics (type parameters) make the usage type-safe.
 
 The library is [extensible](#extensibility) by design.
-
-> [!CAUTION]
-> [Avoid using assertion libraries](https://go.dev/wiki/TestComments#assert-libraries).
-> Instead, use [`go-cmp`](https://github.com/google/go-cmp)
-> and write custom test helpers.
-> Using the popular [`testify`](https://github.com/stretchr/testify)
-> may be also an acceptable choice,
-> especially together with [`testifylint`](https://github.com/Antonboom/testifylint)
-> to avoid common mistakes.
-> Use this library if you still want to.
-> Consider yourself warned.
 
 ### Quick start
 

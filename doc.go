@@ -8,4 +8,5 @@
 //
 // Deprecated: avoid using assertion libraries.
 // Use the standard library and [github.com/google/go-cmp/cmp] instead.
+// Reference: https://go.dev/wiki/TestComments.
 package verify

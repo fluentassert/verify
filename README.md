@@ -13,8 +13,6 @@
 [![Codecov](https://codecov.io/gh/fluentassert/verify/branch/main/graph/badge.svg)](https://codecov.io/gh/fluentassert/verify)
 [![Mentioned in Awesome Go](https://awesome.re/mentioned-badge.svg)](https://github.com/avelino/awesome-go)
 
-Please ⭐ `Star` this repository if you find it valuable and worth maintaining.
-
 ## Description
 
 The fluent API makes the assertion code easier

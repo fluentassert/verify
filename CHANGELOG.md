@@ -5,7 +5,13 @@ All notable changes to this library are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this library adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/fluentassert/verify/compare/v1.2.0...HEAD)
+## [1.3.0](https://github.com/fluentassert/verify/releases/tag/v1.2.0) - 2025-02-17
+
+### Deprecated
+
+- Deprecate the whole library. Avoid using assertion libraries.
+  Use the standard library and [github.com/google/go-cmp/cmp] instead.
+  Follow the offical [Go Test Comments](https://go.dev/wiki/TestComments).
 
 ## [1.2.0](https://github.com/fluentassert/verify/releases/tag/v1.2.0) - 2024-09-10
 

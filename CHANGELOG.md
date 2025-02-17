@@ -11,7 +11,7 @@ and this library adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Deprecate the whole library. Avoid using assertion libraries.
   Use the standard library and [github.com/google/go-cmp/cmp] instead.
-  Follow the offical [Go Test Comments](https://go.dev/wiki/TestComments).
+  Follow the official [Go Test Comments](https://go.dev/wiki/TestComments).
 
 ## [1.2.0](https://github.com/fluentassert/verify/releases/tag/v1.2.0) - 2024-09-10
 

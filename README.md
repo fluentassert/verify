@@ -11,8 +11,6 @@
 > Use this library if you still want to.
 > Consider yourself warned.
 
-> Extensible, type-safe, fluent assertion Go library.
-
 [![Go Reference](https://pkg.go.dev/badge/github.com/fluentassert/verify.svg)](https://pkg.go.dev/github.com/fluentassert/verify)
 [![Keep a Changelog](https://img.shields.io/badge/changelog-Keep%20a%20Changelog-%23E05735)](CHANGELOG.md)
 [![GitHub Release](https://img.shields.io/github/v/release/fluentassert/verify)](https://github.com/fluentassert/verify/releases)

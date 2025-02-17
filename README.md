@@ -145,7 +145,7 @@ $ go test
 
 ### Collection assertions
 
-The library contains many collection assertion.
+The library contains many collection assertions.
 Below is an example of checking unordered equality.
 
 ```go
